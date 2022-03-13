@@ -8,19 +8,26 @@ import CategoryCard from "./CategoryCard";
 interface Category {
   ID: number;
   name: string;
+  imgURL?: string;
 }
+
 const Categories = () => {
-  const [categories, setCategories] = useState<Array<Category>>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   const FetchSomeCategories = async (count: number) => {
     // TODO: Change mock to actual fetch
-    const data = [
+    /*const data = [
       { ID: 1, name: "Construction toys" },
       { ID: 2, name: "LEGO" },
       { ID: 3, name: "F1 LEGO" },
-    ];
+    ];*/
 
-    setCategories(data);
+    const data = await fetch(
+      `https:localhost:7202/api/categories?count=${count}`
+    );
+    const items = await data.json();
+
+    setCategories(items);
   };
 
   useEffect(() => {
@@ -39,7 +46,7 @@ const Categories = () => {
       <Fade>
         <Flex p={5}>
           {categories.map((c) => {
-            return <CategoryCard key={c.ID}>{c.name}</CategoryCard>;
+            return <CategoryCard key={c.ID} name={c.name} imgURL={c.imgURL} />;
           })}
         </Flex>
       </Fade>
