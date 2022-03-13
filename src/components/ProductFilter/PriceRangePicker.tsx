@@ -7,9 +7,20 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useProductListContext } from "../../context/ProductListContext";
 
 const PriceRangePicker = () => {
-  const [range, setRange] = useState<Array<number>>([10, 30]);
+  const [range, setRange] = useState<Array<number>>([0, 100]);
+  const { UpdatePriceRange } = useProductListContext();
+
+  const ScaleUp = (values: number[]) => {
+    return [values[0] * 100, values[1] * 100];
+  };
+
+  const HandleChange = (value: number[]) => {
+    setRange(value);
+    UpdatePriceRange(ScaleUp(range));
+  };
 
   return (
     <>
@@ -17,7 +28,7 @@ const PriceRangePicker = () => {
         aria-label={["min", "max"]}
         defaultValue={range}
         value={range}
-        onChange={(value) => setRange(value)}
+        onChange={(value) => HandleChange(value)}
       >
         <RangeSliderTrack>
           <RangeSliderFilledTrack />
@@ -32,8 +43,8 @@ const PriceRangePicker = () => {
       </Flex>
 
       <Flex justifyContent={"space-between"}>
-        <Text>{`$${range[0]}`}</Text>
-        <Text>{`$${range[1]}`}</Text>
+        <Text>{`$${range[0] * 100}`}</Text>
+        <Text>{`$${range[1] * 100}`}</Text>
       </Flex>
     </>
   );

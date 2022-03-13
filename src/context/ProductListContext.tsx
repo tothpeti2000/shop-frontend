@@ -4,6 +4,7 @@ import { Product } from "../components/ProductList/ProductListItem";
 const useProductListContextValue = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [priceRange, setPriceRange] = useState<number[]>([]);
 
   const InitProducts = (products: Product[]) => {
     setProducts(products);
@@ -20,9 +21,13 @@ const useProductListContextValue = () => {
   };
 
   const FilterProducts = () => {
+    const priceFiltered = [...allProducts].filter(
+      (p) => p.price >= priceRange[0] && p.price <= priceRange[1]
+    );
+
     const filterType = localStorage.getItem("filterType");
 
-    return [...allProducts].filter(
+    return priceFiltered.filter(
       (p) => p.category === filterType || filterType === "all"
     );
   };
@@ -89,11 +94,18 @@ const useProductListContextValue = () => {
     UpdateProducts();
   };
 
+  const UpdatePriceRange = (range: Array<number>) => {
+    console.log(range);
+    setPriceRange(range);
+    UpdateProducts();
+  };
+
   return {
     products,
     InitProducts,
     UpdateSortType,
     UpdateFilterType,
+    UpdatePriceRange,
   };
 };
 
