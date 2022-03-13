@@ -5,11 +5,8 @@ import NavBrand from "./NavBrand";
 import NavLinks from "./NavLinks";
 
 const NavBar = () => {
-  const startHeight = "100px";
-  const shrinkedHeight = "70px";
-
-  const startFontSize = "lg";
-  const shrinkedFontSize = "md";
+  const startHeight = "14vh";
+  const shrinkedHeight = "12vh";
 
   const [isShrunk, SetShrunk] = useState(false);
 
@@ -50,7 +47,8 @@ const NavBar = () => {
       bgColor="black"
       color="white"
       sx={{ pos: "sticky", top: "0" }}
-      fontSize={isShrunk ? shrinkedFontSize : startFontSize}
+      fontSize={"lg"}
+      opacity={isShrunk ? 0.9 : 1}
       transition="0.5s"
       zIndex="1"
     >
