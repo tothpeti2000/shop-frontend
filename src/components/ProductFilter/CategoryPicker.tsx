@@ -1,6 +1,7 @@
 import { Stack } from "@chakra-ui/layout";
 import { Radio, RadioGroup } from "@chakra-ui/radio";
 import React, { ChangeEvent, useEffect, useState } from "react";
+import { useProductListContext } from "../../context/ProductListContext";
 
 interface Category {
   ID: number;
@@ -11,7 +12,7 @@ interface Category {
 const CategoryPicker = () => {
   const [value, setValue] = useState("all");
   const [categories, setCategories] = useState<Array<Category>>([]);
-  //const { UpdateFilterType } = useProductListContext();
+  const { UpdateFilterType } = useProductListContext();
 
   const FetchCategories = async () => {
     /*const data = await fetch("https://localhost:7202/api/categories");
@@ -42,7 +43,7 @@ const CategoryPicker = () => {
   }, []);
 
   const HandleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    //UpdateFilterType(e.target.value);
+    UpdateFilterType(e.target.value);
     setValue(e.target.value);
   };
 
