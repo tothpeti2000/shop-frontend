@@ -5,7 +5,7 @@ import { useProductListContext } from "../../context/ProductListContext";
 import ProductListItem, { Product } from "./ProductListItem";
 
 const ProductList = () => {
-  const { products, InitProducts } = useProductListContext();
+  const { displayedProducts, InitProducts } = useProductListContext();
   //const [products, setProducts] = useState<Array<Product>>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -68,7 +68,7 @@ const ProductList = () => {
   return (
     <Skeleton isLoaded={isLoaded} flex="3" minH="100vh">
       <Flex wrap="wrap" justifyContent="space-around">
-        {products.map((p) => {
+        {displayedProducts.map((p) => {
           return <ProductListItem key={p.ID} {...p} />;
         })}
       </Flex>

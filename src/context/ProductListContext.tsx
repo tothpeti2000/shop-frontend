@@ -2,12 +2,12 @@ import React, { createContext, FC, useContext, useState } from "react";
 import { Product } from "../components/ProductList/ProductListItem";
 
 const useProductListContextValue = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [displayedProducts, setDisplayedProducts] = useState<Product[]>([]);
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [priceRange, setPriceRange] = useState<number[]>([]);
 
   const InitProducts = (products: Product[]) => {
-    setProducts(products);
+    setDisplayedProducts(products);
     setAllProducts(products);
     localStorage.setItem("filterType", "all");
     localStorage.setItem("sortType", "none");
@@ -17,7 +17,7 @@ const useProductListContextValue = () => {
     const filtered = FilterProducts();
     const sorted = SortProducts(filtered);
 
-    setProducts(sorted);
+    setDisplayedProducts(sorted);
   };
 
   const FilterProducts = () => {
@@ -101,7 +101,7 @@ const useProductListContextValue = () => {
   };
 
   return {
-    products,
+    displayedProducts,
     InitProducts,
     UpdateSortType,
     UpdateFilterType,
