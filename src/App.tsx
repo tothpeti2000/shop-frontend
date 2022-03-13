@@ -1,24 +1,19 @@
+import { ChakraProvider, theme } from "@chakra-ui/react";
 import * as React from "react";
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-} from "@chakra-ui/react";
-import { ColorModeSwitcher } from "./ColorModeSwitcher";
-import { Logo } from "./Logo";
-import ProductList from "./components/ProductList/ProductList";
-import Home from "./pages/Home";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
+import Home from "./pages/Home";
+import Products from "./pages/Products";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
-    {/*<ProductList />*/}
     <NavBar />
-    <Home />
+
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="products" element={<Products />} />
+      </Routes>
+    </Router>
   </ChakraProvider>
 );
