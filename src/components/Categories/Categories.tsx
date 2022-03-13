@@ -1,7 +1,8 @@
 import { Flex, Heading } from "@chakra-ui/layout";
-import { Box } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import Fade from "react-awesome-reveal";
+import { Link } from "react-router-dom";
 import CategoryCard from "./CategoryCard";
 
 interface Category {
@@ -42,6 +43,12 @@ const Categories = () => {
           })}
         </Flex>
       </Fade>
+
+      <Link to={"/products"}>
+        <Button p={10} fontSize={"xl"} colorScheme={"yellow"}>
+          Check out all categories
+        </Button>
+      </Link>
     </Box>
   );
 };

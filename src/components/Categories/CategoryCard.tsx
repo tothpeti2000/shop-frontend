@@ -8,7 +8,7 @@ const CategoryCard: FC = ({ children }) => {
     <Box flex="1" textAlign="center" p={5}>
       <Link to="/products">
         <PlaceHolder />
-        <Text fontSize="xl">{children}</Text>
+        <Text fontSize="2xl">{children}</Text>
       </Link>
     </Box>
   );
