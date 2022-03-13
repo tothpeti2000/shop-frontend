@@ -19,7 +19,9 @@ const NavLinks = () => {
         <NavItem>About AS</NavItem>
       </Link>
       <LoginButton />
-      {/*<Cart />*/}
+
+      {/*TODO: Check out Cart
+      <Cart />*/}
     </Flex>
   );
 };
