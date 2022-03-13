@@ -8,7 +8,7 @@ const LoginButton = () => {
     <IconButton
       aria-label="Login"
       icon={<Icon as={FaUserCircle} boxSize="80%" />}
-      colorScheme="black"
+      colorScheme="yellow"
       mx={5}
     />
   );
