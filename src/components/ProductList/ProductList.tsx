@@ -1,11 +1,12 @@
 import { Flex } from "@chakra-ui/layout";
 import { Skeleton } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { useProductListContext } from "../../context/ProductListContext";
 import ProductListItem, { Product } from "./ProductListItem";
 
 const ProductList = () => {
-  //const { products, InitProducts } = useProductListContext();
-  const [products, setProducts] = useState<Array<Product>>([]);
+  const { products, InitProducts } = useProductListContext();
+  //const [products, setProducts] = useState<Array<Product>>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   const FetchProducts = async () => {
@@ -55,8 +56,8 @@ const ProductList = () => {
       },
     ];
 
-    //InitProducts(items);
-    setProducts(items);
+    InitProducts(items);
+    //setProducts(items);
     setIsLoaded(true);
   };
 
