@@ -1,6 +1,6 @@
 import { Flex, Heading } from "@chakra-ui/layout";
 import { Box } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Fade from "react-awesome-reveal";
 import CategoryCard from "./CategoryCard";
 
@@ -8,13 +8,23 @@ interface Category {
   ID: number;
   name: string;
 }
-
 const Categories = () => {
-  const [categories, setCategories] = useState<Array<Category>>([
-    { ID: 1, name: "Construction toys" },
-    { ID: 2, name: "LEGO" },
-    { ID: 3, name: "F1 LEGO" },
-  ]);
+  const [categories, setCategories] = useState<Array<Category>>([]);
+
+  const FetchSomeCategories = async (count: number) => {
+    // TODO: Change mock to actual fetch
+    const data = [
+      { ID: 1, name: "Construction toys" },
+      { ID: 2, name: "LEGO" },
+      { ID: 3, name: "F1 LEGO" },
+    ];
+
+    setCategories(data);
+  };
+
+  useEffect(() => {
+    FetchSomeCategories(3);
+  }, []);
 
   return (
     <Box
