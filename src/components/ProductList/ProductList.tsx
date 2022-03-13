@@ -10,10 +10,10 @@ const ProductList = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const FetchProducts = async () => {
-    /*const data = await fetch("https://localhost:7202/api/products");
-    const items = await data.json();*/
+    const data = await fetch("https://localhost:7202/api/products");
+    const items = await data.json();
 
-    const items = [
+    /*const items = [
       {
         ID: 1,
         name: "Product1",
@@ -54,7 +54,7 @@ const ProductList = () => {
         category: "Construction toys",
         imgURL: "",
       },
-    ];
+    ];*/
 
     InitProducts(items);
     //setProducts(items);
