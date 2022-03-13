@@ -3,7 +3,7 @@ import React from "react";
 import { FaCartPlus } from "react-icons/fa";
 
 interface IProps {
-  id: number;
+  ID: number;
   name: string;
   price: number;
 }

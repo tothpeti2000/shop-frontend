@@ -3,7 +3,7 @@ import React from "react";
 import AddToCartButton from "./AddToCartButton";
 
 export interface Product {
-  id: number;
+  ID: number;
   name: string;
   price: number;
   stock: number;
