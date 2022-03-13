@@ -8,15 +8,15 @@ import Products from "./pages/Products";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
-    <NavBar />
-
     <Router>
+      <NavBar />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="products" element={<Products />} />
       </Routes>
-    </Router>
 
-    <Footer />
+      <Footer />
+    </Router>
   </ChakraProvider>
 );
