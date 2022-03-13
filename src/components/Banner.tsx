@@ -1,13 +1,14 @@
 import { Button, Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
 import { Zoom } from "react-awesome-reveal";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   const image = `${process.env.PUBLIC_URL}/images/mercedes.jpg`;
 
   return (
     <Flex
-      h="calc(100vh - 100px)"
+      h="calc(86vh)"
       direction="column"
       justify="center"
       align="center"
@@ -31,8 +32,7 @@ const Banner = () => {
           _hover={{ bgColor: "black", color: "white" }}
           transition="0.5s"
         >
-          {/*<Link to="/products">SHOP NOW</Link>*/}
-          SHOP NOW
+          <Link to="/products">SHOP NOW</Link>
         </Button>
       </Zoom>
     </Flex>
