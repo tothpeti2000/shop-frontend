@@ -19,6 +19,8 @@ const SearchBar = () => {
         onClick={onToggle}
         _focus={{ outline: "none" }}
       />
+
+      {/* TODO: Fix collapse issue */}
       <Collapse in={isOpen} animateOpacity>
         <InputGroup>
           <InputLeftElement
