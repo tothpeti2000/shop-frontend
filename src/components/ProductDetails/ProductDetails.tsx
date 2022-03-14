@@ -6,12 +6,8 @@ import { useParams } from "react-router-dom";
 import AddToCartButton from "../ProductList/AddToCartButton";
 import { Product } from "../ProductList/ProductListItem";
 
-interface Params {
-  id: string;
-}
-
 const ProductDetails = () => {
-  const { ID } = useParams();
+  const { id } = useParams();
   const [product, setProduct] = useState<Product>({
     id: 0,
     name: "",
@@ -37,7 +33,7 @@ const ProductDetails = () => {
     /*const data = await fetch(`https://fakestoreapi.com/products/${ID}`);
     const product = await data.json();*/
 
-    const products = [
+    const products: Product[] = [
       {
         id: 1,
         name: "Product1",
@@ -80,9 +76,12 @@ const ProductDetails = () => {
       },
     ];
 
-    const product = products.find((p) => p.id === parseInt(ID as string));
+    console.log(id);
+    const product = products.find((p) => p.id === parseInt(id!)) as Product;
 
-    setProduct(products[0]);
+    console.log(product);
+
+    setProduct(product);
     setIsLoaded(true);
   };
 
