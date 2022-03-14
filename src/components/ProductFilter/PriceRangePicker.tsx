@@ -33,7 +33,9 @@ const PriceRangePicker = () => {
 
   const FetchMaxPrice = async () => {
     // TODO: Change mock to actual fetch
-    const maxPrice = 10000;
+    //const maxPrice = 10000;
+    const data = await fetch("https://localhost:7202/api/products/maxprice");
+    const maxPrice = await data.json();
 
     setMaxPrice(maxPrice);
   };
