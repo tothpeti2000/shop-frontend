@@ -15,10 +15,10 @@ const CategoryPicker = () => {
   const { UpdateFilterType } = useProductListContext();
 
   const FetchCategories = async () => {
-    /*const data = await fetch("https://localhost:7202/api/categories");
-    const items = await data.json();*/
+    const data = await fetch("https://localhost:7202/api/categories");
+    const items = await data.json();
 
-    const items = [
+    /*const items = [
       {
         ID: 1,
         name: "Construction toys",
@@ -33,7 +33,7 @@ const CategoryPicker = () => {
         name: "F1 LEGO",
         parentCategoryName: "LEGO",
       },
-    ];
+    ];*/
 
     setCategories(items);
   };
