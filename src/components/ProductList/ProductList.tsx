@@ -69,7 +69,7 @@ const ProductList = () => {
     <Skeleton isLoaded={isLoaded} flex="3" minH="100vh">
       <Flex wrap="wrap" justifyContent="space-around">
         {displayedProducts.map((p) => {
-          return <ProductListItem key={p.ID} {...p} />;
+          return <ProductListItem key={p.id} {...p} />;
         })}
       </Flex>
     </Skeleton>

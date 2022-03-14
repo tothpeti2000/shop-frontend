@@ -1,9 +1,10 @@
 import { Badge, Box, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
+import { Link } from "react-router-dom";
 import AddToCartButton from "./AddToCartButton";
 
 export interface Product {
-  ID: number;
+  id: number;
   name: string;
   price: number;
   stock: number;
@@ -27,10 +28,12 @@ const ProductListItem = (props: Product) => {
       border="1px solid lightgrey"
       borderRadius={10}
     >
-      {/*<Link to={`/products/${props.id}`}>
-        <Image src={props.image} alt="Product" />
-  </Link>*/}
-      <Image src={props.imgURL || "https://picsum.photos/200"} alt="Product" />
+      <Link to={`/products/${props.id}`}>
+        <Image
+          src={props.imgURL || "https://picsum.photos/200"}
+          alt="Product"
+        />
+      </Link>
       <Box>
         <Flex justifyContent={"space-between"} alignItems={"center"}>
           <Text fontWeight="bold">{props.name}</Text>
