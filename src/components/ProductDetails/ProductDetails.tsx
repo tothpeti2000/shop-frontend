@@ -76,10 +76,7 @@ const ProductDetails = () => {
       },
     ];
 
-    console.log(id);
-    const product = products.find((p) => p.id === parseInt(id!)) as Product;
-
-    console.log(product);
+    const product = products.find((p) => p.id === parseInt(id!))!;
 
     setProduct(product);
     setIsLoaded(true);
