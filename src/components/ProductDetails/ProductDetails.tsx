@@ -16,17 +16,8 @@ const ProductDetails = () => {
     category: "",
     imgURL: "",
   });
-  /*const [product, setProduct] = useState<IProduct>({
-    category: "",
-    description: "",
-    id: 0,
-    image: "",
-    price: 0,
-    title: "",
-    rating: { count: 0, rate: 0 },
-    quantity: 1,
-  });
-  const { GetItemQuantity } = useOrderItemContext();*/
+
+  //const { GetItemQuantity } = useOrderItemContext();
   const [isLoaded, setIsLoaded] = useState(false);
 
   const FetchProduct = async () => {
@@ -88,9 +79,15 @@ const ProductDetails = () => {
 
   return (
     <Skeleton isLoaded={isLoaded}>
-      <Flex w="80%" h="calc(100vh - 100px)" p={50} m="auto">
-        <Image src={product.imgURL} />
-        <Flex direction="column" justifyContent="space-between" px={10} py={5}>
+      <Flex w="80%" h="calc(86vh)" p={50} m="auto">
+        <Image src={product.imgURL || "https://picsum.photos/500"} />
+        <Flex
+          direction="column"
+          justifyContent="space-between"
+          px={10}
+          py={5}
+          border={"1px"}
+        >
           <Box>
             <Heading mb={2}>{product.name}</Heading>
             <Text fontSize="2xl" fontWeight="bold" mb={2}>
