@@ -4,7 +4,7 @@ import { Skeleton } from "@chakra-ui/skeleton";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AddToCartButton from "../ProductList/AddToCartButton";
-import { Product } from "../ProductList/ProductListItem";
+import RatingStars from "./RatingStars";
 
 interface ProductDetails {
   id: number;
@@ -55,7 +55,7 @@ const ProductDetails = () => {
         stock: 0,
         category: "Construction toys",
         imgURL: "",
-        averageRating: 5,
+        averageRating: 2.6,
         description: "Description",
       },
       {
@@ -65,7 +65,7 @@ const ProductDetails = () => {
         stock: 10,
         category: "LEGO",
         imgURL: "",
-        averageRating: 5,
+        averageRating: 4.8,
         description: "Description",
       },
       {
@@ -75,7 +75,7 @@ const ProductDetails = () => {
         stock: 10,
         category: "F1 LEGO",
         imgURL: "",
-        averageRating: 5,
+        averageRating: 3.5,
         description: "Description",
       },
       {
@@ -117,15 +117,10 @@ const ProductDetails = () => {
               ${product.price}
             </Text>
             <Text>In stock: {product.stock}</Text>
-            <Text>Average rating: {product.averageRating}</Text>
-            <Text>{product.description}</Text>
-            {/*<RatingStars ratingValue={product.rating.rate} />*/}
+            <RatingStars ratingValue={product.averageRating} />
+            <Text fontSize={"lg"}>{product.description}</Text>
           </Box>
-          {/*<Text fontSize="lg">{product.description}</Text>*/}
           <Box>
-            {/*<Box fontSize="lg" mb={2}>
-              In cart: {GetItemQuantity(parseInt(ID))}
-  </Box>*/}
             <AddToCartButton
               id={product.id}
               name={product.name}
