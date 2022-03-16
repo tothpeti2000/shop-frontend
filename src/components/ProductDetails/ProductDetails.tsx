@@ -6,25 +6,38 @@ import { useParams } from "react-router-dom";
 import AddToCartButton from "../ProductList/AddToCartButton";
 import { Product } from "../ProductList/ProductListItem";
 
+interface ProductDetails {
+  id: number;
+  name: string;
+  price: number;
+  stock: number;
+  category: string;
+  imgURL: string;
+  description: string;
+  averageRating: number;
+}
+
 const ProductDetails = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState<Product>({
+  const [product, setProduct] = useState<ProductDetails>({
     id: 0,
     name: "",
     price: 0,
     stock: 0,
     category: "",
     imgURL: "",
+    description: "",
+    averageRating: 0,
   });
 
   //const { GetItemQuantity } = useOrderItemContext();
   const [isLoaded, setIsLoaded] = useState(false);
 
   const FetchProduct = async () => {
-    /*const data = await fetch(`https://fakestoreapi.com/products/${ID}`);
+    /*const data = await fetch(`https://localhost:7202/api/products/${id}`);
     const product = await data.json();*/
 
-    const products: Product[] = [
+    const products: ProductDetails[] = [
       {
         id: 1,
         name: "Product1",
@@ -32,6 +45,8 @@ const ProductDetails = () => {
         stock: 10,
         category: "Construction toys",
         imgURL: "",
+        averageRating: 5,
+        description: "Description",
       },
       {
         id: 2,
@@ -40,6 +55,8 @@ const ProductDetails = () => {
         stock: 0,
         category: "Construction toys",
         imgURL: "",
+        averageRating: 5,
+        description: "Description",
       },
       {
         id: 3,
@@ -48,6 +65,8 @@ const ProductDetails = () => {
         stock: 10,
         category: "LEGO",
         imgURL: "",
+        averageRating: 5,
+        description: "Description",
       },
       {
         id: 4,
@@ -56,6 +75,8 @@ const ProductDetails = () => {
         stock: 10,
         category: "F1 LEGO",
         imgURL: "",
+        averageRating: 5,
+        description: "Description",
       },
       {
         id: 5,
@@ -64,6 +85,8 @@ const ProductDetails = () => {
         stock: 10,
         category: "Construction toys",
         imgURL: "",
+        averageRating: 5,
+        description: "Description",
       },
     ];
 
@@ -93,6 +116,9 @@ const ProductDetails = () => {
             <Text fontSize="2xl" fontWeight="bold" mb={2}>
               ${product.price}
             </Text>
+            <Text>In stock: {product.stock}</Text>
+            <Text>Average rating: {product.averageRating}</Text>
+            <Text>{product.description}</Text>
             {/*<RatingStars ratingValue={product.rating.rate} />*/}
           </Box>
           {/*<Text fontSize="lg">{product.description}</Text>*/}
