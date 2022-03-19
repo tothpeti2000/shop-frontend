@@ -9,6 +9,7 @@ import ProductDetails from "./components/ProductDetails/ProductDetails";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Products from "./pages/Products";
+import Register from "./pages/Register";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
 
@@ -21,6 +22,7 @@ ReactDOM.render(
           <Route path="/" element={<App />}>
             <Route path="" element={<Home />} />
             <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
             <Route path="products" element={<Products />} />
             <Route path="products/:id" element={<ProductDetails />} />
           </Route>
