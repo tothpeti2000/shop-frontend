@@ -9,11 +9,12 @@ import { Formik, Form, Field } from "formik";
 import { Link } from "react-router-dom";
 
 interface MyFormValues {
-  firstName: string;
+  userName: string;
+  password: string;
 }
 
 const LoginForm = () => {
-  const initialValues: MyFormValues = { firstName: "" };
+  const initialValues: MyFormValues = { userName: "", password: "" };
 
   return (
     <Formik
@@ -28,7 +29,7 @@ const LoginForm = () => {
         <Field name="userName">
           {() => (
             <FormControl mb={2}>
-              <Input placeholder="Username" />
+              <Input type={"text"} placeholder="Username" size={"lg"} />
             </FormControl>
           )}
         </Field>
@@ -36,16 +37,16 @@ const LoginForm = () => {
         <Field name="password">
           {() => (
             <FormControl mb={2}>
-              <Input placeholder="Password" />
+              <Input type={"password"} placeholder="Password" size={"lg"} />
             </FormControl>
           )}
         </Field>
-        <Button type="submit" w={"100%"} colorScheme={"messenger"}>
+        <Button type="submit" w={"100%"} size={"lg"} colorScheme={"messenger"}>
           Log In
         </Button>
 
         <Link to={"/register"}>
-          <Button w={"50%"} mt={5} colorScheme={"whatsapp"}>
+          <Button w={"50%"} mt={5} size={"lg"} colorScheme={"whatsapp"}>
             Create new account
           </Button>
         </Link>
