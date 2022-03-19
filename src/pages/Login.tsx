@@ -1,5 +1,13 @@
+import { Flex, FormControl, Input } from "@chakra-ui/react";
+
 const Login = () => {
-  return <h1>Hello World!</h1>;
+  return (
+    <Flex minH={"86vh"}>
+      <FormControl>
+        <Input type="text" />
+      </FormControl>
+    </Flex>
+  );
 };
 
 export default Login;
