@@ -7,6 +7,7 @@ import Footer from "./components/Footer/Footer";
 import NavBar from "./components/NavBar/NavBar";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
 import Home from "./pages/Home";
+import Login from "./pages/Login";
 import Products from "./pages/Products";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
@@ -19,6 +20,7 @@ ReactDOM.render(
         <Routes>
           <Route path="/" element={<App />}>
             <Route path="" element={<Home />} />
+            <Route path="login" element={<Login />} />
             <Route path="products" element={<Products />} />
             <Route path="products/:id" element={<ProductDetails />} />
           </Route>
