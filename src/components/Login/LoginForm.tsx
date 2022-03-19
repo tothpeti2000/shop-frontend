@@ -1,11 +1,12 @@
 import {
-  FormControl,
-  FormLabel,
-  Input,
-  FormErrorMessage,
   Button,
+  Divider,
+  Flex,
+  FormControl,
+  Input,
+  Text,
 } from "@chakra-ui/react";
-import { Formik, Form, Field } from "formik";
+import { Field, Form, Formik } from "formik";
 import { Link } from "react-router-dom";
 
 interface MyFormValues {
@@ -41,15 +42,22 @@ const LoginForm = () => {
             </FormControl>
           )}
         </Field>
+
         <Button type="submit" w={"100%"} size={"lg"} colorScheme={"messenger"}>
           Log In
         </Button>
 
-        <Link to={"/register"}>
-          <Button w={"50%"} mt={5} size={"lg"} colorScheme={"whatsapp"}>
-            Create new account
-          </Button>
-        </Link>
+        <Divider my={5} />
+
+        <Flex direction={"column"} alignItems={"center"}>
+          <Text color={"gray.500"}>You don't have an account yet?</Text>
+
+          <Link to={"/register"}>
+            <Button mt={2} size={"lg"} colorScheme={"whatsapp"}>
+              Create new account
+            </Button>
+          </Link>
+        </Flex>
       </Form>
     </Formik>
   );
