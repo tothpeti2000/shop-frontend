@@ -34,10 +34,10 @@ const ProductDetails = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const FetchProduct = async () => {
-    /*const data = await fetch(`https://localhost:7202/api/products/${id}`);
-    const product = await data.json();*/
+    const data = await fetch(`https://localhost:7202/api/products/${id}`);
+    const product = await data.json();
 
-    const products: ProductDetails[] = [
+    /*const products: ProductDetails[] = [
       {
         id: 1,
         name: "Product1",
@@ -90,7 +90,7 @@ const ProductDetails = () => {
       },
     ];
 
-    const product = products.find((p) => p.id === parseInt(id!))!;
+    const product = products.find((p) => p.id === parseInt(id!))!;*/
 
     setProduct(product);
     setIsLoaded(true);
