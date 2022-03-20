@@ -1,4 +1,4 @@
-import { LoginInputs } from "../components/Login/LoginForm";
+import { LoginInputs } from "../interfaces/LoginInputs";
 
 const useLogin = () => {
   const Login = (data: LoginInputs) => {

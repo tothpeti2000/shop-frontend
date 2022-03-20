@@ -4,11 +4,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
 import useLogin from "../../hooks/useLogin";
-
-export interface LoginInputs {
-  userName: string;
-  password: string;
-}
+import { LoginInputs } from "../../interfaces/LoginInputs";
 
 const schema = yup.object({
   userName: yup.string().required("Please enter your username!"),
