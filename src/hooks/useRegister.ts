@@ -14,7 +14,7 @@ const useRegister = () => {
       .required("Please enter your email address!"),
     password: yup
       .string()
-      .min(4, "Password must be at least 4 characters long")
+      .min(8, "Password must be at least 8 characters long")
       .max(50, "Password must be at most 50 characters long")
       .required("Please enter a password!"),
     passwordAgain: yup

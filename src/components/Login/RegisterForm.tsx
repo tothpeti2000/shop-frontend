@@ -14,8 +14,8 @@ const RegisterForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const OnSubmit: SubmitHandler<RegisterInputs> = (data) => {
-    Register(data);
+  const OnSubmit: SubmitHandler<RegisterInputs> = async (data) => {
+    await Register(data);
   };
 
   return (
