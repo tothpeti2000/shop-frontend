@@ -3,8 +3,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
+import useLogin from "../../hooks/useLogin";
 
-interface Inputs {
+export interface LoginInputs {
   Username: string;
   Password: string;
 }
@@ -19,12 +20,14 @@ const LoginForm = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>({
+  } = useForm<LoginInputs>({
     resolver: yupResolver(schema),
   });
 
-  const OnSubmit: SubmitHandler<Inputs> = (data) => {
-    alert(JSON.stringify(data, null, 2));
+  const { Login } = useLogin();
+
+  const OnSubmit: SubmitHandler<LoginInputs> = (data: LoginInputs) => {
+    Login(data);
   };
 
   return (
