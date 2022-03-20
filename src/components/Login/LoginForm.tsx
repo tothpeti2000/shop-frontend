@@ -22,8 +22,8 @@ const LoginForm = () => {
 
   const { Login } = useLogin();
 
-  const OnSubmit: SubmitHandler<LoginInputs> = (data: LoginInputs) => {
-    Login(data);
+  const OnSubmit: SubmitHandler<LoginInputs> = async (data: LoginInputs) => {
+    await Login(data);
   };
 
   return (

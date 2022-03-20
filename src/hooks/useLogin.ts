@@ -1,7 +1,7 @@
 import { LoginInputs } from "../interfaces/LoginInputs";
 
 const useLogin = () => {
-  const Login = (data: LoginInputs) => {
+  const Login = async (data: LoginInputs) => {
     alert(JSON.stringify(data, null, 2));
   };
 
