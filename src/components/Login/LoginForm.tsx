@@ -11,8 +11,8 @@ export interface LoginInputs {
 }
 
 const schema = yup.object({
-  Username: yup.string().required().min(4).max(50),
-  Password: yup.string().required().min(4).max(50),
+  Username: yup.string().required(),
+  Password: yup.string().required(),
 });
 
 const LoginForm = () => {
