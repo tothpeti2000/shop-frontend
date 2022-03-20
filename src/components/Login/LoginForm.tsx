@@ -6,13 +6,13 @@ import * as yup from "yup";
 import useLogin from "../../hooks/useLogin";
 
 export interface LoginInputs {
-  Username: string;
-  Password: string;
+  userName: string;
+  password: string;
 }
 
 const schema = yup.object({
-  Username: yup.string().required(),
-  Password: yup.string().required(),
+  userName: yup.string().required("Please enter your username!"),
+  password: yup.string().required("Please enter your password!"),
 });
 
 const LoginForm = () => {
@@ -34,7 +34,7 @@ const LoginForm = () => {
     <>
       <form onSubmit={handleSubmit(OnSubmit)}>
         <Controller
-          name="Username"
+          name="userName"
           control={control}
           defaultValue=""
           render={({ field }) => (
@@ -45,12 +45,12 @@ const LoginForm = () => {
                 placeholder="Username"
                 size={"lg"}
               />
-              <Text color={"red"}>{errors.Username?.message}</Text>
+              <Text color={"red"}>{errors.userName?.message}</Text>
             </Box>
           )}
         />
         <Controller
-          name="Password"
+          name="password"
           control={control}
           defaultValue=""
           render={({ field }) => (
@@ -61,7 +61,7 @@ const LoginForm = () => {
                 placeholder="Password"
                 size={"lg"}
               />
-              <Text color={"red"}>{errors.Password?.message}</Text>
+              <Text color={"red"}>{errors.password?.message}</Text>
             </Box>
           )}
         />
