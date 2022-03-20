@@ -2,13 +2,7 @@ import { Box, Button, Input, Text } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
-
-interface Inputs {
-  Username: string;
-  Email: string;
-  Password: string;
-  PasswordAgain: string;
-}
+import { RegisterInputs } from "../../interfaces/RegisterInputs";
 
 const schema = yup.object({
   Username: yup.string().required().min(4).max(50),
@@ -25,11 +19,11 @@ const RegisterForm = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>({
+  } = useForm<RegisterInputs>({
     resolver: yupResolver(schema),
   });
 
-  const OnSubmit: SubmitHandler<Inputs> = (data) => {
+  const OnSubmit: SubmitHandler<RegisterInputs> = (data) => {
     alert(JSON.stringify(data, null, 2));
   };
 

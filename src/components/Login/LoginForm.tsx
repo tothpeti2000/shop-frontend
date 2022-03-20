@@ -32,7 +32,6 @@ const LoginForm = () => {
         <Controller
           name="userName"
           control={control}
-          defaultValue=""
           render={({ field }) => (
             <Box mb={2}>
               <Input
@@ -46,10 +45,10 @@ const LoginForm = () => {
             </Box>
           )}
         />
+
         <Controller
           name="password"
           control={control}
-          defaultValue=""
           render={({ field }) => (
             <Box mb={2}>
               <Input
@@ -62,6 +61,7 @@ const LoginForm = () => {
             </Box>
           )}
         />
+
         <Button type="submit" w={"100%"} size={"lg"} colorScheme={"messenger"}>
           Log In
         </Button>
