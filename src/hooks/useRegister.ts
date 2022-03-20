@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { RegisterInputs } from "../interfaces/RegisterInputs";
 
 const useRegister = () => {
   const schema = yup.object({
@@ -22,7 +23,11 @@ const useRegister = () => {
       .required("Please enter your password again!"),
   });
 
-  return { schema };
+  const Register = async (data: RegisterInputs) => {
+    await alert(JSON.stringify(data, null, 2));
+  };
+
+  return { schema, Register };
 };
 
 export default useRegister;

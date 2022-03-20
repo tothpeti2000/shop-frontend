@@ -5,7 +5,7 @@ import useRegister from "../../hooks/useRegister";
 import { RegisterInputs } from "../../interfaces/RegisterInputs";
 
 const RegisterForm = () => {
-  const { schema } = useRegister();
+  const { schema, Register } = useRegister();
   const {
     control,
     handleSubmit,
@@ -15,7 +15,7 @@ const RegisterForm = () => {
   });
 
   const OnSubmit: SubmitHandler<RegisterInputs> = (data) => {
-    alert(JSON.stringify(data, null, 2));
+    Register(data);
   };
 
   return (
