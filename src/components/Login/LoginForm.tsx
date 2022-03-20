@@ -1,22 +1,26 @@
-import {
-  Button,
-  Divider,
-  Flex,
-  FormControl,
-  Input,
-  Text,
-} from "@chakra-ui/react";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { Box, Button, Divider, Flex, Input, Text } from "@chakra-ui/react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import Form from "../Footer/SubscriptionForm";
+import * as yup from "yup";
 
 interface Inputs {
-  userName: string;
-  password: string;
+  Username: string;
+  Password: string;
 }
+const schema = yup.object({
+  Username: yup.string().required().min(4).max(50),
+  Password: yup.string().required().min(4).max(50),
+});
 
 const LoginForm = () => {
-  const { control, handleSubmit } = useForm<Inputs>();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>({
+    resolver: yupResolver(schema),
+  });
 
   const OnSubmit: SubmitHandler<Inputs> = (data) => {
     alert(JSON.stringify(data, null, 2));
@@ -26,31 +30,35 @@ const LoginForm = () => {
     <>
       <form onSubmit={handleSubmit(OnSubmit)}>
         <Controller
-          name="userName"
+          name="Username"
           control={control}
           defaultValue=""
           render={({ field }) => (
-            <Input
-              type={"text"}
-              {...field}
-              placeholder="Username"
-              size={"lg"}
-              mb={2}
-            />
+            <Box mb={2}>
+              <Input
+                type={"text"}
+                {...field}
+                placeholder="Username"
+                size={"lg"}
+              />
+              <Text color={"red"}>{errors.Username?.message}</Text>
+            </Box>
           )}
         />
         <Controller
-          name="password"
+          name="Password"
           control={control}
           defaultValue=""
           render={({ field }) => (
-            <Input
-              type={"password"}
-              {...field}
-              placeholder="Password"
-              size={"lg"}
-              mb={2}
-            />
+            <Box mb={2}>
+              <Input
+                type={"password"}
+                {...field}
+                placeholder="Password"
+                size={"lg"}
+              />
+              <Text color={"red"}>{errors.Password?.message}</Text>
+            </Box>
           )}
         />
         <Button type="submit" w={"100%"} size={"lg"} colorScheme={"messenger"}>
