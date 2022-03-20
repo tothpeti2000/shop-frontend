@@ -1,7 +1,6 @@
-import { Box, Input, Button, Divider, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Input, Text } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 
 interface Inputs {
@@ -18,7 +17,7 @@ const schema = yup.object({
   PasswordAgain: yup
     .string()
     .required()
-    .oneOf([yup.ref("Password"), null], "Passwords don't match!"),
+    .oneOf([yup.ref("Password")], "Passwords don't match!"),
 });
 
 const RegisterForm = () => {
