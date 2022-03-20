@@ -4,19 +4,13 @@ import React, { useEffect, useState } from "react";
 import Fade from "react-awesome-reveal";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import CategoryCover from "../../interfaces/CategoryCover";
 import CategoryCard from "./CategoryCard";
 
-interface Category {
-  ID: number;
-  name: string;
-  imgURL?: string;
-}
-
 const Categories = () => {
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<CategoryCover[]>([]);
 
   const FetchSomeCategories = async (count: number) => {
-    // TODO: Change mock to actual fetch
     const items = [
       { ID: 1, name: "Construction toys" },
       { ID: 2, name: "LEGO" },
