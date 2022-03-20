@@ -8,6 +8,7 @@ interface Inputs {
   Username: string;
   Password: string;
 }
+
 const schema = yup.object({
   Username: yup.string().required().min(4).max(50),
   Password: yup.string().required().min(4).max(50),
