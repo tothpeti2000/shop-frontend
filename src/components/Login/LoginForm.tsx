@@ -41,6 +41,7 @@ const LoginForm = () => {
             <Box mb={2}>
               <Input
                 type={"text"}
+                autoFocus
                 {...field}
                 placeholder="Username"
                 size={"lg"}
