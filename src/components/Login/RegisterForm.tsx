@@ -5,13 +5,24 @@ import * as yup from "yup";
 import { RegisterInputs } from "../../interfaces/RegisterInputs";
 
 const schema = yup.object({
-  Username: yup.string().required().min(4).max(50),
-  Email: yup.string().required().email(),
-  Password: yup.string().required().min(4).max(50),
-  PasswordAgain: yup
+  userName: yup
     .string()
-    .required()
-    .oneOf([yup.ref("Password")], "Passwords don't match!"),
+    .min(4, "Username must be at least 4 characters long")
+    .max(50, "Username must be at most 50 characters long")
+    .required("Please enter a username!"),
+  email: yup
+    .string()
+    .email("Please provide a valid email address!")
+    .required("Please enter your email address!"),
+  password: yup
+    .string()
+    .min(4, "Password must be at least 4 characters long")
+    .max(50, "Password must be at most 50 characters long")
+    .required("Please enter a password!"),
+  passwordAgain: yup
+    .string()
+    .oneOf([yup.ref("password")], "Passwords don't match!")
+    .required("Please enter your password again!"),
 });
 
 const RegisterForm = () => {
@@ -31,7 +42,7 @@ const RegisterForm = () => {
     <>
       <form onSubmit={handleSubmit(OnSubmit)}>
         <Controller
-          name="Username"
+          name="userName"
           control={control}
           defaultValue=""
           render={({ field }) => (
@@ -42,13 +53,13 @@ const RegisterForm = () => {
                 placeholder="Username"
                 size={"lg"}
               />
-              <Text color={"red"}>{errors.Username?.message}</Text>
+              <Text color={"red"}>{errors.userName?.message}</Text>
             </Box>
           )}
         />
 
         <Controller
-          name="Email"
+          name="email"
           control={control}
           defaultValue=""
           render={({ field }) => (
@@ -59,13 +70,13 @@ const RegisterForm = () => {
                 placeholder="Email"
                 size={"lg"}
               />
-              <Text color={"red"}>{errors.Email?.message}</Text>
+              <Text color={"red"}>{errors.email?.message}</Text>
             </Box>
           )}
         />
 
         <Controller
-          name="Password"
+          name="password"
           control={control}
           defaultValue=""
           render={({ field }) => (
@@ -76,13 +87,13 @@ const RegisterForm = () => {
                 placeholder="Password"
                 size={"lg"}
               />
-              <Text color={"red"}>{errors.Password?.message}</Text>
+              <Text color={"red"}>{errors.password?.message}</Text>
             </Box>
           )}
         />
 
         <Controller
-          name="PasswordAgain"
+          name="passwordAgain"
           control={control}
           defaultValue=""
           render={({ field }) => (
@@ -93,7 +104,7 @@ const RegisterForm = () => {
                 placeholder="Password again"
                 size={"lg"}
               />
-              <Text color={"red"}>{errors.PasswordAgain?.message}</Text>
+              <Text color={"red"}>{errors.passwordAgain?.message}</Text>
             </Box>
           )}
         />
