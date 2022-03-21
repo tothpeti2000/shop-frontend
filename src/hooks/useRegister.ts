@@ -1,7 +1,10 @@
+import axios from "axios";
+import { useState } from "react";
 import * as yup from "yup";
-import { RegisterInputs } from "../interfaces/RegisterInputs";
 
 const useRegister = () => {
+  const [error, setError] = useState("");
+
   const schema = yup.object({
     userName: yup
       .string()
@@ -28,26 +31,25 @@ const useRegister = () => {
     email: string,
     password: string
   ) => {
+    setError("");
+
     const userDetails = {
       userName: userName,
       email: email,
       password: password,
     };
     //await alert(JSON.stringify(data, null, 2));
-    const response = await fetch("https://localhost:7202/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userDetails),
-    });
-
-    const result = await response.json();
-
-    console.log(result);
+    await axios
+      .post("https://localhost:7202/api/register", userDetails)
+      .then(() => alert("Account created successfully"))
+      .catch((err) => {
+        if (err.response) {
+          setError(err.response.data);
+        }
+      });
   };
 
-  return { schema, Register };
+  return { schema, Register, error };
 };
 
 export default useRegister;

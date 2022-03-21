@@ -5,7 +5,7 @@ import useRegister from "../../hooks/useRegister";
 import { RegisterInputs } from "../../interfaces/RegisterInputs";
 
 const RegisterForm = () => {
-  const { schema, Register } = useRegister();
+  const { schema, Register, error } = useRegister();
   const {
     control,
     handleSubmit,
@@ -89,6 +89,8 @@ const RegisterForm = () => {
         <Button type="submit" w={"100%"} size={"lg"} colorScheme={"messenger"}>
           Register
         </Button>
+
+        <Text>{error}</Text>
       </form>
     </>
   );
