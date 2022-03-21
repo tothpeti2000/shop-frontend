@@ -8,36 +8,26 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useProductListContext } from "../../context/ProductListContext";
+import useProducts from "../../hooks/useProducts";
 
 const PriceRangePicker = () => {
-  const [range, setRange] = useState<Array<number>>([0, 100]);
-  const [maxPrice, setMaxPrice] = useState(0);
+  const [range, setRange] = useState<number[]>([0, 100]);
+  const { FetchMaxPrice } = useProducts();
   const { UpdatePriceRange } = useProductListContext();
 
   const ScaleUp = (value: number) => {
-    const scale = Math.ceil(maxPrice) / 100;
-
-    return (value * scale).toFixed(2);
+    /*const scale = Math.ceil(maxPrice) / 100;
+    return (value * scale).toFixed(2);*/
   };
 
   const ScaleUpRange = (values: number[]) => {
-    const scale = Math.ceil(maxPrice) / 100;
-
-    return [values[0] * scale, values[1] * scale];
+    /*const scale = Math.ceil(maxPrice) / 100;
+    return [values[0] * scale, values[1] * scale];*/
   };
 
   const HandleChange = (value: number[]) => {
     setRange(value);
     UpdatePriceRange(ScaleUpRange(value));
-  };
-
-  const FetchMaxPrice = async () => {
-    // TODO: Change mock to actual fetch
-    //const maxPrice = 10000;
-    const data = await fetch("https://localhost:7202/api/products/maxprice");
-    const maxPrice = await data.json();
-
-    setMaxPrice(maxPrice);
   };
 
   useEffect(() => {
@@ -48,7 +38,7 @@ const PriceRangePicker = () => {
     <>
       <RangeSlider
         aria-label={["min", "max"]}
-        defaultValue={range}
+        defaultValue={[0, 100]}
         onChange={(value) => HandleChange(value)}
       >
         <RangeSliderTrack>
