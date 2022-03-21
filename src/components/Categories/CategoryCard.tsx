@@ -1,5 +1,5 @@
 import { Box, Text } from "@chakra-ui/layout";
-import React, { FC } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import CategoryCover from "./CategoryCover";
 
@@ -12,7 +12,6 @@ const CategoryCard = (props: Props) => {
   return (
     <Box flex="1" textAlign="center" p={5}>
       <Link to="/products">
-        {/* TODO: Change placeholder images to actual covers */}
         <CategoryCover imgURL={props.imgURL} />
         <Text fontSize="2xl">{props.name}</Text>
       </Link>

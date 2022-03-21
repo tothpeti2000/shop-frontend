@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { CategoryCover } from "../interfaces/Category";
+import { CategoryCover, CategoryListItem } from "../interfaces/Category";
 import CategoryService from "../services/CategoryService";
 
 const useCategories = () => {
+  const [categories, setCategories] = useState<CategoryListItem[]>([]);
   const [categoryCovers, setCategoryCovers] = useState<CategoryCover[]>([]);
 
   const FetchCategories = async () => {
@@ -13,7 +14,7 @@ const useCategories = () => {
     await CategoryService.FetchTopCategories();
   };
 
-  return { categoryCovers, FetchCategories, FetchTopCategories };
+  return { categories, categoryCovers, FetchCategories, FetchTopCategories };
 };
 
 export default useCategories;
