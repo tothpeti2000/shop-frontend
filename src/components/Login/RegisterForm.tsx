@@ -3,6 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import useRegister from "../../hooks/useRegister";
 import { RegisterInputs } from "../../interfaces/RegisterInputs";
+import ErrorMessage from "../ErrorMessage";
 
 const RegisterForm = () => {
   const { schema, Register, error } = useRegister();
@@ -33,7 +34,7 @@ const RegisterForm = () => {
                 placeholder="Username"
                 size={"lg"}
               />
-              <Text color={"red"}>{errors.userName?.message}</Text>
+              <ErrorMessage>{errors.userName?.message}</ErrorMessage>
             </Box>
           )}
         />
@@ -49,7 +50,7 @@ const RegisterForm = () => {
                 placeholder="Email"
                 size={"lg"}
               />
-              <Text color={"red"}>{errors.email?.message}</Text>
+              <ErrorMessage>{errors.email?.message}</ErrorMessage>
             </Box>
           )}
         />
@@ -65,7 +66,7 @@ const RegisterForm = () => {
                 placeholder="Password"
                 size={"lg"}
               />
-              <Text color={"red"}>{errors.password?.message}</Text>
+              <ErrorMessage>{errors.password?.message}</ErrorMessage>
             </Box>
           )}
         />
@@ -81,16 +82,22 @@ const RegisterForm = () => {
                 placeholder="Password again"
                 size={"lg"}
               />
-              <Text color={"red"}>{errors.passwordAgain?.message}</Text>
+              <ErrorMessage>{errors.passwordAgain?.message}</ErrorMessage>
             </Box>
           )}
         />
 
-        <Button type="submit" w={"100%"} size={"lg"} colorScheme={"messenger"}>
+        <Button
+          type="submit"
+          w={"100%"}
+          mb={2}
+          size={"lg"}
+          colorScheme={"messenger"}
+        >
           Register
         </Button>
 
-        <Text>{error}</Text>
+        <ErrorMessage>{error}</ErrorMessage>
       </form>
     </>
   );

@@ -38,13 +38,15 @@ const useRegister = () => {
       email: email,
       password: password,
     };
-    //await alert(JSON.stringify(data, null, 2));
+
     await axios
       .post("https://localhost:7202/api/register", userDetails)
       .then(() => alert("Account created successfully"))
       .catch((err) => {
         if (err.response) {
           setError(err.response.data);
+        } else {
+          setError("Unable to connect to the server. Please, try again later!");
         }
       });
   };
