@@ -15,7 +15,7 @@ const RegisterForm = () => {
   });
 
   const OnSubmit: SubmitHandler<RegisterInputs> = async (data) => {
-    await Register(data);
+    await Register(data.userName, data.email, data.password);
   };
 
   return (

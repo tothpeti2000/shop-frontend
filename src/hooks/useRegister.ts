@@ -23,8 +23,28 @@ const useRegister = () => {
       .required("Please enter your password again!"),
   });
 
-  const Register = async (data: RegisterInputs) => {
-    await alert(JSON.stringify(data, null, 2));
+  const Register = async (
+    userName: string,
+    email: string,
+    password: string
+  ) => {
+    const userDetails = {
+      userName: userName,
+      email: email,
+      password: password,
+    };
+    //await alert(JSON.stringify(data, null, 2));
+    const response = await fetch("https://localhost:7202/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userDetails),
+    });
+
+    const result = await response.json();
+
+    console.log(result);
   };
 
   return { schema, Register };
