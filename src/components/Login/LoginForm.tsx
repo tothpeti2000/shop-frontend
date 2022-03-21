@@ -1,4 +1,12 @@
-import { Box, Button, Divider, Flex, Input, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Input,
+  Spinner,
+  Text,
+} from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -7,7 +15,7 @@ import { LoginInputs } from "../../interfaces/LoginInputs";
 import ErrorMessage from "../ErrorMessage";
 
 const LoginForm = () => {
-  const { Login, loginSchema, error } = useAccount();
+  const { Login, loginSchema, isLoading, error } = useAccount();
   const {
     control,
     handleSubmit,
@@ -62,7 +70,9 @@ const LoginForm = () => {
           mb={5}
           size={"lg"}
           colorScheme={"messenger"}
+          disabled={isLoading}
         >
+          {isLoading && <Spinner />}
           Log In
         </Button>
 

@@ -1,4 +1,4 @@
-import { Box, Button, Input } from "@chakra-ui/react";
+import { Box, Button, Input, Spinner } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import useAccount from "../../hooks/useAccount";
@@ -6,7 +6,7 @@ import { RegisterInputs } from "../../interfaces/RegisterInputs";
 import ErrorMessage from "../ErrorMessage";
 
 const RegisterForm = () => {
-  const { registerSchema, Register, error } = useAccount();
+  const { registerSchema, Register, isLoading, error } = useAccount();
   const {
     control,
     handleSubmit,
@@ -93,7 +93,9 @@ const RegisterForm = () => {
           mb={5}
           size={"lg"}
           colorScheme={"messenger"}
+          disabled={isLoading}
         >
+          {isLoading && <Spinner />}
           Register
         </Button>
 

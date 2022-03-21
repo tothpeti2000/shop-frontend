@@ -4,6 +4,7 @@ import UserService from "../services/UserService";
 
 const useAccount = () => {
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const registerSchema = yup.object({
     userName: yup
@@ -37,6 +38,7 @@ const useAccount = () => {
     password: string
   ) => {
     setError("");
+    setIsLoading(true);
 
     try {
       await UserService.CreateAccount(userName, email, password);
@@ -45,18 +47,24 @@ const useAccount = () => {
       const error = err as Error;
       setError(error.message);
     }
+
+    setIsLoading(false);
   };
 
   const Login = async (userName: string, password: string) => {
+    setIsLoading(true);
+
     try {
       await UserService.LoginUser(userName, password);
     } catch (err) {
       const error = err as Error;
       setError(error.message);
     }
+
+    setIsLoading(false);
   };
 
-  return { registerSchema, loginSchema, Register, Login, error };
+  return { registerSchema, loginSchema, Register, Login, isLoading, error };
 };
 
 export default useAccount;
