@@ -21,7 +21,7 @@ class UserService {
     let error = "";
 
     await axios
-      .post("https://localhost:7202/api/register", userDetails)
+      .post("https://localhost:7202/api/auth/register", userDetails)
       .catch((err) => {
         error = UserService.HandleError(err);
       });
@@ -40,7 +40,7 @@ class UserService {
     let error = "";
 
     await axios
-      .post("https://localhost:7202/api/login", userCredentials)
+      .post("https://localhost:7202/api/auth/login", userCredentials)
       .catch((err) => {
         error = UserService.HandleError(err);
       });

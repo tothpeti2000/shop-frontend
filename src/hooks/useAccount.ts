@@ -52,10 +52,12 @@ const useAccount = () => {
   };
 
   const Login = async (userName: string, password: string) => {
+    setError("");
     setIsLoading(true);
 
     try {
       await UserService.LoginUser(userName, password);
+      alert("Login successful");
     } catch (err) {
       const error = err as Error;
       setError(error.message);
