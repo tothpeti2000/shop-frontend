@@ -1,4 +1,4 @@
-import { Box, Button, Input, Text } from "@chakra-ui/react";
+import { Box, Button, Input } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import useRegister from "../../hooks/useRegister";
@@ -90,7 +90,7 @@ const RegisterForm = () => {
         <Button
           type="submit"
           w={"100%"}
-          mb={2}
+          mb={5}
           size={"lg"}
           colorScheme={"messenger"}
         >

@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useState } from "react";
 import * as yup from "yup";
+import UserService from "../services/UserService";
 
 const useRegister = () => {
   const [error, setError] = useState("");
@@ -33,22 +33,13 @@ const useRegister = () => {
   ) => {
     setError("");
 
-    const userDetails = {
-      userName: userName,
-      email: email,
-      password: password,
-    };
-
-    await axios
-      .post("https://localhost:7202/api/register", userDetails)
-      .then(() => alert("Account created successfully"))
-      .catch((err) => {
-        if (err.response) {
-          setError(err.response.data);
-        } else {
-          setError("Unable to connect to the server. Please, try again later!");
-        }
-      });
+    try {
+      await UserService.RegisterUser(userName, email, password);
+      alert("Account created successfully");
+    } catch (err) {
+      const error = err as Error;
+      setError(error.message);
+    }
   };
 
   return { schema, Register, error };
