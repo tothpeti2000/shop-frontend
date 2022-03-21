@@ -39,7 +39,7 @@ const useAccount = () => {
     setError("");
 
     try {
-      await UserService.RegisterUser(userName, email, password);
+      await UserService.CreateAccount(userName, email, password);
       alert("Account created successfully");
     } catch (err) {
       const error = err as Error;

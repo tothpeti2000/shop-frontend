@@ -7,7 +7,11 @@ class UserService {
       : "Unable to connect to the server. Please, try again later!";
   }
 
-  static async RegisterUser(userName: string, email: string, password: string) {
+  static async CreateAccount(
+    userName: string,
+    email: string,
+    password: string
+  ) {
     const userDetails = {
       userName: userName,
       email: email,
