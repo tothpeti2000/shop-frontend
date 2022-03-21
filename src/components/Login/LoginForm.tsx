@@ -2,28 +2,22 @@ import { Box, Button, Divider, Flex, Input, Text } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import * as yup from "yup";
-import useLogin from "../../hooks/useLogin";
+import useAccount from "../../hooks/useAccount";
 import { LoginInputs } from "../../interfaces/LoginInputs";
-
-const schema = yup.object({
-  userName: yup.string().required("Please enter your username!"),
-  password: yup.string().required("Please enter your password!"),
-});
+import ErrorMessage from "../ErrorMessage";
 
 const LoginForm = () => {
+  const { Login, loginSchema, error } = useAccount();
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginInputs>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(loginSchema),
   });
 
-  const { Login } = useLogin();
-
   const OnSubmit: SubmitHandler<LoginInputs> = async (data: LoginInputs) => {
-    await Login(data);
+    await Login(data.userName, data.password);
   };
 
   return (
@@ -62,9 +56,17 @@ const LoginForm = () => {
           )}
         />
 
-        <Button type="submit" w={"100%"} size={"lg"} colorScheme={"messenger"}>
+        <Button
+          type="submit"
+          w={"100%"}
+          mb={5}
+          size={"lg"}
+          colorScheme={"messenger"}
+        >
           Log In
         </Button>
+
+        <ErrorMessage>{error}</ErrorMessage>
       </form>
 
       <Divider my={5} />

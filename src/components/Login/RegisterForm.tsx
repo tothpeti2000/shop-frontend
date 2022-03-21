@@ -1,18 +1,18 @@
 import { Box, Button, Input } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import useRegister from "../../hooks/useRegister";
+import useAccount from "../../hooks/useAccount";
 import { RegisterInputs } from "../../interfaces/RegisterInputs";
 import ErrorMessage from "../ErrorMessage";
 
 const RegisterForm = () => {
-  const { schema, Register, error } = useRegister();
+  const { registerSchema, Register, error } = useAccount();
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterInputs>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(registerSchema),
   });
 
   const OnSubmit: SubmitHandler<RegisterInputs> = async (data) => {

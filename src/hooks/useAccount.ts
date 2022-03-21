@@ -2,10 +2,10 @@ import { useState } from "react";
 import * as yup from "yup";
 import UserService from "../services/UserService";
 
-const useRegister = () => {
+const useAccount = () => {
   const [error, setError] = useState("");
 
-  const schema = yup.object({
+  const registerSchema = yup.object({
     userName: yup
       .string()
       .min(4, "Username must be at least 4 characters long")
@@ -26,6 +26,11 @@ const useRegister = () => {
       .required("Please enter your password again!"),
   });
 
+  const loginSchema = yup.object({
+    userName: yup.string().required("Please enter your username!"),
+    password: yup.string().required("Please enter your password!"),
+  });
+
   const Register = async (
     userName: string,
     email: string,
@@ -42,7 +47,16 @@ const useRegister = () => {
     }
   };
 
-  return { schema, Register, error };
+  const Login = async (userName: string, password: string) => {
+    try {
+      await UserService.LoginUser(userName, password);
+    } catch (err) {
+      const error = err as Error;
+      setError(error.message);
+    }
+  };
+
+  return { registerSchema, loginSchema, Register, Login, error };
 };
 
-export default useRegister;
+export default useAccount;
