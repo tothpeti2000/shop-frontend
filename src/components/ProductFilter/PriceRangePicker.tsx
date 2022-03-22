@@ -23,6 +23,8 @@ const PriceRangePicker = () => {
   const ScaleUpRange = (values: number[]) => {
     /*const scale = Math.ceil(maxPrice) / 100;
     return [values[0] * scale, values[1] * scale];*/
+
+    return [];
   };
 
   const HandleChange = (value: number[]) => {

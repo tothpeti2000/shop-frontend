@@ -8,6 +8,7 @@ import NavBar from "./components/NavBar/NavBar";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import NotFound from "./pages/NotFound";
 import Products from "./pages/Products";
 import Register from "./pages/Register";
 import reportWebVitals from "./reportWebVitals";
@@ -25,6 +26,8 @@ ReactDOM.render(
             <Route path="register" element={<Register />} />
             <Route path="products" element={<Products />} />
             <Route path="products/:id" element={<ProductDetails />} />
+
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </Router>
