@@ -1,13 +1,14 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { FC } from "react";
+import FullScreenCenter from "../FullScreenCenter";
 
 const FormContainer: FC = ({ children }) => {
   return (
-    <Flex justifyContent={"center"} alignItems={"center"} h={"100vh"}>
+    <FullScreenCenter>
       <Box w={"30%"} p={5} borderRadius={"2xl"} boxShadow={"dark-lg"}>
         {children}
       </Box>
-    </Flex>
+    </FullScreenCenter>
   );
 };
 

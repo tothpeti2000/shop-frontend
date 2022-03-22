@@ -1,11 +1,12 @@
-import { Flex, Heading, Text } from "@chakra-ui/react";
+import { Heading, Text } from "@chakra-ui/react";
+import FullScreenCenter from "../components/FullScreenCenter";
 
 const NotFound = () => {
   return (
-    <Flex direction={"column"} justifyContent={"center"} alignItems={"center"}>
+    <FullScreenCenter>
       <Heading>404</Heading>
       <Text>Page not found</Text>
-    </Flex>
+    </FullScreenCenter>
   );
 };
 

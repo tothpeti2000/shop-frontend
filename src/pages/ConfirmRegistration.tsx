@@ -1,11 +1,12 @@
-import { Center, Heading, Text } from "@chakra-ui/react";
+import { Heading, Text } from "@chakra-ui/react";
+import FullScreenCenter from "../components/FullScreenCenter";
 
 const ConfirmRegistration = () => {
   return (
-    <Center>
+    <FullScreenCenter>
       <Heading>Account created successfully</Heading>
       <Text>Please, confirm your registration here</Text>
-    </Center>
+    </FullScreenCenter>
   );
 };
 
