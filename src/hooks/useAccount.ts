@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import UserService from "../services/UserService";
 
 const useAccount = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const registerSchema = yup.object({
     userName: yup
@@ -42,7 +44,7 @@ const useAccount = () => {
 
     try {
       await UserService.CreateAccount(userName, email, password);
-      alert("Account created successfully");
+      navigate("/register/confirm");
     } catch (err) {
       const error = err as Error;
       setError(error.message);
