@@ -6,6 +6,7 @@ import { App } from "./App";
 import Footer from "./components/Footer/Footer";
 import NavBar from "./components/NavBar/NavBar";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
+import ConfirmRegistration from "./pages/ConfirmRegistration";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
@@ -23,7 +24,10 @@ ReactDOM.render(
           <Route path="/" element={<App />}>
             <Route path="" element={<Home />} />
             <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
+            <Route path="register">
+              <Route path="" element={<Register />} />
+              <Route path="confirm" element={<ConfirmRegistration />} />
+            </Route>
             <Route path="products" element={<Products />} />
             <Route path="products/:id" element={<ProductDetails />} />
 
