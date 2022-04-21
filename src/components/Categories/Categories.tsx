@@ -23,7 +23,7 @@ const Categories = () => {
       <Fade>
         <Flex p={5}>
           {data?.data.map((c) => {
-            return <CategoryCard key={c.ID} name={c.name} imgURL={c.imgURL} />;
+            return <CategoryCard key={c.id} name={c.name} imgURL={c.imgURL} />;
           })}
         </Flex>
       </Fade>

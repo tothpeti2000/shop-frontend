@@ -1,11 +1,15 @@
-import { GetTop } from "../services/CategoryService";
+import { Get, GetTop } from "../services/CategoryService";
 
 const useCategories = () => {
+  const GetCategories = () => {
+    return Get();
+  };
+
   const GetTopCategories = () => {
     return GetTop();
   };
 
-  return { GetTopCategories };
+  return { GetCategories, GetTopCategories };
 };
 
 export default useCategories;

@@ -1,9 +1,12 @@
 import { Stack } from "@chakra-ui/layout";
 import { Radio, RadioGroup } from "@chakra-ui/radio";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
+import useCategories from "../../api/useCategories";
 
 const CategoryPicker = () => {
   const [value, setValue] = useState("all");
+  const { GetCategories } = useCategories();
+  const { data } = GetCategories();
 
   const HandleChange = (e: ChangeEvent<HTMLInputElement>) => {
     //UpdateFilterType(e.target.value);
@@ -16,13 +19,13 @@ const CategoryPicker = () => {
         <Radio value="all" onChange={HandleChange}>
           Show all
         </Radio>
-        {/*{categories.map((c) => {
+        {data?.data.map((c) => {
           return (
-            <Radio key={c.ID} value={c.name} onChange={HandleChange}>
+            <Radio key={c.id} value={c.name} onChange={HandleChange}>
               {c.name}
             </Radio>
           );
-        })}*/}
+        })}
       </Stack>
     </RadioGroup>
   );

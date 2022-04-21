@@ -1,6 +1,12 @@
 import { useQuery } from "react-query";
 import client from "../api/common";
-import { CategoryCover } from "../interfaces/Category";
+import { CategoryCover, CategoryItem } from "../interfaces/Category";
+
+export const Get = () => {
+  return useQuery("categories", async () => {
+    return await client.get<CategoryItem[]>("/categories");
+  });
+};
 
 export const GetTop = () => {
   return useQuery("topCategories", async () => {
