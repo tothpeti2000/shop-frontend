@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import UserService from "../services/UserService";
+import { CreateAccount } from "../services/UserService";
 
 const useRegister = () => {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const useRegister = () => {
     password: string
   ) => {
     try {
-      await UserService.CreateAccount(userName, email, password);
+      CreateAccount(userName, email, password);
       navigate("/register/confirm");
     } catch (err) {
       const error = err as Error;

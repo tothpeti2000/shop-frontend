@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as yup from "yup";
-import UserService from "../services/UserService";
+import { LoginUser } from "../services/UserService";
 
 const useLogin = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -10,10 +10,9 @@ const useLogin = () => {
     password: yup.string().required("Please enter your password!"),
   });
 
-  const Login = async (userName: string, password: string) => {
+  const Login = (userName: string, password: string) => {
     try {
-      await UserService.LoginUser(userName, password);
-      setLoggedIn(true);
+      LoginUser(userName, password);
       alert("Login successful");
     } catch (err) {
       const error = err as Error;

@@ -1,54 +1,29 @@
-import axios from "axios";
+import { useMutation } from "react-query";
+import client from "../api/common";
 
-class UserService {
-  static HandleError(err: any) {
-    return err.response
-      ? err.response.data
-      : "Unable to connect to the server. Please, try again later!";
-  }
+export const CreateAccount = (
+  userName: string,
+  email: string,
+  password: string
+) => {
+  const userDetails = {
+    userName: userName,
+    email: email,
+    password: password,
+  };
 
-  static async CreateAccount(
-    userName: string,
-    email: string,
-    password: string
-  ) {
-    const userDetails = {
-      userName: userName,
-      email: email,
-      password: password,
-    };
+  return useMutation(async (userDetails) => {
+    return await client.post("/auth/register", userDetails);
+  });
+};
 
-    let error = "";
+export const LoginUser = (userName: string, password: string) => {
+  const userCredentials = {
+    userName: userName,
+    password: password,
+  };
 
-    await axios
-      .post("https://localhost:7202/api/auth/register", userDetails)
-      .catch((err) => {
-        error = UserService.HandleError(err);
-      });
-
-    if (error.length > 0) {
-      throw new Error(error);
-    }
-  }
-
-  static async LoginUser(userName: string, password: string) {
-    const userCredentials = {
-      userName: userName,
-      password: password,
-    };
-
-    let error = "";
-
-    await axios
-      .post("https://localhost:7202/api/auth/login", userCredentials)
-      .catch((err) => {
-        error = UserService.HandleError(err);
-      });
-
-    if (error.length > 0) {
-      throw new Error(error);
-    }
-  }
-}
-
-export default UserService;
+  return useMutation(async (userCredentials) => {
+    return await client.post("/auth/login", userCredentials);
+  });
+};
