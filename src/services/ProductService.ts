@@ -8,3 +8,9 @@ export const Get = () => {
     return await client.get<PagedResponse<ProductListItem>>("/products");
   });
 };
+
+export const MaxPrice = () => {
+  return useQuery("maxPrice", async () => {
+    return await client.get<number>("/products/maxprice");
+  });
+};

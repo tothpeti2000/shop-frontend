@@ -1,26 +1,27 @@
 import {
+  Flex,
   RangeSlider,
-  RangeSliderTrack,
   RangeSliderFilledTrack,
   RangeSliderThumb,
-  Flex,
+  RangeSliderTrack,
   Text,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import useProducts from "../../api/useProducts";
 
 const PriceRangePicker = () => {
   const [range, setRange] = useState<number[]>([0, 100]);
+  const { GetMaxPrice } = useProducts();
+  const maxPrice = GetMaxPrice().data?.data as number;
 
   const ScaleUp = (value: number) => {
-    /*const scale = Math.ceil(maxPrice) / 100;
-    return (value * scale).toFixed(2);*/
+    const scale = Math.ceil(maxPrice) / 100;
+    return (value * scale).toFixed(2);
   };
 
   const ScaleUpRange = (values: number[]) => {
-    /*const scale = Math.ceil(maxPrice) / 100;
-    return [values[0] * scale, values[1] * scale];*/
-
-    return [];
+    const scale = Math.ceil(maxPrice) / 100;
+    return [values[0] * scale, values[1] * scale];
   };
 
   const HandleChange = (value: number[]) => {

@@ -1,11 +1,15 @@
-import { Get } from "../services/ProductService";
+import { Get, MaxPrice } from "../services/ProductService";
 
 const useProducts = () => {
   const GetProducts = () => {
     return Get();
   };
 
-  return { GetProducts };
+  const GetMaxPrice = () => {
+    return MaxPrice();
+  };
+
+  return { GetProducts, GetMaxPrice };
 };
 
 export default useProducts;
