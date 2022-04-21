@@ -1,5 +1,5 @@
-import FormContainer from "../components/Login/FormContainer";
-import RegisterForm from "../components/Login/RegisterForm";
+import FormContainer from "../components/Auth/FormContainer";
+import RegisterForm from "../components/Auth/RegisterForm";
 import { Logo } from "../Logo";
 
 const Register = () => {

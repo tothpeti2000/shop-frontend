@@ -1,11 +1,11 @@
 export interface CategoryCover {
-  ID: number;
+  id: number;
   name: string;
   imgURL?: string;
 }
 
-export interface CategoryListItem {
-  ID: number;
+export interface CategoryItem {
+  id: number;
   name: string;
-  parentCategoryName?: string;
+  parentCategoryID?: number;
 }

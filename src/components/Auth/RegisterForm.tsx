@@ -1,25 +1,29 @@
 import { Box, Button, Input, Spinner } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import useRegister from "../../api/useRegister";
 import { RegisterInputs } from "../../interfaces/Auth";
 import ErrorMessage from "../ErrorMessage";
 
 const RegisterForm = () => {
+  const { registerSchema, Register } = useRegister();
+
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterInputs>({
-    //resolver: yupResolver(registerSchema),
+    resolver: yupResolver(registerSchema),
   });
 
-  const OnSubmit: SubmitHandler<RegisterInputs> = async (data) => {
-    //await Register(data.userName, data.email, data.password);
+  const OnSubmit: SubmitHandler<RegisterInputs> = (data) => {
+    Register(data.userName, data.email, data.password);
   };
 
   return (
     <>
-      {/*<form onSubmit={handleSubmit(OnSubmit)}>
+      <form onSubmit={handleSubmit(OnSubmit)}>
         <Controller
           name="userName"
           control={control}
@@ -91,14 +95,14 @@ const RegisterForm = () => {
           mb={5}
           size={"lg"}
           colorScheme={"messenger"}
-          disabled={isLoading}
+          //disabled={isLoading}
         >
-          {isLoading && <Spinner />}
+          {/*{isLoading && <Spinner />}*/}
           Register
         </Button>
 
-        <ErrorMessage>{error}</ErrorMessage>
-          </form>*/}
+        {/*<ErrorMessage>{error}</ErrorMessage>*/}
+      </form>
     </>
   );
 };

@@ -12,9 +12,11 @@ export const CreateAccount = (
     password: password,
   };
 
-  return useMutation(async (userDetails) => {
+  const mutation = useMutation(async (userDetails) => {
     return await client.post("/auth/register", userDetails);
   });
+
+  mutation.mutate();
 };
 
 export const LoginUser = (userName: string, password: string) => {

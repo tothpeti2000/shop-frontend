@@ -26,17 +26,9 @@ const useRegister = () => {
       .required("Please enter your password again!"),
   });
 
-  const Register = async (
-    userName: string,
-    email: string,
-    password: string
-  ) => {
-    try {
-      CreateAccount(userName, email, password);
-      navigate("/register/confirm");
-    } catch (err) {
-      const error = err as Error;
-    }
+  const Register = (userName: string, email: string, password: string) => {
+    CreateAccount(userName, email, password);
+    //navigate("/register/confirm");
   };
 
   return {
