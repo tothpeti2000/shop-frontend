@@ -1,18 +1,15 @@
 import { Flex, Heading } from "@chakra-ui/layout";
 import { Box, Button } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React from "react";
 import Fade from "react-awesome-reveal";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import useCategories from "../../hooks/useCategories";
+import useCategories from "../../api/useCategories";
 import CategoryCard from "./CategoryCard";
 
 const Categories = () => {
-  const { categoryCovers, FetchTopCategories } = useCategories();
-
-  useEffect(() => {
-    FetchTopCategories();
-  }, []);
+  const { GetTopCategories } = useCategories();
+  const { isLoading, error, data } = GetTopCategories();
 
   return (
     <Box
@@ -25,7 +22,7 @@ const Categories = () => {
       <Heading>Shop categories</Heading>
       <Fade>
         <Flex p={5}>
-          {categoryCovers.map((c) => {
+          {data?.data.map((c) => {
             return <CategoryCard key={c.ID} name={c.name} imgURL={c.imgURL} />;
           })}
         </Flex>

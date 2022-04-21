@@ -1,74 +1,17 @@
 import { Flex } from "@chakra-ui/layout";
 import { Skeleton } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { useProductListContext } from "../../context/ProductListContext";
-import ProductListItem, { Product } from "./ProductListItem";
+import React from "react";
+import useProducts from "../../api/useProducts";
+import ProductListItem from "./ProductListItem";
 
 const ProductList = () => {
-  const { displayedProducts, InitProducts } = useProductListContext();
-  //const [products, setProducts] = useState<Array<Product>>([]);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  const FetchProducts = async () => {
-    const data = await fetch("https://localhost:7202/api/products");
-    const items = await data.json();
-
-    /*const items = [
-      {
-        id: 1,
-        name: "Product1",
-        price: 1000,
-        stock: 10,
-        category: "Construction toys",
-        imgURL: "",
-      },
-      {
-        id: 2,
-        name: "Product2",
-        price: 5000,
-        stock: 0,
-        category: "Construction toys",
-        imgURL: "",
-      },
-      {
-        id: 3,
-        name: "Product3",
-        price: 10000,
-        stock: 10,
-        category: "LEGO",
-        imgURL: "",
-      },
-      {
-        id: 4,
-        name: "Product4",
-        price: 1000,
-        stock: 10,
-        category: "F1 LEGO",
-        imgURL: "",
-      },
-      {
-        id: 5,
-        name: "Product5",
-        price: 10000,
-        stock: 10,
-        category: "Construction toys",
-        imgURL: "",
-      },
-    ];*/
-
-    InitProducts(items);
-    //setProducts(items);
-    setIsLoaded(true);
-  };
-
-  useEffect(() => {
-    FetchProducts();
-  }, []);
+  const { GetProducts } = useProducts();
+  const { isLoading, error, data } = GetProducts();
 
   return (
-    <Skeleton isLoaded={isLoaded} flex="3" minH="100vh">
+    <Skeleton isLoaded={!isLoading} flex="3" minH="100vh">
       <Flex wrap="wrap" justifyContent="space-around">
-        {displayedProducts.map((p) => {
+        {data?.data.items.map((p) => {
           return <ProductListItem key={p.id} {...p} />;
         })}
       </Flex>

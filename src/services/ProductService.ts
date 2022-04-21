@@ -1,8 +1,10 @@
-class ProductService {
-  static async GetMaxPrice() {
-    await fetch("https://localhost:7202/api/products/maxprice");
-    //const maxPrice = 10000;
-  }
-}
+import { useQuery } from "react-query";
+import client from "../api/common";
+import { PagedResponse } from "../interfaces/PagedResponse";
+import { ProductListItem } from "../interfaces/Product";
 
-export default ProductService;
+export const Get = () => {
+  return useQuery("products", async () => {
+    return await client.get<PagedResponse<ProductListItem>>("/products");
+  });
+};

@@ -10,27 +10,25 @@ import {
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import useAccount from "../../hooks/useAccount";
-import { LoginInputs } from "../../interfaces/LoginInputs";
+import { LoginInputs } from "../../interfaces/Auth";
 import ErrorMessage from "../ErrorMessage";
 
 const LoginForm = () => {
-  const { Login, loginSchema, isLoading, error } = useAccount();
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginInputs>({
-    resolver: yupResolver(loginSchema),
+    //resolver: yupResolver(loginSchema),
   });
 
   const OnSubmit: SubmitHandler<LoginInputs> = async (data: LoginInputs) => {
-    await Login(data.userName, data.password);
+    //await Login(data.userName, data.password);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit(OnSubmit)}>
+      {/*<form onSubmit={handleSubmit(OnSubmit)}>
         <Controller
           name="userName"
           control={control}
@@ -89,7 +87,7 @@ const LoginForm = () => {
             Create new account
           </Button>
         </Link>
-      </Flex>
+          </Flex>*/}
     </>
   );
 };

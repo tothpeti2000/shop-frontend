@@ -1,12 +1,9 @@
 import { Flex, Heading, Select } from "@chakra-ui/react";
 import React, { ChangeEvent } from "react";
-import { useProductListContext } from "../../context/ProductListContext";
 
 const Sort = () => {
-  const { UpdateSortType } = useProductListContext();
-
   const HandleSelection = (e: ChangeEvent<HTMLSelectElement>) => {
-    UpdateSortType(e.target.value);
+    //UpdateSortType(e.target.value);
   };
 
   return (

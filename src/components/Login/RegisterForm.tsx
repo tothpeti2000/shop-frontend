@@ -1,27 +1,25 @@
 import { Box, Button, Input, Spinner } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import useAccount from "../../hooks/useAccount";
-import { RegisterInputs } from "../../interfaces/RegisterInputs";
+import { RegisterInputs } from "../../interfaces/Auth";
 import ErrorMessage from "../ErrorMessage";
 
 const RegisterForm = () => {
-  const { registerSchema, Register, isLoading, error } = useAccount();
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterInputs>({
-    resolver: yupResolver(registerSchema),
+    //resolver: yupResolver(registerSchema),
   });
 
   const OnSubmit: SubmitHandler<RegisterInputs> = async (data) => {
-    await Register(data.userName, data.email, data.password);
+    //await Register(data.userName, data.email, data.password);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit(OnSubmit)}>
+      {/*<form onSubmit={handleSubmit(OnSubmit)}>
         <Controller
           name="userName"
           control={control}
@@ -100,7 +98,7 @@ const RegisterForm = () => {
         </Button>
 
         <ErrorMessage>{error}</ErrorMessage>
-      </form>
+          </form>*/}
     </>
   );
 };

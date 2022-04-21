@@ -1,18 +1,10 @@
 import { Badge, Box, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
+import { ProductListItem } from "../../interfaces/Product";
 import AddToCartButton from "./AddToCartButton";
 
-export interface Product {
-  id: number;
-  name: string;
-  price: number;
-  stock: number;
-  category: string;
-  imgURL: string;
-}
-
-const ProductListItem = (props: Product) => {
+const ProductItem = (props: ProductListItem) => {
   const isAvailable = props.stock > 0;
 
   return (
@@ -48,4 +40,4 @@ const ProductListItem = (props: Product) => {
   );
 };
 
-export default ProductListItem;
+export default ProductItem;

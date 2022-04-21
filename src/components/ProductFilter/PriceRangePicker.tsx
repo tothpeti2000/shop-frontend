@@ -7,13 +7,9 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useProductListContext } from "../../context/ProductListContext";
-import useProducts from "../../hooks/useProducts";
 
 const PriceRangePicker = () => {
   const [range, setRange] = useState<number[]>([0, 100]);
-  const { FetchMaxPrice } = useProducts();
-  const { UpdatePriceRange } = useProductListContext();
 
   const ScaleUp = (value: number) => {
     /*const scale = Math.ceil(maxPrice) / 100;
@@ -29,12 +25,8 @@ const PriceRangePicker = () => {
 
   const HandleChange = (value: number[]) => {
     setRange(value);
-    UpdatePriceRange(ScaleUpRange(value));
+    //UpdatePriceRange(ScaleUpRange(value));
   };
-
-  useEffect(() => {
-    FetchMaxPrice();
-  }, []);
 
   return (
     <>
