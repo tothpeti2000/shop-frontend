@@ -4,12 +4,17 @@ import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import Routing from "./Routing";
 import * as serviceWorker from "./serviceWorker";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
     <ChakraProvider theme={theme}>
-      <Routing />
+      <QueryClientProvider client={queryClient}>
+        <Routing />
+      </QueryClientProvider>
     </ChakraProvider>
   </React.StrictMode>,
   document.getElementById("root")
