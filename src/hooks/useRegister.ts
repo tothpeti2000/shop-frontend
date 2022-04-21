@@ -1,11 +1,7 @@
-import { useState } from "react";
 import * as yup from "yup";
 import UserService from "../services/UserService";
 
-const useAccount = () => {
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
+const useRegister = () => {
   const registerSchema = yup.object({
     userName: yup
       .string()
@@ -27,46 +23,23 @@ const useAccount = () => {
       .required("Please enter your password again!"),
   });
 
-  const loginSchema = yup.object({
-    userName: yup.string().required("Please enter your username!"),
-    password: yup.string().required("Please enter your password!"),
-  });
-
   const Register = async (
     userName: string,
     email: string,
     password: string
   ) => {
-    setError("");
-    setIsLoading(true);
-
     try {
       await UserService.CreateAccount(userName, email, password);
       alert("Account created successfully");
     } catch (err) {
       const error = err as Error;
-      setError(error.message);
     }
-
-    setIsLoading(false);
   };
 
-  const Login = async (userName: string, password: string) => {
-    setError("");
-    setIsLoading(true);
-
-    try {
-      await UserService.LoginUser(userName, password);
-      alert("Login successful");
-    } catch (err) {
-      const error = err as Error;
-      setError(error.message);
-    }
-
-    setIsLoading(false);
+  return {
+    registerSchema,
+    Register,
   };
-
-  return { registerSchema, loginSchema, Register, Login, isLoading, error };
 };
 
-export default useAccount;
+export default useRegister;
