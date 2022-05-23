@@ -1,6 +1,6 @@
 import { useMutation } from "react-query";
 import client from "../api/common";
-import { AccountDetails } from "../interfaces/Auth";
+import { AccountDetails, LoginInputs } from "../interfaces/Auth";
 
 export const CreateAccount = () => {
   const { mutate } = useMutation(async (userDetails: AccountDetails) => {
@@ -10,13 +10,10 @@ export const CreateAccount = () => {
   return mutate;
 };
 
-export const LoginUser = (userName: string, password: string) => {
-  const userCredentials = {
-    userName: userName,
-    password: password,
-  };
-
-  return useMutation(async (userCredentials) => {
+export const LoginUser = () => {
+  const { mutate } = useMutation(async (userCredentials: LoginInputs) => {
     return await client.post("/auth/login", userCredentials);
   });
+
+  return mutate;
 };

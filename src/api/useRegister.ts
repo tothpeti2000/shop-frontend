@@ -36,12 +36,7 @@ const useRegister = () => {
 
     const Mutate = CreateAccount();
 
-    Mutate({
-      userName: data.userName,
-      email: data.email,
-      password: data.password,
-    });
-
+    Mutate(data);
     navigate("/register/confirm");
   };
 

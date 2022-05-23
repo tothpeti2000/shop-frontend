@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/layout";
 import React from "react";
 import { Link } from "react-router-dom";
-import LoginButton from "./LoginButton";
+import AuthButton from "./AuthButton";
 import NavItem from "./NavItem";
 import SearchBar from "./SearchBar";
 
@@ -18,7 +18,7 @@ const NavLinks = () => {
       <Link to="/about">
         <NavItem>About AS</NavItem>
       </Link>
-      <LoginButton />
+      <AuthButton />
       {/*<Cart />*/}
     </Flex>
   );

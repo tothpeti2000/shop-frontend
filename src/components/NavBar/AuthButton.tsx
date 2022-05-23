@@ -4,7 +4,7 @@ import React from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const LoginButton = () => {
+const AuthButton = () => {
   return (
     <Link to={"/login"}>
       <IconButton
@@ -17,4 +17,4 @@ const LoginButton = () => {
   );
 };
 
-export default LoginButton;
+export default AuthButton;

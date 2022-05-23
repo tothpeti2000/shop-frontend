@@ -9,26 +9,33 @@ import {
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useLogin from "../../api/useLogin";
 import { LoginInputs } from "../../interfaces/Auth";
+import { LoginUser } from "../../services/AuthService";
 import ErrorMessage from "../ErrorMessage";
 
 const LoginForm = () => {
+  const { loginSchema, Login } = useLogin();
+  const Mutate = LoginUser();
+  const navigate = useNavigate();
+
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginInputs>({
-    //resolver: yupResolver(loginSchema),
+    resolver: yupResolver(loginSchema),
   });
 
   const OnSubmit: SubmitHandler<LoginInputs> = async (data: LoginInputs) => {
-    //await Login(data.userName, data.password);
+    await Mutate(data);
+    navigate("/");
   };
 
   return (
     <>
-      {/*<form onSubmit={handleSubmit(OnSubmit)}>
+      <form onSubmit={handleSubmit(OnSubmit)}>
         <Controller
           name="userName"
           control={control}
@@ -68,13 +75,13 @@ const LoginForm = () => {
           mb={5}
           size={"lg"}
           colorScheme={"messenger"}
-          disabled={isLoading}
+          //disabled={isLoading}
         >
-          {isLoading && <Spinner />}
+          {/*{isLoading && <Spinner />}*/}
           Log In
         </Button>
 
-        <ErrorMessage>{error}</ErrorMessage>
+        {/*<ErrorMessage>{error}</ErrorMessage>*/}
       </form>
 
       <Divider my={5} />
@@ -87,7 +94,7 @@ const LoginForm = () => {
             Create new account
           </Button>
         </Link>
-          </Flex>*/}
+      </Flex>
     </>
   );
 };
