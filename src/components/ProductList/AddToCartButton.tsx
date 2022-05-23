@@ -9,7 +9,6 @@ interface IProps {
 }
 
 const AddToCartButton = (props: IProps) => {
-  //const { AddItem } = useOrderItemContext();
   const toast = useToast();
 
   const ShowToast = () => {
@@ -23,7 +22,6 @@ const AddToCartButton = (props: IProps) => {
   };
 
   const HandleClick = () => {
-    //AddItem(props.id, props.title, props.price);
     ShowToast();
   };
 

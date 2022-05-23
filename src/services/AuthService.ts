@@ -1,22 +1,13 @@
 import { useMutation } from "react-query";
 import client from "../api/common";
+import { AccountDetails } from "../interfaces/Auth";
 
-export const CreateAccount = (
-  userName: string,
-  email: string,
-  password: string
-) => {
-  const userDetails = {
-    userName: userName,
-    email: email,
-    password: password,
-  };
-
-  const mutation = useMutation(async (userDetails) => {
+export const CreateAccount = () => {
+  const { mutate } = useMutation(async (userDetails: AccountDetails) => {
     return await client.post("/auth/register", userDetails);
   });
 
-  mutation.mutate();
+  return mutate;
 };
 
 export const LoginUser = (userName: string, password: string) => {

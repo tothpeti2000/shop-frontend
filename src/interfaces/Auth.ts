@@ -9,3 +9,9 @@ export interface RegisterInputs {
   password: string;
   passwordAgain: string;
 }
+
+export interface AccountDetails {
+  userName: string;
+  email: string;
+  password: string;
+}

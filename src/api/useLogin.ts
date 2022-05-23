@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as yup from "yup";
-import { LoginUser } from "../services/UserService";
+import { LoginUser } from "../services/AuthService";
 
 const useLogin = () => {
   const [loggedIn, setLoggedIn] = useState(false);

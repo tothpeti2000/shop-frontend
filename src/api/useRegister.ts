@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import { CreateAccount } from "../services/UserService";
+import { AccountDetails } from "../interfaces/Auth";
+import { CreateAccount } from "../services/AuthService";
 
 const useRegister = () => {
   const navigate = useNavigate();
@@ -27,8 +28,21 @@ const useRegister = () => {
   });
 
   const Register = (userName: string, email: string, password: string) => {
-    CreateAccount(userName, email, password);
-    //navigate("/register/confirm");
+    const data: AccountDetails = {
+      userName: userName,
+      email: email,
+      password: password,
+    };
+
+    const Mutate = CreateAccount();
+
+    Mutate({
+      userName: data.userName,
+      email: data.email,
+      password: data.password,
+    });
+
+    navigate("/register/confirm");
   };
 
   return {
