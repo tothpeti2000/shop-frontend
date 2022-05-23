@@ -19,9 +19,9 @@ const useLogin = () => {
       password: password,
     };
 
-    const Mutate = LoginUser();
+    const { mutateAsync, isLoading, isError, error } = LoginUser();
 
-    Mutate(data);
+    mutateAsync(data);
     navigate("/");
   };
 

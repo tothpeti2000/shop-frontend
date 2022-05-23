@@ -14,11 +14,14 @@ import useLogin from "../../api/useLogin";
 import { LoginInputs } from "../../interfaces/Auth";
 import { LoginUser } from "../../services/AuthService";
 import ErrorMessage from "../ErrorMessage";
+import request from "axios";
+import { useState } from "react";
 
 const LoginForm = () => {
   const { loginSchema, Login } = useLogin();
-  const Mutate = LoginUser();
+  const { mutateAsync, isLoading, isError, error } = LoginUser();
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const {
     control,
@@ -29,8 +32,21 @@ const LoginForm = () => {
   });
 
   const OnSubmit: SubmitHandler<LoginInputs> = async (data: LoginInputs) => {
-    await Mutate(data);
-    navigate("/");
+    try {
+      await mutateAsync(data);
+
+      navigate("/");
+    } catch (err) {
+      if (request.isAxiosError(err) && err.response) {
+        setErrorMessage(err.response.data);
+      }
+
+      if (request.isAxiosError(err) && !err.response) {
+        setErrorMessage(
+          "Error while trying to connect to the server. Please, try again later!"
+        );
+      }
+    }
   };
 
   return (
@@ -75,13 +91,13 @@ const LoginForm = () => {
           mb={5}
           size={"lg"}
           colorScheme={"messenger"}
-          //disabled={isLoading}
+          disabled={isLoading}
         >
-          {/*{isLoading && <Spinner />}*/}
+          {isLoading && <Spinner />}
           Log In
         </Button>
 
-        {/*<ErrorMessage>{error}</ErrorMessage>*/}
+        {isError && <ErrorMessage>{errorMessage}</ErrorMessage>}
       </form>
 
       <Divider my={5} />

@@ -34,9 +34,9 @@ const useRegister = () => {
       password: password,
     };
 
-    const Mutate = CreateAccount();
+    const { mutateAsync, isLoading, error } = CreateAccount();
 
-    Mutate(data);
+    mutateAsync(data);
     navigate("/register/confirm");
   };
 

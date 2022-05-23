@@ -7,11 +7,13 @@ import { RegisterInputs } from "../../interfaces/Auth";
 import ErrorMessage from "../ErrorMessage";
 import { CreateAccount } from "../../services/AuthService";
 import { useNavigate } from "react-router-dom";
+import request from "axios";
 
 const RegisterForm = () => {
-  const { registerSchema, Register } = useRegister();
-  const Mutate = CreateAccount();
+  const { registerSchema } = useRegister();
+  const { mutateAsync, isLoading, error, isError } = CreateAccount();
   const navigate = useNavigate();
+  const [errorMessages, setErrorMessages] = useState("");
 
   const {
     control,
@@ -21,14 +23,32 @@ const RegisterForm = () => {
     resolver: yupResolver(registerSchema),
   });
 
-  const OnSubmit: SubmitHandler<RegisterInputs> = (data) => {
-    Mutate({
-      userName: data.userName,
-      email: data.email,
-      password: data.password,
-    });
+  const OnSubmit: SubmitHandler<RegisterInputs> = async (data) => {
+    try {
+      await mutateAsync({
+        userName: data.userName,
+        email: data.email,
+        password: data.password,
+      });
 
-    navigate("/register/confirm");
+      navigate("/login");
+    } catch (err) {
+      if (request.isAxiosError(err) && err.response) {
+        let msg = "";
+
+        (err.response.data as string[]).forEach((err) => {
+          msg += `${err}\n`;
+        });
+
+        setErrorMessages(msg);
+      }
+
+      if (request.isAxiosError(err) && !err.response) {
+        setErrorMessages(
+          "Error while trying to connect to the server. Please, try again later!"
+        );
+      }
+    }
   };
 
   return (
@@ -109,13 +129,13 @@ const RegisterForm = () => {
           mb={5}
           size={"lg"}
           colorScheme={"messenger"}
-          //disabled={isLoading}
+          disabled={isLoading}
         >
-          {/*{isLoading && <Spinner />}*/}
+          {isLoading && <Spinner />}
           Register
         </Button>
 
-        {/*<ErrorMessage>{error}</ErrorMessage>*/}
+        {isError && <ErrorMessage>{errorMessages}</ErrorMessage>}
       </form>
     </>
   );
