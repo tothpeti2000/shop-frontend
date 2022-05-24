@@ -55,6 +55,7 @@ const LoginForm = () => {
       <form onSubmit={handleSubmit(OnSubmit)}>
         <Controller
           name="userName"
+          defaultValue=""
           control={control}
           render={({ field }) => (
             <Box mb={2}>
@@ -72,6 +73,7 @@ const LoginForm = () => {
 
         <Controller
           name="password"
+          defaultValue=""
           control={control}
           render={({ field }) => (
             <Box mb={2}>

@@ -15,3 +15,5 @@ export interface ProductDetails {
   averageRating: number;
   imgURL?: string;
 }
+
+export type SortOption = "nameAZ" | "nameZA" | "priceLTH" | "priceHTL" | "all";

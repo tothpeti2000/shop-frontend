@@ -1,12 +1,22 @@
 import { useQuery } from "react-query";
 import client from "../api/common";
 import { PagedResponse } from "../interfaces/PagedResponse";
-import { ProductDetails, ProductListItem } from "../interfaces/Product";
+import {
+  ProductDetails,
+  ProductListItem,
+  SortOption,
+} from "../interfaces/Product";
 
-export const Get = () => {
-  return useQuery("products", async () => {
-    return await client.get<PagedResponse<ProductListItem>>("/products");
+export const Get = (page: number = 1, count: number = 20, sort: SortOption) => {
+  const data = useQuery(["products", page], async () => {
+    const response = await client.get<PagedResponse<ProductListItem>>(
+      `/products?page=${page}&count=${count}&sort=${sort}`
+    );
+
+    return response;
   });
+
+  return data;
 };
 
 export const GetByID = (ID: number) => {

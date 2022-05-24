@@ -1,10 +1,9 @@
 import { Flex, Heading, Select } from "@chakra-ui/react";
 import React, { ChangeEvent } from "react";
+import { useQueryClient } from "react-query";
 
 const Sort = () => {
-  const HandleSelection = (e: ChangeEvent<HTMLSelectElement>) => {
-    //UpdateSortType(e.target.value);
-  };
+  const HandleSelection = (e: ChangeEvent<HTMLSelectElement>) => {};
 
   return (
     <Flex justifyContent="space-between" alignItems="center" mb={5}>
