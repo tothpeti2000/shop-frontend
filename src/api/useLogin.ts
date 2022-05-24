@@ -5,7 +5,6 @@ import { LoginInputs } from "../interfaces/Auth";
 import { LoginUser } from "../services/AuthService";
 
 const useLogin = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   const loginSchema = yup.object({
@@ -25,10 +24,19 @@ const useLogin = () => {
     navigate("/");
   };
 
+  const IsLoggedIn = () => {
+    return localStorage.getItem("userName") !== null;
+  };
+
+  const Logout = () => {
+    localStorage.removeItem("userName");
+  };
+
   return {
     loginSchema,
     Login,
-    loggedIn,
+    IsLoggedIn,
+    Logout,
   };
 };
 

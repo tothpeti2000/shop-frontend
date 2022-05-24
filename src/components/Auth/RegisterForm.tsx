@@ -31,7 +31,7 @@ const RegisterForm = () => {
         password: data.password,
       });
 
-      navigate("/login");
+      navigate("/register/confirm");
     } catch (err) {
       if (request.isAxiosError(err) && err.response) {
         let msg = "";

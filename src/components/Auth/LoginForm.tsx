@@ -34,6 +34,7 @@ const LoginForm = () => {
   const OnSubmit: SubmitHandler<LoginInputs> = async (data: LoginInputs) => {
     try {
       await mutateAsync(data);
+      localStorage.setItem("userName", data.userName);
 
       navigate("/");
     } catch (err) {
