@@ -29,7 +29,7 @@ const Details = () => {
               ${data?.data.price}
             </Text>
             <Text>In stock: {data?.data.stock}</Text>
-            <RatingStars ratingValue={data?.data.averageRating!} />
+            {/*<RatingStars ratingValue={data?.data.averageRating!} />*/}
             <Text fontSize={"lg"}>{data?.data.description}</Text>
           </Box>
           <Box>

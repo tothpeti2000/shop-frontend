@@ -23,7 +23,6 @@ export const Get = (
 
 export const GetByID = (ID: number) => {
   return useQuery("productByID", async () => {
-    console.log(ID);
     return await client.get<ProductDetails>(`/products/${ID}`);
   });
 };

@@ -25,11 +25,12 @@ const useLogin = () => {
   };
 
   const IsLoggedIn = () => {
-    return localStorage.getItem("userName") !== null;
+    return sessionStorage.getItem("userName") !== null;
   };
 
   const Logout = () => {
-    localStorage.removeItem("userName");
+    sessionStorage.removeItem("userName");
+    sessionStorage.removeItem("token");
   };
 
   return {
