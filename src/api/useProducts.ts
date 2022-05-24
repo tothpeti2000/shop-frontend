@@ -5,8 +5,9 @@ import { Get, GetByID, MaxPrice } from "../services/ProductService";
 const useProducts = () => {
   const [page, setPage] = useState(1);
   const count = 5;
+  const sort: SortOption = localStorage.getItem("sortOption") as SortOption;
 
-  const GetProducts = (sort: SortOption) => {
+  const GetProducts = () => {
     return Get(page, count, sort);
   };
 

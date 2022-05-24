@@ -8,7 +8,7 @@ import {
 } from "../interfaces/Product";
 
 export const Get = (page: number = 1, count: number = 20, sort: SortOption) => {
-  const data = useQuery(["products", page], async () => {
+  const data = useQuery(["products", page, sort], async () => {
     const response = await client.get<PagedResponse<ProductListItem>>(
       `/products?page=${page}&count=${count}&sort=${sort}`
     );

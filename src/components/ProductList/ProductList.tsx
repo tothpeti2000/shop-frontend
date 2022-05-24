@@ -9,7 +9,7 @@ import ProductListItem from "./ProductListItem";
 const ProductList = () => {
   const { GetProducts, page, setPage } = useProducts();
   const queryCache = useQueryClient();
-  const { isLoading, error, data } = GetProducts("all");
+  const { isLoading, error, data } = GetProducts();
 
   const HasPreviousPage = () => {
     return data?.data.currentPage! > 1;
