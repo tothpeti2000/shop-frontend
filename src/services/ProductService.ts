@@ -7,14 +7,26 @@ import {
   SortOption,
 } from "../interfaces/Product";
 
-export const Get = (page: number = 1, count: number = 20, sort: SortOption) => {
-  const data = useQuery(["products", page, sort], async () => {
-    const response = await client.get<PagedResponse<ProductListItem>>(
-      `/products?page=${page}&count=${count}&sort=${sort}`
-    );
+export const Get = (
+  page: number = 1,
+  count: number = 20,
+  sort: SortOption,
+  fromPrice: number = 0,
+  toPrice: number
+) => {
+  const data = useQuery(
+    ["products", page, sort, fromPrice, toPrice],
+    async () => {
+      console.log(
+        `/products?page=${page}&count=${count}&sort=${sort}&fromPrice=${fromPrice}&toPrice=${toPrice}`
+      );
+      const response = await client.get<PagedResponse<ProductListItem>>(
+        `/products?page=${page}&count=${count}&sort=${sort}&fromPrice=${fromPrice}&toPrice=${toPrice}`
+      );
 
-    return response;
-  });
+      return response;
+    }
+  );
 
   return data;
 };
