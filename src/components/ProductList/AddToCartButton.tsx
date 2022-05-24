@@ -1,15 +1,15 @@
 import { Button, Icon, useToast } from "@chakra-ui/react";
 import React from "react";
 import { FaCartPlus } from "react-icons/fa";
+import useCart from "../../api/useCart";
 
 interface IProps {
-  id: number;
-  name: string;
-  price: number;
+  ID: number;
 }
 
 const AddToCartButton = (props: IProps) => {
   const toast = useToast();
+  const { AddToCart } = useCart();
 
   const ShowToast = () => {
     toast({

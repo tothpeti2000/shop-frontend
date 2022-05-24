@@ -14,25 +14,16 @@ export const Get = (
   fromPrice: number = 0,
   toPrice: number
 ) => {
-  const data = useQuery(
-    ["products", page, sort, fromPrice, toPrice],
-    async () => {
-      console.log(
-        `/products?page=${page}&count=${count}&sort=${sort}&fromPrice=${fromPrice}&toPrice=${toPrice}`
-      );
-      const response = await client.get<PagedResponse<ProductListItem>>(
-        `/products?page=${page}&count=${count}&sort=${sort}&fromPrice=${fromPrice}&toPrice=${toPrice}`
-      );
-
-      return response;
-    }
-  );
-
-  return data;
+  return useQuery(["products", page, sort, fromPrice, toPrice], async () => {
+    return await client.get<PagedResponse<ProductListItem>>(
+      `/products?page=${page}&count=${count}&sort=${sort}&fromPrice=${fromPrice}&toPrice=${toPrice}`
+    );
+  });
 };
 
 export const GetByID = (ID: number) => {
   return useQuery("productByID", async () => {
+    console.log(ID);
     return await client.get<ProductDetails>(`/products/${ID}`);
   });
 };
