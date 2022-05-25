@@ -1,5 +1,6 @@
 import { useDisclosure } from "@chakra-ui/hooks";
 import {
+  Badge,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -12,10 +13,14 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
+import useCart from "../../api/useCart";
+import CartItem from "./CartItem";
 import Summary from "./Summary";
 
 const Cart = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { GetCartItems } = useCart();
+  const { isLoading, data, isError, error } = GetCartItems();
 
   return (
     <>
@@ -27,7 +32,7 @@ const Cart = () => {
       >
         Open
       </IconButton>
-      {/*<Badge>{orderItems.length}</Badge>*/}
+      <Badge>{data?.data.length}</Badge>
 
       <Drawer isOpen={isOpen} placement="right" size="sm" onClose={onClose}>
         <DrawerOverlay />
@@ -38,15 +43,15 @@ const Cart = () => {
           </DrawerHeader>
 
           <DrawerBody>
-            {/*{orderItems.length > 0
-              ? orderItems.map((item) => {
+            {data?.data.length! > 0
+              ? data?.data.map((item) => {
                   return <CartItem key={item.id} {...item} />;
                 })
-              : "Cart is empty"}*/}
+              : "Cart is empty"}
           </DrawerBody>
 
           <DrawerFooter>
-            <Summary total={/*total*/ 100} onClick={onClose} />
+            <Summary total={100} onClick={onClose} />
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

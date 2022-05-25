@@ -1,11 +1,19 @@
-import { AddItemToCart } from "../services/Cartservice";
+import { AddItemToCart, GetItems, UpdateAmount } from "../services/Cartservice";
 
 const useCart = () => {
   const AddToCart = (productID: number, amount: number) => {
     //return AddItemToCart(productID, amount);
   };
 
-  return { AddToCart };
+  const GetCartItems = () => {
+    return GetItems();
+  };
+
+  const UpdateItemAmount = (itemID: number, amount: number) => {
+    //return UpdateAmount(itemID, amount);
+  };
+
+  return { AddToCart, GetCartItems, UpdateItemAmount };
 };
 
 export default useCart;

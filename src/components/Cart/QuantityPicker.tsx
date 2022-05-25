@@ -6,28 +6,30 @@ import {
   NumberInputStepper,
 } from "@chakra-ui/number-input";
 import React, { useState } from "react";
+import useCart from "../../api/useCart";
+import { UpdateAmount } from "../../services/Cartservice";
 
 interface IProps {
-  ID: number;
+  id: number;
+  amount: number;
 }
 
 const QuantityPicker = (props: IProps) => {
-  const HandleIncrement = () => {
-    //UpdateItemQuantity(props.ID, value + 1);
-    //setValue(value + 1);
-  };
+  const [value, setValue] = useState(props.amount);
+  const { mutateAsync, isLoading, isError, error } = UpdateAmount();
 
-  const HandleDecrement = () => {
-    //UpdateItemQuantity(props.ID, value - 1);
-    //setValue(value - 1);
+  const HandleChange = async (diff: number) => {
+    setValue(value + diff);
+
+    await mutateAsync({ itemID: props.id, amount: value + diff });
   };
 
   return (
-    <NumberInput size="sm" value={/*value*/ 10} min={1}>
+    <NumberInput size="sm" value={value} min={1}>
       <NumberInputField />
       <NumberInputStepper>
-        <NumberIncrementStepper children="+" onClick={HandleIncrement} />
-        <NumberDecrementStepper children="-" onClick={HandleDecrement} />
+        <NumberIncrementStepper children="+" onClick={() => HandleChange(1)} />
+        <NumberDecrementStepper children="-" onClick={() => HandleChange(-1)} />
       </NumberInputStepper>
     </NumberInput>
   );

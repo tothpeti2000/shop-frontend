@@ -4,6 +4,7 @@ import { FaCartPlus } from "react-icons/fa";
 import useCart from "../../api/useCart";
 import { AddItemToCart } from "../../services/Cartservice";
 import request from "axios";
+import { useQueryClient } from "react-query";
 
 interface IProps {
   productID: number;
@@ -12,6 +13,7 @@ interface IProps {
 const AddToCartButton = (props: IProps) => {
   const toast = useToast();
   const { mutateAsync, isLoading, isError, error } = AddItemToCart();
+  const queryCache = useQueryClient();
 
   const ShowSuccessToast = () => {
     toast({
@@ -38,6 +40,7 @@ const AddToCartButton = (props: IProps) => {
       await mutateAsync({ productID: props.productID, amount: 1 });
 
       ShowSuccessToast();
+      queryCache.invalidateQueries("cartitems");
     } catch (err) {
       if (request.isAxiosError(err) && err.response?.status === 401) {
         ShowErrorToast();
