@@ -27,7 +27,7 @@ const AuthButton = () => {
         <>
           <Flex direction={"column"}>
             <Text>Welcome</Text>
-            <Text color={"yellow"}>{localStorage.getItem("userName")}</Text>
+            <Text color={"yellow"}>{sessionStorage.getItem("userName")}</Text>
           </Flex>
 
           <Link to={"/login"}>

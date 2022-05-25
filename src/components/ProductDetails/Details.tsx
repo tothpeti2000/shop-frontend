@@ -33,7 +33,7 @@ const Details = () => {
             <Text fontSize={"lg"}>{data?.data.description}</Text>
           </Box>
           <Box>
-            <AddToCartButton ID={data?.data.id!} />
+            <AddToCartButton productID={data?.data.id!} />
           </Box>
         </Flex>
       </Flex>

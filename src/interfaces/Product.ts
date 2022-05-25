@@ -17,7 +17,7 @@ export interface ProductDetails {
 }
 
 export interface CartItemToAdd {
-  id: number;
+  productID: number;
   amount: number;
 }
 

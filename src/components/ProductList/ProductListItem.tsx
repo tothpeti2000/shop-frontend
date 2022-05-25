@@ -34,7 +34,7 @@ const ProductItem = (props: ProductListItem) => {
           </Badge>
         </Flex>
         <Text>{`$${props.price}`}</Text>
-        <AddToCartButton ID={props.id} />
+        <AddToCartButton productID={props.id} />
       </Box>
     </Flex>
   );

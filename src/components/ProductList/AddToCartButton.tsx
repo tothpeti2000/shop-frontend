@@ -1,4 +1,4 @@
-import { Button, Icon, useToast } from "@chakra-ui/react";
+import { Button, Icon, Spinner, useToast } from "@chakra-ui/react";
 import React from "react";
 import { FaCartPlus } from "react-icons/fa";
 import useCart from "../../api/useCart";
@@ -6,7 +6,7 @@ import { AddItemToCart } from "../../services/Cartservice";
 import request from "axios";
 
 interface IProps {
-  ID: number;
+  productID: number;
 }
 
 const AddToCartButton = (props: IProps) => {
@@ -35,7 +35,7 @@ const AddToCartButton = (props: IProps) => {
 
   const HandleClick = async () => {
     try {
-      await mutateAsync({ id: props.ID, amount: 1 });
+      await mutateAsync({ productID: props.productID, amount: 1 });
 
       ShowSuccessToast();
     } catch (err) {
@@ -47,11 +47,13 @@ const AddToCartButton = (props: IProps) => {
 
   return (
     <Button
+      disabled={isLoading}
       colorScheme="red"
       w="100%"
       leftIcon={<Icon as={FaCartPlus} />}
       onClick={HandleClick}
     >
+      {isLoading && <Spinner />}
       Add to cart
     </Button>
   );
