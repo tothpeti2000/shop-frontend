@@ -16,8 +16,8 @@ const CartItem = (props: CartItemProps) => {
     >
       <Box flex="1" alignSelf="stretch" bgColor="gray.200"></Box>
       <Flex direction="column" align="flex-start" flex="2">
-        {/*<Text>{props.title}</Text>
-        <Text fontWeight="bold">{props.price}$</Text>*/}
+        <Text>{props.name}</Text>
+        <Text fontWeight="bold">{props.price}$</Text>
         <QuantityPicker id={props.id} amount={props.amount} />
       </Flex>
       <CloseButton alignSelf="start" onClick={() => {}} />

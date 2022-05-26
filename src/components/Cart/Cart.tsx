@@ -14,6 +14,7 @@ import {
 import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import useCart from "../../api/useCart";
+import { CartItemProps } from "../../interfaces/Cart";
 import CartItem from "./CartItem";
 import Summary from "./Summary";
 
@@ -21,6 +22,27 @@ const Cart = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { GetCartItems } = useCart();
   const { isLoading, data, isError, error } = GetCartItems();
+
+  const cartItems: CartItemProps[] = [
+    {
+      id: 1,
+      name: "Activity playgim",
+      amount: 3,
+      price: 7488,
+    },
+    {
+      id: 2,
+      name: "Colorful baby book",
+      amount: 1,
+      price: 1738,
+    },
+    {
+      id: 3,
+      name: "Baby telephone",
+      amount: 1,
+      price: 3725,
+    },
+  ];
 
   return (
     <>
@@ -43,15 +65,18 @@ const Cart = () => {
           </DrawerHeader>
 
           <DrawerBody>
-            {data?.data.length! > 0
-              ? data?.data.map((item) => {
+            {cartItems.length > 0
+              ? cartItems.map((item) => {
                   return <CartItem key={item.id} {...item} />;
                 })
               : "Cart is empty"}
           </DrawerBody>
 
           <DrawerFooter>
-            <Summary total={100} onClick={onClose} />
+            <Summary
+              total={cartItems.reduce((acc, item) => acc + item.price, 0)}
+              onClick={onClose}
+            />
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

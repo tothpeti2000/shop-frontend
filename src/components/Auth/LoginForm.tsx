@@ -16,12 +16,14 @@ import { LoginUser } from "../../services/AuthService";
 import ErrorMessage from "../ErrorMessage";
 import request from "axios";
 import { useState } from "react";
+import { useQueryClient } from "react-query";
 
 const LoginForm = () => {
   const { loginSchema, Login } = useLogin();
   const { mutateAsync, isLoading, isError, error } = LoginUser();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
+  const queryCache = useQueryClient();
 
   const {
     control,
@@ -38,6 +40,7 @@ const LoginForm = () => {
       sessionStorage.setItem("token", result.data);
 
       navigate("/");
+      queryCache.invalidateQueries("cartitems");
     } catch (err) {
       if (request.isAxiosError(err) && err.response) {
         setErrorMessage(err.response.data);

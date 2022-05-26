@@ -4,7 +4,8 @@ import { ProductDetails } from "./Product";
 export interface CartItemProps {
   id: number;
   amount: number;
-  product: ProductDetails;
+  name: string;
+  price: number;
 }
 
 export interface CartItemToUpdate {
