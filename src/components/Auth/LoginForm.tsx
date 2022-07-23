@@ -13,7 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useLogin from "../../api/useLogin";
 import { LoginInputs } from "../../interfaces/auth";
 import { LoginUser } from "../../services/AuthService";
-import ErrorMessage from "../ErrorMessage";
+import ErrorMessage from "../utils/ErrorMessage";
 import request from "axios";
 import { useState } from "react";
 import { useQueryClient } from "react-query";

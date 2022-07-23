@@ -1,8 +1,8 @@
-import Banner from "../components/Banner";
+import Banner from "../components/home/Banner";
 import Categories from "../components/categories/Categories";
-import ContactForm from "../components/ContactForm";
-import Footer from "../components/footer/Footer";
-import NavBar from "../components/navBar/NavBar";
+import ContactForm from "../components/home/ContactForm";
+import Footer from "../components/common/footer/Footer";
+import NavBar from "../components/common/navBar/NavBar";
 
 const Home = () => {
   return (

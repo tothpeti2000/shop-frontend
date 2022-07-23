@@ -1,6 +1,6 @@
-import Footer from "../../components/footer/Footer";
-import NavBar from "../../components/navBar/NavBar";
-import Details from "../../components/productDetails/Details";
+import Footer from "../../components/common/footer/Footer";
+import NavBar from "../../components/common/navBar/NavBar";
+import Details from "../../components/products/productDetails/Details";
 
 const ProductDetails = () => {
   return (

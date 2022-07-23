@@ -1,7 +1,7 @@
 import { Stack } from "@chakra-ui/layout";
 import { Radio, RadioGroup } from "@chakra-ui/radio";
 import { ChangeEvent, useState } from "react";
-import useCategories from "../../api/useCategories";
+import useCategories from "../../../api/useCategories";
 
 const CategoryPicker = () => {
   const [value, setValue] = useState("all");

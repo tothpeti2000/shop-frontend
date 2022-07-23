@@ -4,7 +4,7 @@ import { Flex, Text } from "@chakra-ui/react";
 import { FaUserCircle } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import useLogin from "../../api/useLogin";
+import useLogin from "../../../api/useLogin";
 
 const AuthButton = () => {
   const { IsLoggedIn, Logout } = useLogin();

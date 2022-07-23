@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
-import useProducts from "../../api/useProducts";
+import useProducts from "../../../api/useProducts";
 
 const PriceRangePicker = () => {
   const [range, setRange] = useState<number[]>([0, 100]);

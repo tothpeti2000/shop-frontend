@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import { FC } from "react";
-import FullScreenCenter from "../FullScreenCenter";
+import FullScreenCenter from "../utils/FullScreenCenter";
 
 const FormContainer: FC = ({ children }) => {
   return (

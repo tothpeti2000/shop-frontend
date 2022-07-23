@@ -3,7 +3,7 @@ import { Skeleton, Text, Heading, Icon, IconButton } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { QueryCache, useQueryClient } from "react-query";
-import useProducts from "../../api/useProducts";
+import useProducts from "../../../api/useProducts";
 import ProductListItem from "./ProductListItem";
 
 const ProductList = () => {

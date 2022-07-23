@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import useRegister from "../../api/useRegister";
 import { RegisterInputs } from "../../interfaces/auth";
-import ErrorMessage from "../ErrorMessage";
+import ErrorMessage from "../utils/ErrorMessage";
 import { CreateAccount } from "../../services/AuthService";
 import { useNavigate } from "react-router-dom";
 import request from "axios";

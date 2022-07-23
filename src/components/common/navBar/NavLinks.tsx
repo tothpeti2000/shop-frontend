@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/layout";
 import { Link } from "react-router-dom";
-import useLogin from "../../api/useLogin";
-import Cart from "../cart/Cart";
+import useLogin from "../../../api/useLogin";
+import Cart from "../../cart/Cart";
 import AuthButton from "./AuthButton";
 import NavItem from "./NavItem";
 import SearchBar from "./SearchBar";

@@ -2,7 +2,7 @@ import { Button, Icon, Spinner, useToast } from "@chakra-ui/react";
 import request from "axios";
 import { FaCartPlus } from "react-icons/fa";
 import { useQueryClient } from "react-query";
-import { AddItemToCart } from "../../services/Cartservice";
+import { AddItemToCart } from "../../../services/Cartservice";
 
 interface IProps {
   productID: number;
