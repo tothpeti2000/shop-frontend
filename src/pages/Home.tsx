@@ -1,9 +1,8 @@
-import React from "react";
 import Banner from "../components/Banner";
-import Categories from "../components/Categories/Categories";
+import Categories from "../components/categories/Categories";
 import ContactForm from "../components/ContactForm";
-import Footer from "../components/Footer/Footer";
-import NavBar from "../components/NavBar/NavBar";
+import Footer from "../components/footer/Footer";
+import NavBar from "../components/navBar/NavBar";
 
 const Home = () => {
   return (

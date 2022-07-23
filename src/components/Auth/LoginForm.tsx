@@ -11,7 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import useLogin from "../../api/useLogin";
-import { LoginInputs } from "../../interfaces/Auth";
+import { LoginInputs } from "../../interfaces/auth";
 import { LoginUser } from "../../services/AuthService";
 import ErrorMessage from "../ErrorMessage";
 import request from "axios";

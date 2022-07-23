@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SortOption } from "../interfaces/Product";
+import { SortOption } from "../interfaces/product";
 import { Get, GetByID, MaxPrice } from "../services/ProductService";
 
 const useProducts = () => {

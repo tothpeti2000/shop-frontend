@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import ConfirmRegistration from "../pages/ConfirmRegistration";
+import ConfirmRegistration from "../pages/auth/ConfirmRegistration";
 import Home from "../pages/Home";
-import Login from "../pages/Login";
+import Login from "../pages/auth/Login";
 import NotFound from "../pages/NotFound";
-import ProductDetails from "../pages/ProductDetails";
-import Products from "../pages/Products";
-import Register from "../pages/Register";
+import ProductDetails from "../pages/products/ProductDetails";
+import Products from "../pages/products/Products";
+import Register from "../pages/auth/Register";
 
 const Routing = () => {
   return (

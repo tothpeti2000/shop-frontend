@@ -1,11 +1,11 @@
 import { useQuery } from "react-query";
 import client from "../api/common";
-import { PagedResponse } from "../interfaces/PagedResponse";
+import { PagedResponse } from "../interfaces/pagedResponse";
 import {
   ProductDetails,
   ProductListItem,
   SortOption,
-} from "../interfaces/Product";
+} from "../interfaces/product";
 
 export const Get = (
   page: number = 1,

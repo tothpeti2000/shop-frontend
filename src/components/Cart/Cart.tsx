@@ -14,7 +14,7 @@ import {
 import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import useCart from "../../api/useCart";
-import { CartItemProps } from "../../interfaces/Cart";
+import { CartItemProps } from "../../interfaces/cart";
 import CartItem from "./CartItem";
 import Summary from "./Summary";
 

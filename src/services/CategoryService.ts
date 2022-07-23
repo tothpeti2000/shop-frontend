@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import client from "../api/common";
-import { CategoryCover, CategoryItem } from "../interfaces/Category";
+import { CategoryCover, CategoryItem } from "../interfaces/category";
 
 export const Get = () => {
   return useQuery("categories", async () => {

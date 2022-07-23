@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import { LoginInputs } from "../interfaces/Auth";
+import { LoginInputs } from "../interfaces/auth";
 import { LoginUser } from "../services/AuthService";
 
 const useLogin = () => {

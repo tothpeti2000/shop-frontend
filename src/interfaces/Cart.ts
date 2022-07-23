@@ -1,6 +1,3 @@
-import { number } from "yup";
-import { ProductDetails } from "./Product";
-
 export interface CartItemProps {
   id: number;
   amount: number;

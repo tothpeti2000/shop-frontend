@@ -1,5 +1,5 @@
-import FormContainer from "../components/Auth/FormContainer";
-import LoginForm from "../components/Auth/LoginForm";
+import FormContainer from "../../components/auth/FormContainer";
+import LoginForm from "../../components/auth/LoginForm";
 
 const Login = () => {
   return (

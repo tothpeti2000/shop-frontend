@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import useRegister from "../../api/useRegister";
-import { RegisterInputs } from "../../interfaces/Auth";
+import { RegisterInputs } from "../../interfaces/auth";
 import ErrorMessage from "../ErrorMessage";
 import { CreateAccount } from "../../services/AuthService";
 import { useNavigate } from "react-router-dom";

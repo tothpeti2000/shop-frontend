@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "react-query";
 import client from "../api/common";
-import { CartItemProps, CartItemToUpdate } from "../interfaces/Cart";
-import { CartItemToAdd } from "../interfaces/Product";
+import { CartItemProps, CartItemToUpdate } from "../interfaces/cart";
+import { CartItemToAdd } from "../interfaces/product";
 
 export const AddItemToCart = () => {
   const { mutateAsync, isLoading, isError, error } = useMutation(

@@ -1,6 +1,6 @@
 import { useMutation } from "react-query";
 import client from "../api/common";
-import { AccountDetails, LoginInputs } from "../interfaces/Auth";
+import { AccountDetails, LoginInputs } from "../interfaces/auth";
 
 export const CreateAccount = () => {
   const { mutateAsync, isLoading, isError, error } = useMutation(

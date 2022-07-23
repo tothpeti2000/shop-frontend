@@ -4,7 +4,7 @@ import { Skeleton } from "@chakra-ui/skeleton";
 import React from "react";
 import { useParams } from "react-router-dom";
 import useProducts from "../../api/useProducts";
-import AddToCartButton from "../ProductList/AddToCartButton";
+import AddToCartButton from "../productList/AddToCartButton";
 import RatingStars from "./RatingStars";
 
 const Details = () => {

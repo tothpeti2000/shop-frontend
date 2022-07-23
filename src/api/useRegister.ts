@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import { AccountDetails } from "../interfaces/Auth";
+import { AccountDetails } from "../interfaces/auth";
 import { CreateAccount } from "../services/AuthService";
 
 const useRegister = () => {
