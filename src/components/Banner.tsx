@@ -4,7 +4,7 @@ import { Zoom } from "react-awesome-reveal";
 import { Link } from "react-router-dom";
 
 const Banner = () => {
-  const image = `${process.env.PUBLIC_URL}/images/mercedes.jpg`;
+  const image = `${process.env.PUBLIC_URL}/assets/mercedes.jpg`;
 
   return (
     <Flex
