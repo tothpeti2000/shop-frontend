@@ -1,10 +1,8 @@
 import { Button, Icon, Spinner, useToast } from "@chakra-ui/react";
-import React from "react";
-import { FaCartPlus } from "react-icons/fa";
-import useCart from "../../api/useCart";
-import { AddItemToCart } from "../../services/Cartservice";
 import request from "axios";
+import { FaCartPlus } from "react-icons/fa";
 import { useQueryClient } from "react-query";
+import { AddItemToCart } from "../../services/Cartservice";
 
 interface IProps {
   productID: number;
@@ -12,7 +10,7 @@ interface IProps {
 
 const AddToCartButton = (props: IProps) => {
   const toast = useToast();
-  const { mutateAsync, isLoading, isError, error } = AddItemToCart();
+  const { mutateAsync, isLoading } = AddItemToCart();
   const queryCache = useQueryClient();
 
   const ShowSuccessToast = () => {

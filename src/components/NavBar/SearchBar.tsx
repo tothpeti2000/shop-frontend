@@ -1,6 +1,5 @@
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/input";
 import { Button, Collapse, useDisclosure } from "@chakra-ui/react";
-import React from "react";
 import { FaSearch } from "react-icons/fa";
 
 const SearchBar = () => {

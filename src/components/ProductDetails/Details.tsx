@@ -1,16 +1,14 @@
 import { Image } from "@chakra-ui/image";
 import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
 import { Skeleton } from "@chakra-ui/skeleton";
-import React from "react";
 import { useParams } from "react-router-dom";
 import useProducts from "../../api/useProducts";
 import AddToCartButton from "../productList/AddToCartButton";
-import RatingStars from "./RatingStars";
 
 const Details = () => {
   const { id } = useParams();
   const { GetProductByID } = useProducts();
-  const { isLoading, error, data } = GetProductByID(parseInt(id!));
+  const { isLoading, data } = GetProductByID(parseInt(id!));
 
   return (
     <Skeleton isLoaded={!isLoading}>

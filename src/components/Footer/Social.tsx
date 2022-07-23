@@ -1,5 +1,4 @@
 import { Flex } from "@chakra-ui/layout";
-import React from "react";
 import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
 import SocialMediaIcon from "./SocialMediaIcon";
 

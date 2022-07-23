@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { LoginInputs } from "../interfaces/auth";
@@ -18,7 +17,7 @@ const useLogin = () => {
       password: password,
     };
 
-    const { mutateAsync, isLoading, isError, error } = LoginUser();
+    const { mutateAsync } = LoginUser();
 
     mutateAsync(data);
     navigate("/");

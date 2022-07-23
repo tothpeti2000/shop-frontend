@@ -19,8 +19,8 @@ import { useState } from "react";
 import { useQueryClient } from "react-query";
 
 const LoginForm = () => {
-  const { loginSchema, Login } = useLogin();
-  const { mutateAsync, isLoading, isError, error } = LoginUser();
+  const { loginSchema } = useLogin();
+  const { mutateAsync, isLoading, isError } = LoginUser();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const queryCache = useQueryClient();

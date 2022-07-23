@@ -6,7 +6,7 @@ import {
   RangeSliderTrack,
   Text,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useQueryClient } from "react-query";
 import useProducts from "../../api/useProducts";
 

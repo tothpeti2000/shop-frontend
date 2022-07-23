@@ -1,5 +1,4 @@
 import { Icon, IconButton } from "@chakra-ui/react";
-import React from "react";
 import { IconType } from "react-icons";
 
 interface IProps {

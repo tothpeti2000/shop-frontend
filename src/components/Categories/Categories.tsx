@@ -1,6 +1,5 @@
 import { Flex, Heading } from "@chakra-ui/layout";
 import { Box, Button } from "@chakra-ui/react";
-import React from "react";
 import Fade from "react-awesome-reveal";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -9,7 +8,7 @@ import CategoryCard from "./CategoryCard";
 
 const Categories = () => {
   const { GetTopCategories } = useCategories();
-  const { isLoading, error, data } = GetTopCategories();
+  const { data } = GetTopCategories();
 
   return (
     <Box

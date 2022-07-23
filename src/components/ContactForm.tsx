@@ -13,7 +13,6 @@ import {
   Textarea,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
 import { FiMail } from "react-icons/fi";
 import { Fab } from "react-tiny-fab";
 

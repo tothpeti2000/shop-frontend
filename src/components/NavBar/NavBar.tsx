@@ -1,6 +1,6 @@
 import { Spacer } from "@chakra-ui/layout";
 import { Flex } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import NavBrand from "./NavBrand";
 import NavLinks from "./NavLinks";
 

@@ -1,6 +1,6 @@
 import { Box, Flex } from "@chakra-ui/layout";
 import { Collapse, Text, useDisclosure } from "@chakra-ui/react";
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 
 type Props = {
   title: String;

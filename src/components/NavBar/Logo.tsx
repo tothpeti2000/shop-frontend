@@ -1,5 +1,4 @@
 import { Image } from "@chakra-ui/react";
-import React from "react";
 
 const Logo = () => {
   const logo = `${process.env.PUBLIC_URL}/assets/Skillet.jpg`;

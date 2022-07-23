@@ -1,7 +1,6 @@
 import { IconButton } from "@chakra-ui/button";
 import Icon from "@chakra-ui/icon";
 import { Flex, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";

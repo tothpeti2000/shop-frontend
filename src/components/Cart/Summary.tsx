@@ -1,6 +1,5 @@
 import { Button } from "@chakra-ui/button";
 import { Flex, Heading, Icon } from "@chakra-ui/react";
-import React from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { CartSummary } from "../../interfaces/cart";

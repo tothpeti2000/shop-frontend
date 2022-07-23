@@ -1,5 +1,5 @@
 import { Flex, Heading, Select } from "@chakra-ui/react";
-import React, { ChangeEvent } from "react";
+import { ChangeEvent } from "react";
 import { useQueryClient } from "react-query";
 
 const Sort = () => {

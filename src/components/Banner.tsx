@@ -1,5 +1,4 @@
 import { Button, Flex, Heading, Text } from "@chakra-ui/react";
-import React from "react";
 import { Zoom } from "react-awesome-reveal";
 import { Link } from "react-router-dom";
 

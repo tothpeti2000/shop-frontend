@@ -5,8 +5,7 @@ import {
   NumberInputField,
   NumberInputStepper,
 } from "@chakra-ui/number-input";
-import React, { useState } from "react";
-import useCart from "../../api/useCart";
+import { useState } from "react";
 import { UpdateAmount } from "../../services/Cartservice";
 
 interface IProps {
@@ -16,7 +15,7 @@ interface IProps {
 
 const QuantityPicker = (props: IProps) => {
   const [value, setValue] = useState(props.amount);
-  const { mutateAsync, isLoading, isError, error } = UpdateAmount();
+  const { mutateAsync } = UpdateAmount();
 
   const HandleChange = async (diff: number) => {
     setValue(value + diff);

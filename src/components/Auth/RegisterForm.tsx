@@ -11,7 +11,7 @@ import request from "axios";
 
 const RegisterForm = () => {
   const { registerSchema } = useRegister();
-  const { mutateAsync, isLoading, error, isError } = CreateAccount();
+  const { mutateAsync, isLoading, isError } = CreateAccount();
   const navigate = useNavigate();
   const [errorMessages, setErrorMessages] = useState("");
 

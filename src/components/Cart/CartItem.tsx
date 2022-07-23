@@ -1,6 +1,5 @@
 import { Box, Flex } from "@chakra-ui/layout";
 import { CloseButton, Text } from "@chakra-ui/react";
-import React from "react";
 import { CartItemProps } from "../../interfaces/cart";
 import QuantityPicker from "./QuantityPicker";
 

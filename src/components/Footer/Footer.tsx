@@ -1,6 +1,5 @@
 import { Heading, Text } from "@chakra-ui/layout";
 import { Flex } from "@chakra-ui/react";
-import React from "react";
 import Details from "./Details";
 import Social from "./Social";
 import Form from "./SubscriptionForm";

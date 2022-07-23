@@ -21,7 +21,7 @@ import Summary from "./Summary";
 const Cart = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { GetCartItems } = useCart();
-  const { isLoading, data, isError, error } = GetCartItems();
+  const { data } = GetCartItems();
 
   const cartItems: CartItemProps[] = [
     {

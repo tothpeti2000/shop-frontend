@@ -1,5 +1,4 @@
 import { Box } from "@chakra-ui/react";
-import React from "react";
 import CategoryPicker from "./CategoryPicker";
 import FilterItem from "./FilterItem";
 import PriceRangePicker from "./PriceRangePicker";
