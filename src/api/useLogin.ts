@@ -1,34 +1,22 @@
-import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import { LoginInputs } from "../interfaces/auth";
-import { LoginUser } from "../services/AuthService";
+import client from "./client";
+import { UserCredentials } from "../interfaces/auth";
 
 const useLogin = () => {
-  const navigate = useNavigate();
-
   const loginSchema = yup.object({
-    userName: yup.string().required("Please enter your username!"),
-    password: yup.string().required("Please enter your password!"),
+    userName: yup.string().required("Please, enter your username!"),
+    password: yup.string().required("Please, enter your password!"),
   });
 
-  const login = (userName: string, password: string) => {
-    const data: LoginInputs = {
-      userName: userName,
-      password: password,
-    };
-
-    const { mutateAsync } = LoginUser();
-
-    mutateAsync(data);
-    navigate("/");
+  const login = async (userCredentials: UserCredentials) => {
+    return await client.post("/auth/login", userCredentials);
   };
 
   const isLoggedIn = () => {
-    return sessionStorage.getItem("userName") !== null;
+    return sessionStorage.getItem("token") !== null;
   };
 
   const logout = () => {
-    sessionStorage.removeItem("userName");
     sessionStorage.removeItem("token");
   };
 

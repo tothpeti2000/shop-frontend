@@ -11,16 +11,24 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import useLogin from "../../api/useLogin";
-import { LoginInputs } from "../../interfaces/auth";
-import { LoginUser } from "../../services/AuthService";
 import ErrorMessage from "../utils/ErrorMessage";
 import request from "axios";
 import { useState } from "react";
-import { useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
+import { UserCredentials } from "../../interfaces/auth";
+import useFeedback from "../useFeedback";
 
 const LoginForm = () => {
-  const { loginSchema } = useLogin();
-  const { mutateAsync, isLoading, isError } = LoginUser();
+  const { loginSchema, login } = useLogin();
+  const { showSuccess, showError } = useFeedback();
+
+  const {
+    mutateAsync: loginUser,
+    isLoading,
+    error,
+    isError,
+  } = useMutation(login);
+
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const queryCache = useQueryClient();
@@ -29,19 +37,20 @@ const LoginForm = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginInputs>({
+  } = useForm<UserCredentials>({
     resolver: yupResolver(loginSchema),
   });
 
-  const OnSubmit: SubmitHandler<LoginInputs> = async (data: LoginInputs) => {
+  const onSubmit: SubmitHandler<UserCredentials> = async (data) => {
     try {
-      const result = await mutateAsync(data);
-      sessionStorage.setItem("userName", data.userName);
+      const result = await loginUser(data);
       sessionStorage.setItem("token", result.data);
 
+      showSuccess("Successfully logged in");
       navigate("/");
       queryCache.invalidateQueries("cartitems");
     } catch (err) {
+      showError("Login failed", String(error));
       if (request.isAxiosError(err) && err.response) {
         setErrorMessage(err.response.data);
       }
@@ -56,7 +65,7 @@ const LoginForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(OnSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           name="userName"
           defaultValue=""

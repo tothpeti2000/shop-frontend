@@ -1,17 +1,14 @@
-export interface LoginInputs {
+export interface UserCredentials {
   userName: string;
   password: string;
-}
-
-export interface RegisterInputs {
-  userName: string;
-  email: string;
-  password: string;
-  passwordAgain: string;
 }
 
 export interface AccountDetails {
   userName: string;
   email: string;
   password: string;
+}
+
+export interface RegisterDetails extends AccountDetails {
+  passwordAgain: string;
 }

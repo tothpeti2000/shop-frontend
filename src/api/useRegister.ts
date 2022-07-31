@@ -1,11 +1,8 @@
-import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import client from "./client";
 import { AccountDetails } from "../interfaces/auth";
-import { CreateAccount } from "../services/AuthService";
 
 const useRegister = () => {
-  const navigate = useNavigate();
-
   const registerSchema = yup.object({
     userName: yup
       .string()
@@ -27,22 +24,13 @@ const useRegister = () => {
       .required("Please enter your password again!"),
   });
 
-  const Register = (userName: string, email: string, password: string) => {
-    const data: AccountDetails = {
-      userName: userName,
-      email: email,
-      password: password,
-    };
-
-    const { mutateAsync } = CreateAccount();
-
-    mutateAsync(data);
-    navigate("/register/confirm");
+  const register = async (userDetails: AccountDetails) => {
+    return await client.post("/auth/register", userDetails);
   };
 
   return {
     registerSchema,
-    Register,
+    register,
   };
 };
 

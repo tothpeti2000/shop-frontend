@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import client from "../api/common";
+import client from "../api/client";
 import { PagedResponse } from "../interfaces/pagedResponse";
 import {
   ProductDetails,

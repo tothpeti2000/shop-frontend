@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "react-query";
-import client from "../api/common";
+import client from "../api/client";
 import { CartItemProps, CartItemToUpdate } from "../interfaces/cart";
 import { CartItemToAdd } from "../interfaces/product";
 

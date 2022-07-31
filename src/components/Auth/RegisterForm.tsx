@@ -1,17 +1,23 @@
 import { Box, Button, Input, Spinner } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
+import request from "axios";
 import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import useRegister from "../../api/useRegister";
-import { RegisterInputs } from "../../interfaces/auth";
-import ErrorMessage from "../utils/ErrorMessage";
-import { CreateAccount } from "../../services/AuthService";
 import { useNavigate } from "react-router-dom";
-import request from "axios";
+import useRegister from "../../api/useRegister";
+import { RegisterDetails } from "../../interfaces/auth";
+import ErrorMessage from "../utils/ErrorMessage";
+import { useMutation } from "react-query";
 
 const RegisterForm = () => {
-  const { registerSchema } = useRegister();
-  const { mutateAsync, isLoading, isError } = CreateAccount();
+  const { registerSchema, register } = useRegister();
+
+  const {
+    mutateAsync: createAccount,
+    isLoading,
+    isError,
+    error,
+  } = useMutation(register);
   const navigate = useNavigate();
   const [errorMessages, setErrorMessages] = useState("");
 
@@ -19,13 +25,13 @@ const RegisterForm = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterInputs>({
+  } = useForm<RegisterDetails>({
     resolver: yupResolver(registerSchema),
   });
 
-  const OnSubmit: SubmitHandler<RegisterInputs> = async (data) => {
+  const onSubmit: SubmitHandler<RegisterDetails> = async (data) => {
     try {
-      await mutateAsync({
+      await createAccount({
         userName: data.userName,
         email: data.email,
         password: data.password,
@@ -53,7 +59,7 @@ const RegisterForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(OnSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           name="userName"
           defaultValue=""
