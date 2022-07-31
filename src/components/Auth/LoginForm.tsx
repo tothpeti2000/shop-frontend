@@ -10,17 +10,19 @@ import {
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import useLogin from "../../api/useLogin";
+import useLogin from "../../hooks/api/useLogin";
 import ErrorMessage from "../utils/ErrorMessage";
 import request from "axios";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { UserCredentials } from "../../interfaces/auth";
 import useFeedback from "../useFeedback";
+import useToken from "../../hooks/useToken";
 
 const LoginForm = () => {
   const { loginSchema, login } = useLogin();
   const { showSuccess, showError } = useFeedback();
+  const { saveToken } = useToken();
 
   const {
     mutateAsync: loginUser,
@@ -44,7 +46,7 @@ const LoginForm = () => {
   const onSubmit: SubmitHandler<UserCredentials> = async (data) => {
     try {
       const result = await loginUser(data);
-      sessionStorage.setItem("token", result.data);
+      saveToken(result.data);
 
       showSuccess("Successfully logged in");
       navigate("/");

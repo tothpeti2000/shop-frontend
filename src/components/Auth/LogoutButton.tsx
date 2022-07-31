@@ -1,10 +1,10 @@
-import { IconButton, Icon } from "@chakra-ui/react";
+import { Icon, IconButton } from "@chakra-ui/react";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import useLogin from "../../api/useLogin";
+import useUser from "../../hooks/useUser";
 
 const LogoutButton = () => {
-  const { logout } = useLogin();
+  const { logout } = useUser();
 
   return (
     <Link to="/login">

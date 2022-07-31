@@ -3,7 +3,7 @@ import { Box, Button } from "@chakra-ui/react";
 import Fade from "react-awesome-reveal";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import useCategories from "../../api/useCategories";
+import useCategories from "../../hooks/api/useCategories";
 import CategoryCard from "./CategoryCard";
 
 const Categories = () => {

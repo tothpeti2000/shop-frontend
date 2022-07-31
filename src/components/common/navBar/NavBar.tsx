@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/react";
-import useLogin from "../../../api/useLogin";
 import { ToggleProvider } from "../../../context/ToggleContext";
-import { animated, bgDark, basicFlex } from "../../../styles/styles";
+import useUser from "../../../hooks/useUser";
+import { animated, basicFlex, bgDark } from "../../../styles/styles";
 import Cart from "../../cart/Cart";
 import CartButton from "../../cart/CartButton";
 import AuthButton from "./AuthButton";
@@ -12,7 +12,7 @@ import useNavBar from "./useNavBar";
 
 const NavBar = () => {
   const { height, opacity } = useNavBar();
-  const { isLoggedIn } = useLogin();
+  const { isLoggedIn } = useUser();
 
   return (
     <Flex

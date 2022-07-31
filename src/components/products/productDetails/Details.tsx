@@ -2,7 +2,7 @@ import { Image } from "@chakra-ui/image";
 import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
 import { Skeleton } from "@chakra-ui/skeleton";
 import { useParams } from "react-router-dom";
-import useProducts from "../../../api/useProducts";
+import useProducts from "../../../hooks/api/useProducts";
 import AddToCartButton from "../productList/AddToCartButton";
 
 const Details = () => {

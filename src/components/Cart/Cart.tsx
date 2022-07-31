@@ -7,7 +7,7 @@ import {
   DrawerHeader,
   DrawerOverlay,
 } from "@chakra-ui/react";
-import useCart from "../../api/useCart";
+import useCart from "../../hooks/api/useCart";
 import { useToggleContext } from "../../context/ToggleContext";
 import { CartItemProps } from "../../interfaces/cart";
 import CartItem from "./CartItem";

@@ -1,9 +1,9 @@
-import useLogin from "../../../api/useLogin";
+import useUser from "../../../hooks/useUser";
 import LoginButton from "../../auth/LoginButton";
 import LogoutButton from "../../auth/LogoutButton";
 
 const AuthButton = () => {
-  const { isLoggedIn } = useLogin();
+  const { isLoggedIn } = useUser();
 
   return isLoggedIn() ? <LogoutButton /> : <LoginButton />;
 };

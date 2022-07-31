@@ -1,4 +1,4 @@
-import { Get, GetTop } from "../services/CategoryService";
+import { Get, GetTop } from "../../services/CategoryService";
 
 const useCategories = () => {
   const GetCategories = () => {

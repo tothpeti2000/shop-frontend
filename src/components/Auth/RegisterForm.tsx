@@ -4,7 +4,7 @@ import request from "axios";
 import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import useRegister from "../../api/useRegister";
+import useRegister from "../../hooks/api/useRegister";
 import { RegisterDetails } from "../../interfaces/auth";
 import ErrorMessage from "../utils/ErrorMessage";
 import { useMutation } from "react-query";
