@@ -7,7 +7,7 @@ const Banner = () => {
 
   return (
     <Flex
-      h="calc(86vh)"
+      h="88vh"
       direction="column"
       justify="center"
       align="center"

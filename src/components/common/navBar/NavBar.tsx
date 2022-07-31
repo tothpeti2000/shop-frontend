@@ -1,60 +1,46 @@
-import { Spacer } from "@chakra-ui/layout";
 import { Flex } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import useLogin from "../../../api/useLogin";
+import { ToggleProvider } from "../../../context/ToggleContext";
+import { animated, bgDark, basicFlex } from "../../../styles/styles";
+import Cart from "../../cart/Cart";
+import CartButton from "../../cart/CartButton";
+import AuthButton from "./AuthButton";
 import NavBrand from "./NavBrand";
 import NavLinks from "./NavLinks";
+import SearchBar from "./SearchBar";
+import useNavBar from "./useNavBar";
 
 const NavBar = () => {
-  const startHeight = "14vh";
-  const shrinkedHeight = "12vh";
-
-  const [isShrunk, SetShrunk] = useState(false);
-
-  useEffect(() => {
-    const Handler = () => {
-      SetShrunk((isShrunk) => {
-        if (
-          !isShrunk &&
-          (document.body.scrollTop > 20 ||
-            document.documentElement.scrollTop > 20)
-        ) {
-          return true;
-        }
-
-        if (
-          isShrunk &&
-          document.body.scrollTop < 4 &&
-          document.documentElement.scrollTop < 4
-        ) {
-          return false;
-        }
-
-        return isShrunk;
-      });
-    };
-
-    window.addEventListener("scroll", Handler);
-
-    return () => window.removeEventListener("scroll", Handler);
-  }, []);
+  const { height, opacity } = useNavBar();
+  const { isLoggedIn } = useLogin();
 
   return (
     <Flex
       as="nav"
-      align="center"
+      {...basicFlex}
       px="10%"
-      h={isShrunk ? shrinkedHeight : startHeight}
-      bgColor="black"
-      color="white"
+      h={height}
+      {...bgDark}
       sx={{ pos: "sticky", top: "0" }}
-      fontSize={"lg"}
-      opacity={isShrunk ? 0.9 : 1}
-      transition="0.5s"
+      fontSize="lg"
+      opacity={opacity}
+      {...animated}
       zIndex="1"
     >
       <NavBrand />
-      <Spacer />
-      <NavLinks />
+
+      <Flex {...basicFlex}>
+        <SearchBar />
+        <NavLinks />
+        <AuthButton />
+
+        {isLoggedIn() && (
+          <ToggleProvider>
+            <CartButton />
+            <Cart />
+          </ToggleProvider>
+        )}
+      </Flex>
     </Flex>
   );
 };

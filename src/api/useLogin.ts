@@ -11,7 +11,7 @@ const useLogin = () => {
     password: yup.string().required("Please enter your password!"),
   });
 
-  const Login = (userName: string, password: string) => {
+  const login = (userName: string, password: string) => {
     const data: LoginInputs = {
       userName: userName,
       password: password,
@@ -23,20 +23,20 @@ const useLogin = () => {
     navigate("/");
   };
 
-  const IsLoggedIn = () => {
+  const isLoggedIn = () => {
     return sessionStorage.getItem("userName") !== null;
   };
 
-  const Logout = () => {
+  const logout = () => {
     sessionStorage.removeItem("userName");
     sessionStorage.removeItem("token");
   };
 
   return {
     loginSchema,
-    Login,
-    IsLoggedIn,
-    Logout,
+    login,
+    isLoggedIn,
+    logout,
   };
 };
 

@@ -1,29 +1,12 @@
-import { Flex } from "@chakra-ui/layout";
-import { Link } from "react-router-dom";
-import useLogin from "../../../api/useLogin";
-import Cart from "../../cart/Cart";
-import AuthButton from "./AuthButton";
 import NavItem from "./NavItem";
-import SearchBar from "./SearchBar";
 
 const NavLinks = () => {
-  const { IsLoggedIn } = useLogin();
-
   return (
-    <Flex align="center">
-      <SearchBar />
-      <Link to="/">
-        <NavItem>Home</NavItem>
-      </Link>
-      <Link to="/products">
-        <NavItem>Shop</NavItem>
-      </Link>
-      <Link to="/about">
-        <NavItem>About AS</NavItem>
-      </Link>
-      <AuthButton />
-      {IsLoggedIn() && <Cart />}
-    </Flex>
+    <>
+      <NavItem to="/">Home</NavItem>
+      <NavItem to="/products">Shop</NavItem>
+      <NavItem to="/about">About AS</NavItem>
+    </>
   );
 };
 

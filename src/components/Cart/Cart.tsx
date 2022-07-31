@@ -1,6 +1,4 @@
-import { useDisclosure } from "@chakra-ui/hooks";
 import {
-  Badge,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -8,18 +6,15 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
-  Icon,
-  IconButton,
 } from "@chakra-ui/react";
-import React from "react";
-import { FaShoppingCart } from "react-icons/fa";
 import useCart from "../../api/useCart";
+import { useToggleContext } from "../../context/ToggleContext";
 import { CartItemProps } from "../../interfaces/cart";
 import CartItem from "./CartItem";
 import Summary from "./Summary";
 
 const Cart = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, close } = useToggleContext();
   const { GetCartItems } = useCart();
   const { data } = GetCartItems();
 
@@ -45,42 +40,30 @@ const Cart = () => {
   ];
 
   return (
-    <>
-      <IconButton
-        aria-label="Cart"
-        colorScheme="yellow"
-        icon={<Icon as={FaShoppingCart} boxSize="80%" />}
-        onClick={onOpen}
-      >
-        Open
-      </IconButton>
-      <Badge>{data?.data.length}</Badge>
+    <Drawer isOpen={isOpen} placement="right" size="sm" onClose={close}>
+      <DrawerOverlay />
+      <DrawerContent textAlign="center">
+        <DrawerCloseButton color="white" />
+        <DrawerHeader bgColor="black" color="white">
+          Cart
+        </DrawerHeader>
 
-      <Drawer isOpen={isOpen} placement="right" size="sm" onClose={onClose}>
-        <DrawerOverlay />
-        <DrawerContent textAlign="center">
-          <DrawerCloseButton color="white" />
-          <DrawerHeader bgColor="black" color="white">
-            Cart
-          </DrawerHeader>
+        <DrawerBody>
+          {cartItems.length > 0
+            ? cartItems.map((item) => {
+                return <CartItem key={item.id} {...item} />;
+              })
+            : "Cart is empty"}
+        </DrawerBody>
 
-          <DrawerBody>
-            {cartItems.length > 0
-              ? cartItems.map((item) => {
-                  return <CartItem key={item.id} {...item} />;
-                })
-              : "Cart is empty"}
-          </DrawerBody>
-
-          <DrawerFooter>
-            <Summary
-              total={cartItems.reduce((acc, item) => acc + item.price, 0)}
-              onClick={onClose}
-            />
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
-    </>
+        <DrawerFooter>
+          <Summary
+            total={cartItems.reduce((acc, item) => acc + item.price, 0)}
+            onClick={close}
+          />
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
   );
 };
 
