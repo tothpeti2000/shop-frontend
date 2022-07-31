@@ -1,47 +1,32 @@
-import { Button, Icon, Spinner, useToast } from "@chakra-ui/react";
+import { Button, Icon, Spinner } from "@chakra-ui/react";
 import request from "axios";
 import { FaCartPlus } from "react-icons/fa";
-import { useQueryClient } from "react-query";
-import { AddItemToCart } from "../../../services/Cartservice";
+import { useMutation, useQueryClient } from "react-query";
+import useCart from "../../../hooks/api/useCart";
+import useFeedback from "../../useFeedback";
 
 interface IProps {
   productID: number;
 }
 
 const AddToCartButton = (props: IProps) => {
-  const toast = useToast();
-  const { mutateAsync, isLoading } = AddItemToCart();
+  const { addToCart } = useCart();
+  const { mutateAsync, isLoading } = useMutation(addToCart);
   const queryCache = useQueryClient();
-
-  const ShowSuccessToast = () => {
-    toast({
-      title: "Item added",
-      description: "We've added the item to your cart",
-      status: "success",
-      duration: 1000,
-      isClosable: true,
-    });
-  };
-
-  const ShowErrorToast = () => {
-    toast({
-      title: "Item couldn't be added",
-      description: "Please, log in to add this item to your cart",
-      status: "error",
-      duration: 1000,
-      isClosable: true,
-    });
-  };
+  const { showSuccess, showError } = useFeedback();
 
   const HandleClick = async () => {
     try {
       await mutateAsync({ productID: props.productID, amount: 1 });
 
-      ShowSuccessToast();
+      showSuccess("Item added", "We've added the item to your cart");
       queryCache.invalidateQueries("cartitems");
     } catch (err) {
       if (request.isAxiosError(err) && err.response?.status === 401) {
-        ShowErrorToast();
+        showError(
+          "Item couldn't be added",
+          "Please, log in to add this item to your cart"
+        );
       }
     }
   };

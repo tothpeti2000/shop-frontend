@@ -12,11 +12,13 @@ import { useToggleContext } from "../../context/ToggleContext";
 import { CartItemProps } from "../../interfaces/cart";
 import CartItem from "./CartItem";
 import Summary from "./Summary";
+import { useQuery } from "react-query";
 
 const Cart = () => {
   const { isOpen, close } = useToggleContext();
-  const { GetCartItems } = useCart();
-  const { data } = GetCartItems();
+
+  const { getCartItems } = useCart();
+  const { data } = useQuery("cart-items", getCartItems);
 
   const cartItems: CartItemProps[] = [
     {

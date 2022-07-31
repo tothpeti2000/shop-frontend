@@ -1,19 +1,23 @@
-import { GetItems } from "../../services/Cartservice";
+import { CartItemProps, CartItemToUpdate } from "../../interfaces/cart";
+import { CartItemToAdd } from "../../interfaces/product";
+import useAPI from "./useAPI";
 
 const useCart = () => {
-  const AddToCart = (productID: number, amount: number) => {
-    //return AddItemToCart(productID, amount);
+  const client = useAPI();
+
+  const addToCart = async (item: CartItemToAdd) => {
+    return await client.post("/carts/add", item);
   };
 
-  const GetCartItems = () => {
-    return GetItems();
+  const getCartItems = async () => {
+    return await client.get<CartItemProps[]>("carts/list");
   };
 
-  const UpdateItemAmount = (itemID: number, amount: number) => {
-    //return UpdateAmount(itemID, amount);
+  const updateItemAmount = async (item: CartItemToUpdate) => {
+    return await client.post("/carts/update", item);
   };
 
-  return { AddToCart, GetCartItems, UpdateItemAmount };
+  return { addToCart, getCartItems, updateItemAmount };
 };
 
 export default useCart;
