@@ -1,12 +1,13 @@
 import { Stack } from "@chakra-ui/layout";
 import { Radio, RadioGroup } from "@chakra-ui/radio";
 import { ChangeEvent, useState } from "react";
+import { useQuery } from "react-query";
 import useCategories from "../../../hooks/api/useCategories";
 
 const CategoryPicker = () => {
   const [value, setValue] = useState("all");
-  const { GetCategories } = useCategories();
-  const { data } = GetCategories();
+  const { getCategories } = useCategories();
+  const { data } = useQuery("categories", getCategories);
 
   const HandleChange = (e: ChangeEvent<HTMLInputElement>) => {
     //UpdateFilterType(e.target.value);

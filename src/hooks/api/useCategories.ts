@@ -1,15 +1,18 @@
-import { Get, GetTop } from "../../services/CategoryService";
+import { CategoryCover, CategoryItem } from "../../interfaces/category";
+import useAPI from "./useAPI";
 
 const useCategories = () => {
-  const GetCategories = () => {
-    return Get();
+  const client = useAPI();
+
+  const getCategories = async () => {
+    return await client.get<CategoryItem[]>("/categories");
   };
 
-  const GetTopCategories = () => {
-    return GetTop();
+  const getTopCategories = async () => {
+    return await client.get<CategoryCover[]>("/categories/top");
   };
 
-  return { GetCategories, GetTopCategories };
+  return { getCategories, getTopCategories };
 };
 
 export default useCategories;

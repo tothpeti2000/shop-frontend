@@ -1,8 +1,4 @@
-import {
-  AddItemToCart,
-  GetItems,
-  UpdateAmount,
-} from "../../services/Cartservice";
+import { GetItems } from "../../services/Cartservice";
 
 const useCart = () => {
   const AddToCart = (productID: number, amount: number) => {

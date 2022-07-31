@@ -5,10 +5,11 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import useCategories from "../../hooks/api/useCategories";
 import CategoryCard from "./CategoryCard";
+import { useQuery } from "react-query";
 
 const Categories = () => {
-  const { GetTopCategories } = useCategories();
-  const { data } = GetTopCategories();
+  const { getTopCategories } = useCategories();
+  const { data } = useQuery("top-categories", getTopCategories);
 
   return (
     <Box
