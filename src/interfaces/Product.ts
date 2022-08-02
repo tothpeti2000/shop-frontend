@@ -16,9 +16,4 @@ export interface ProductDetails {
   imgURL?: string;
 }
 
-export interface CartItemToAdd {
-  productID: number;
-  amount: number;
-}
-
 export type SortOption = "nameAZ" | "nameZA" | "priceLTH" | "priceHTL" | "all";

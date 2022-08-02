@@ -1,26 +1,29 @@
 import { useToast } from "@chakra-ui/react";
+import { AlertStatus } from "@chakra-ui/react";
 
 const useFeedback = () => {
   const toast = useToast();
 
-  const showSuccess = (title: string, description: string = "") => {
+  const showToast = (
+    status: AlertStatus,
+    title: string,
+    description?: string
+  ) => {
     toast({
       title: title,
       description: description,
-      status: "success",
+      status: status,
       duration: 3000,
       isClosable: true,
     });
   };
 
-  const showError = (title: string, description: string = "") => {
-    toast({
-      title: title,
-      description: description,
-      status: "error",
-      duration: 3000,
-      isClosable: true,
-    });
+  const showSuccess = (title: string, description?: string) => {
+    showToast("success", title, description);
+  };
+
+  const showError = (title: string, description?: string) => {
+    showToast("error", title, description);
   };
 
   return {

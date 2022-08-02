@@ -14,3 +14,8 @@ export interface CartSummary {
   total: number;
   onClick: () => void;
 }
+
+export interface CartItemToAdd {
+  productID: number;
+  amount: number;
+}

@@ -1,5 +1,5 @@
-import { CartItemProps, CartItemToUpdate } from "../../interfaces/cart";
-import { CartItemToAdd } from "../../interfaces/product";
+import { CartItemToAdd, CartItemToUpdate } from "../../interfaces/cart";
+import { CartItemProps } from "../../interfaces/cart";
 import useAPI from "./useAPI";
 
 const useCart = () => {
