@@ -2,14 +2,14 @@ import { Flex } from "@chakra-ui/layout";
 import { Skeleton, Text, Heading, Icon, IconButton } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
-import { QueryCache, useQueryClient } from "react-query";
+import { QueryCache, useQueryClient, useQuery } from "react-query";
 import useProducts from "../../../hooks/api/useProducts";
 import ProductListItem from "./ProductListItem";
 
 const ProductList = () => {
-  const { GetProducts, page, setPage } = useProducts();
+  const { getProducts, page, setPage } = useProducts();
   const queryCache = useQueryClient();
-  const { isLoading, error, data } = GetProducts();
+  const { isLoading, error, data } = useQuery(["products", page], getProducts);
 
   const HasPreviousPage = () => {
     return data?.data.currentPage! > 1;

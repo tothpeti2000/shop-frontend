@@ -7,13 +7,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { useQueryClient } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import useProducts from "../../../hooks/api/useProducts";
 
 const PriceRangePicker = () => {
   const [range, setRange] = useState<number[]>([0, 100]);
-  const { GetMaxPrice } = useProducts();
-  const maxPrice = GetMaxPrice().data?.data as number;
+  const { getMaxPrice } = useProducts();
+  const maxPrice = useQuery("maxPrice", getMaxPrice).data?.data as number;
   const queryCache = useQueryClient();
 
   const ScaleUp = (value: number) => {

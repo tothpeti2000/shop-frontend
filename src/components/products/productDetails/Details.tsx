@@ -1,14 +1,17 @@
 import { Image } from "@chakra-ui/image";
 import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
 import { Skeleton } from "@chakra-ui/skeleton";
+import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import useProducts from "../../../hooks/api/useProducts";
 import AddToCartButton from "../productList/AddToCartButton";
 
 const Details = () => {
   const { id } = useParams();
-  const { GetProductByID } = useProducts();
-  const { isLoading, data } = GetProductByID(parseInt(id!));
+  const { getProductByID } = useProducts();
+  const { isLoading, data } = useQuery("productByID", () =>
+    getProductByID(parseInt(id!))
+  );
 
   return (
     <Skeleton isLoaded={!isLoading}>

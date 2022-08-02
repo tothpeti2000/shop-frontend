@@ -1,27 +1,36 @@
 import { useState } from "react";
-import { SortOption } from "../../interfaces/product";
-import { Get, GetByID, MaxPrice } from "../../services/ProductService";
+import { PagedResponse } from "../../interfaces/pagedResponse";
+import {
+  ProductDetails,
+  ProductListItem,
+  SortOption,
+} from "../../interfaces/product";
+import useAPI from "./useAPI";
 
 const useProducts = () => {
   const [page, setPage] = useState(1);
+  const client = useAPI();
+
   const count = 5;
   const sort: SortOption = localStorage.getItem("sortOption") as SortOption;
   const fromPrice = parseFloat(localStorage.getItem("fromPrice")!);
   const toPrice = parseFloat(localStorage.getItem("toPrice")!);
 
-  const GetProducts = () => {
-    return Get(page, count, sort, fromPrice, toPrice);
+  const getProducts = async () => {
+    return await client.get<PagedResponse<ProductListItem>>(
+      `/products?page=${page}&count=${count}&sort=${sort}&fromPrice=${fromPrice}&toPrice=${toPrice}`
+    );
   };
 
-  const GetProductByID = (ID: number) => {
-    return GetByID(ID);
+  const getProductByID = async (ID: number) => {
+    return await client.get<ProductDetails>(`/products/${ID}`);
   };
 
-  const GetMaxPrice = () => {
-    return MaxPrice();
+  const getMaxPrice = async () => {
+    return await client.get<number>("/products/maxprice");
   };
 
-  return { GetProducts, GetProductByID, GetMaxPrice, page, setPage };
+  return { getProducts, getProductByID, getMaxPrice, page, setPage };
 };
 
 export default useProducts;
