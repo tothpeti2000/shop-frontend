@@ -9,7 +9,7 @@ const useAPI = () => {
   };
 
   const client = axios.create({
-    baseURL: "https://localhost:7202/api",
+    baseURL: process.env.REACT_APP_API_BASE_URL,
   });
 
   return client;
