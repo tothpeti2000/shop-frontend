@@ -1,10 +1,8 @@
 import * as yup from "yup";
 import { AccountDetails } from "../../interfaces/auth";
-import useAPI from "./useAPI";
+import { client } from "../../api/client";
 
 const useRegister = () => {
-  const client = useAPI();
-
   const registerSchema = yup.object({
     userName: yup
       .string()

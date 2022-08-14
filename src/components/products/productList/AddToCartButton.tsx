@@ -3,7 +3,7 @@ import request from "axios";
 import { FaCartPlus } from "react-icons/fa";
 import { useMutation, useQueryClient } from "react-query";
 import useCart from "../../../hooks/api/useCart";
-import useFeedback from "../../useFeedback";
+import useFeedback from "../../../hooks/useFeedback";
 
 interface IProps {
   productID: number;

@@ -1,16 +1,17 @@
 import { Box, Button, Input, Spinner } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import request from "axios";
 import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import useRegister from "../../hooks/api/useRegister";
+import useFeedback from "../../hooks/useFeedback";
 import { RegisterDetails } from "../../interfaces/auth";
 import ErrorMessage from "../utils/ErrorMessage";
-import { useMutation } from "react-query";
 
 const RegisterForm = () => {
   const { registerSchema, register } = useRegister();
+  const { showError } = useFeedback();
 
   const {
     mutateAsync: createAccount,
@@ -19,7 +20,6 @@ const RegisterForm = () => {
     error,
   } = useMutation(register);
   const navigate = useNavigate();
-  const [errorMessages, setErrorMessages] = useState("");
 
   const {
     control,
@@ -38,22 +38,9 @@ const RegisterForm = () => {
       });
 
       navigate("/register/confirm");
-    } catch (err) {
-      if (request.isAxiosError(err) && err.response) {
-        let msg = "";
-
-        (err.response.data as string[]).forEach((err) => {
-          msg += `${err}\n`;
-        });
-
-        setErrorMessages(msg);
-      }
-
-      if (request.isAxiosError(err) && !err.response) {
-        setErrorMessages(
-          "Error while trying to connect to the server. Please, try again later!"
-        );
-      }
+    } catch (err: any) {
+      console.log(error);
+      showError("Registration failed", err.response.data);
     }
   };
 
@@ -140,8 +127,6 @@ const RegisterForm = () => {
           {isLoading && <Spinner />}
           Register
         </Button>
-
-        {isError && <ErrorMessage>{errorMessages}</ErrorMessage>}
       </form>
     </>
   );

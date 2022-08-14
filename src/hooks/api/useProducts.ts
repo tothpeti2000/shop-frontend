@@ -5,11 +5,10 @@ import {
   ProductListItem,
   SortOption,
 } from "../../interfaces/product";
-import useAPI from "./useAPI";
+import { client } from "../../api/client";
 
 const useProducts = () => {
   const [page, setPage] = useState(1);
-  const client = useAPI();
 
   const count = 5;
   const sort: SortOption = localStorage.getItem("sortOption") as SortOption;

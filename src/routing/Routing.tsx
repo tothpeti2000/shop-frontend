@@ -6,29 +6,32 @@ import NotFound from "../pages/NotFound";
 import ProductDetails from "../pages/products/ProductDetails";
 import Products from "../pages/products/Products";
 import Register from "../pages/auth/Register";
+import AxiosInterceptor from "../api/AxiosInterceptor";
 
 const Routing = () => {
   return (
     <Router>
-      <Routes>
-        <Route path="/">
-          <Route index element={<Home />} />
+      <AxiosInterceptor>
+        <Routes>
+          <Route path="/">
+            <Route index element={<Home />} />
 
-          <Route path="login" element={<Login />} />
+            <Route path="login" element={<Login />} />
 
-          <Route path="register">
-            <Route index element={<Register />} />
-            <Route path="confirm" element={<ConfirmRegistration />} />
+            <Route path="register">
+              <Route index element={<Register />} />
+              <Route path="confirm" element={<ConfirmRegistration />} />
+            </Route>
+
+            <Route path="products">
+              <Route index element={<Products />} />
+              <Route path=":id" element={<ProductDetails />} />
+            </Route>
+
+            <Route path="*" element={<NotFound />} />
           </Route>
-
-          <Route path="products">
-            <Route index element={<Products />} />
-            <Route path=":id" element={<ProductDetails />} />
-          </Route>
-
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
+        </Routes>
+      </AxiosInterceptor>
     </Router>
   );
 };

@@ -1,10 +1,8 @@
 import * as yup from "yup";
 import { UserCredentials } from "../../interfaces/auth";
-import useAPI from "./useAPI";
+import { client } from "../../api/client";
 
 const useLogin = () => {
-  const client = useAPI();
-
   const loginSchema = yup.object({
     userName: yup.string().required("Please, enter your username!"),
     password: yup.string().required("Please, enter your password!"),

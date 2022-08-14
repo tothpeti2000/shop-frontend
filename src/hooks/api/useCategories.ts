@@ -1,9 +1,7 @@
 import { CategoryCover, CategoryItem } from "../../interfaces/category";
-import useAPI from "./useAPI";
+import { client } from "../../api/client";
 
 const useCategories = () => {
-  const client = useAPI();
-
   const getCategories = async () => {
     return await client.get<CategoryItem[]>("/categories");
   };

@@ -1,10 +1,8 @@
 import { CartItemToAdd, CartItemToUpdate } from "../../interfaces/cart";
 import { CartItemProps } from "../../interfaces/cart";
-import useAPI from "./useAPI";
+import { client } from "../../api/client";
 
 const useCart = () => {
-  const client = useAPI();
-
   const addToCart = async (item: CartItemToAdd) => {
     return await client.post("/carts/add", item);
   };

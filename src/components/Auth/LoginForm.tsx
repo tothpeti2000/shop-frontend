@@ -16,7 +16,7 @@ import request from "axios";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { UserCredentials } from "../../interfaces/auth";
-import useFeedback from "../useFeedback";
+import useFeedback from "../../hooks/useFeedback";
 import useToken from "../../hooks/useToken";
 
 const LoginForm = () => {
@@ -46,22 +46,14 @@ const LoginForm = () => {
   const onSubmit: SubmitHandler<UserCredentials> = async (data) => {
     try {
       const result = await loginUser(data);
+      console.log("Hello World!");
       saveToken(result.data);
 
       showSuccess("Successfully logged in");
       navigate("/");
       queryCache.invalidateQueries("cartitems");
-    } catch (err) {
-      showError("Login failed", String(error));
-      if (request.isAxiosError(err) && err.response) {
-        setErrorMessage(err.response.data);
-      }
-
-      if (request.isAxiosError(err) && !err.response) {
-        setErrorMessage(
-          "Error while trying to connect to the server. Please, try again later!"
-        );
-      }
+    } catch (err: any) {
+      showError("Login failed", err.response.data);
     }
   };
 
