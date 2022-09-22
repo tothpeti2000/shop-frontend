@@ -4,7 +4,7 @@ import NavBar from "../components/common/navBar/NavBar";
 import Banner from "../components/home/Banner";
 import ContactForm from "../components/home/ContactForm";
 
-const Home = () => {
+const HomePage = () => {
   return (
     <>
       <NavBar />
@@ -16,4 +16,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

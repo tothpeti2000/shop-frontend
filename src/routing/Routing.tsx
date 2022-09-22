@@ -1,12 +1,11 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import ConfirmRegistration from "../pages/auth/ConfirmRegistration";
-import Home from "../pages/Home";
-import Login from "../pages/auth/Login";
-import NotFound from "../pages/NotFound";
-import ProductDetails from "../pages/products/ProductDetails";
-import Products from "../pages/products/Products";
-import Register from "../pages/auth/Register";
 import AxiosInterceptor from "../api/AxiosInterceptor";
+import LoginPage from "../pages/auth/LoginPage";
+import RegistrationPage from "../pages/auth/RegistrationPage";
+import HomePage from "../pages/HomePage";
+import NotFound from "../pages/NotFound";
+import ProductDetailsPage from "../pages/product/ProductDetailsPage";
+import ProductListPage from "../pages/product/ProductListPage";
 
 const Routing = () => {
   return (
@@ -14,18 +13,14 @@ const Routing = () => {
       <AxiosInterceptor>
         <Routes>
           <Route path="/">
-            <Route index element={<Home />} />
+            <Route index element={<HomePage />} />
 
-            <Route path="login" element={<Login />} />
-
-            <Route path="register">
-              <Route index element={<Register />} />
-              <Route path="confirm" element={<ConfirmRegistration />} />
-            </Route>
+            <Route path="login" element={<LoginPage />} />
+            <Route path="register" element={<RegistrationPage />} />
 
             <Route path="products">
-              <Route index element={<Products />} />
-              <Route path=":id" element={<ProductDetails />} />
+              <Route index element={<ProductListPage />} />
+              <Route path=":id" element={<ProductDetailsPage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

@@ -1,7 +1,7 @@
 import FormContainer from "../../components/auth/FormContainer";
 import LoginForm from "../../components/auth/LoginForm";
 
-const Login = () => {
+const LoginPage = () => {
   return (
     <FormContainer>
       <LoginForm />
@@ -9,4 +9,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

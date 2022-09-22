@@ -1,7 +1,7 @@
 import FormContainer from "../../components/auth/FormContainer";
 import RegisterForm from "../../components/auth/RegisterForm";
 
-const Register = () => {
+const RegistrationPage = () => {
   return (
     <FormContainer>
       <RegisterForm />
@@ -9,4 +9,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegistrationPage;

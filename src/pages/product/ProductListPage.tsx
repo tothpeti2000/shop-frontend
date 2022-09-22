@@ -5,7 +5,7 @@ import ProductList from "../../components/products/productList/ProductList";
 import NavBar from "../../components/common/navBar/NavBar";
 import Footer from "../../components/common/footer/Footer";
 
-const Products = () => {
+const ProductListPage = () => {
   return (
     <>
       <NavBar />
@@ -21,4 +21,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default ProductListPage;
