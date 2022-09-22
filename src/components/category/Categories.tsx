@@ -3,13 +3,11 @@ import { Box, Button } from "@chakra-ui/react";
 import Fade from "react-awesome-reveal";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import useCategories from "../../hooks/api/useCategories";
 import CategoryCard from "./CategoryCard";
 import { useQuery } from "react-query";
 
 const Categories = () => {
-  const { getTopCategories } = useCategories();
-  const { data } = useQuery("top-categories", getTopCategories);
+  //const { data } = useQuery("top-categories", getTopCategories);
 
   return (
     <Box
@@ -22,9 +20,9 @@ const Categories = () => {
       <Heading>Shop categories</Heading>
       <Fade>
         <Flex p={5}>
-          {data?.data.map((c) => {
+          {/* {data?.data.map((c) => {
             return <CategoryCard key={c.id} name={c.name} imgURL={c.imgURL} />;
-          })}
+          })} */}
         </Flex>
       </Fade>
 

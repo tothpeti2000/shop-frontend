@@ -8,15 +8,16 @@ import AddToCartButton from "../productList/AddToCartButton";
 
 const Details = () => {
   const { id } = useParams();
-  const { getProductByID } = useProducts();
-  const { isLoading, data } = useQuery("productByID", () =>
-    getProductByID(parseInt(id!))
+  const { isLoading, data } = useQuery(
+    "productByID",
+    () => {}
+    // getProductByID(parseInt(id!))
   );
 
   return (
     <Skeleton isLoaded={!isLoading}>
       <Flex w="80%" h="calc(86vh)" p={50} m="auto">
-        <Image src={data?.data.imgURL || "https://picsum.photos/500"} />
+        {/* <Image src={data?.data.imgURL || "https://picsum.photos/500"} /> */}
         <Flex
           direction="column"
           justifyContent="space-between"
@@ -25,17 +26,15 @@ const Details = () => {
           boxShadow={"2xl"}
         >
           <Box>
-            <Heading mb={2}>{data?.data.name}</Heading>
+            {/* <Heading mb={2}>{data?.data.name}</Heading>
             <Text fontSize="2xl" fontWeight="bold" mb={2}>
               ${data?.data.price}
             </Text>
             <Text>In stock: {data?.data.stock}</Text>
-            {/*<RatingStars ratingValue={data?.data.averageRating!} />*/}
-            <Text fontSize={"lg"}>{data?.data.description}</Text>
+            <RatingStars ratingValue={data?.data.averageRating!} />
+            <Text fontSize={"lg"}>{data?.data.description}</Text> */}
           </Box>
-          <Box>
-            <AddToCartButton productID={data?.data.id!} />
-          </Box>
+          <Box>{/* <AddToCartButton productID={data?.data.id!} /> */}</Box>
         </Flex>
       </Flex>
     </Skeleton>

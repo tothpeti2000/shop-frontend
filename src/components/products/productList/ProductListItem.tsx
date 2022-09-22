@@ -1,9 +1,8 @@
 import { Badge, Box, Flex, Image, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { ProductListItem } from "../../../interfaces/product";
 import AddToCartButton from "./AddToCartButton";
 
-const ProductItem = (props: ProductListItem) => {
+const ProductItem = (props: /*ProductListItem*/ any) => {
   const isAvailable = props.stock > 0;
 
   return (

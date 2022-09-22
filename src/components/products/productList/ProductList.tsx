@@ -7,16 +7,18 @@ import useProducts from "../../../hooks/api/useProducts";
 import ProductListItem from "./ProductListItem";
 
 const ProductList = () => {
-  const { getProducts, page, setPage } = useProducts();
+  const { page, setPage } = useProducts();
   const queryCache = useQueryClient();
-  const { isLoading, error, data } = useQuery(["products", page], getProducts);
+  const { isLoading, error, data } = useQuery(
+    ["products", page] /*getProducts*/
+  );
 
   const HasPreviousPage = () => {
-    return data?.data.currentPage! > 1;
+    // return data?.data.currentPage! > 1;
   };
 
   const HasNextPage = () => {
-    return data?.data.currentPage! < data?.data.totalPages!;
+    // return data?.data.currentPage! < data?.data.totalPages!;
   };
 
   const HandlePageChange = (diff: number) => {
@@ -29,14 +31,14 @@ const ProductList = () => {
       <Skeleton isLoaded={!isLoading} minH="100vh">
         <Flex px={5} mb={5}>
           <Heading>
-            Page {data?.data.currentPage} of {data?.data.totalPages}
+            {/* Page {data?.data.currentPage} of {data?.data.totalPages} */}
           </Heading>
 
           <IconButton
             aria-label="PrevPage"
             icon={<Icon as={BsArrowLeft} boxSize="80%" />}
             mx={5}
-            disabled={!HasPreviousPage()}
+            // disabled={!HasPreviousPage()}
             onClick={() => HandlePageChange(-1)}
           />
 
@@ -44,15 +46,15 @@ const ProductList = () => {
             aria-label="NextPage"
             icon={<Icon as={BsArrowRight} boxSize="80%" />}
             mx={5}
-            disabled={!HasNextPage()}
+            // disabled={!HasNextPage()}
             onClick={() => HandlePageChange(1)}
           />
         </Flex>
 
         <Flex wrap="wrap" justifyContent="space-around">
-          {data?.data.items.map((p) => {
+          {/* {data?.data.items.map((p) => {
             return <ProductListItem key={p.id} {...p} />;
-          })}
+          })} */}
         </Flex>
       </Skeleton>
     </Flex>

@@ -12,26 +12,25 @@ import useProducts from "../../../hooks/api/useProducts";
 
 const PriceRangePicker = () => {
   const [range, setRange] = useState<number[]>([0, 100]);
-  const { getMaxPrice } = useProducts();
-  const maxPrice = useQuery("maxPrice", getMaxPrice).data?.data as number;
+  // const maxPrice = useQuery("maxPrice", getMaxPrice).data?.data as number;
   const queryCache = useQueryClient();
 
   const ScaleUp = (value: number) => {
-    const scale = Math.ceil(maxPrice) / 100;
-    return (value * scale).toFixed(2);
+    // const scale = Math.ceil(maxPrice) / 100;
+    // return (value * scale).toFixed(2);
   };
 
   const ScaleUpRange = (values: number[]) => {
-    const scale = Math.ceil(maxPrice) / 100;
-    return [values[0] * scale, values[1] * scale];
+    // const scale = Math.ceil(maxPrice) / 100;
+    // return [values[0] * scale, values[1] * scale];
   };
 
   const HandleChange = (value: number[]) => {
     setRange(value);
     const range = ScaleUpRange(value);
 
-    localStorage.setItem("fromPrice", JSON.stringify(range[0]));
-    localStorage.setItem("toPrice", JSON.stringify(range[1]));
+    // localStorage.setItem("fromPrice", JSON.stringify(range[0]));
+    // localStorage.setItem("toPrice", JSON.stringify(range[1]));
 
     queryCache.invalidateQueries("products");
   };

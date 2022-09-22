@@ -7,26 +7,28 @@ import NotFound from "../pages/NotFound";
 import ProductDetailsPage from "../pages/product/ProductDetailsPage";
 import ProductListPage from "../pages/product/ProductListPage";
 
+// Check if <AxiosInterceptor /> is necessary
+
 const Routing = () => {
   return (
     <Router>
-      <AxiosInterceptor>
-        <Routes>
-          <Route path="/">
-            <Route index element={<HomePage />} />
+      {/* <AxiosInterceptor> */}
+      <Routes>
+        <Route path="/">
+          <Route index element={<HomePage />} />
 
-            <Route path="login" element={<LoginPage />} />
-            <Route path="register" element={<RegistrationPage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegistrationPage />} />
 
-            <Route path="products">
-              <Route index element={<ProductListPage />} />
-              <Route path=":id" element={<ProductDetailsPage />} />
-            </Route>
-
-            <Route path="*" element={<NotFound />} />
+          <Route path="products">
+            <Route index element={<ProductListPage />} />
+            <Route path=":id" element={<ProductDetailsPage />} />
           </Route>
-        </Routes>
-      </AxiosInterceptor>
+
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+      {/* </AxiosInterceptor> */}
     </Router>
   );
 };

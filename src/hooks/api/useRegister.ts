@@ -1,6 +1,4 @@
 import * as yup from "yup";
-import { AccountDetails } from "../../interfaces/auth";
-import { client } from "../../api/client";
 
 const useRegister = () => {
   const registerSchema = yup.object({
@@ -24,13 +22,8 @@ const useRegister = () => {
       .required("Please enter your password again!"),
   });
 
-  const register = async (userDetails: AccountDetails) => {
-    return await client.post("/auth/register", userDetails);
-  };
-
   return {
     registerSchema,
-    register,
   };
 };
 

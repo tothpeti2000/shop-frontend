@@ -12,15 +12,14 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import useLogin from "../../hooks/api/useLogin";
 import ErrorMessage from "../utils/ErrorMessage";
-import request from "axios";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
-import { UserCredentials } from "../../interfaces/auth";
 import useFeedback from "../../hooks/useFeedback";
 import useToken from "../../hooks/useToken";
+import { UserCredentials } from "../../interfaces/auth";
 
 const LoginForm = () => {
-  const { loginSchema, login } = useLogin();
+  const { loginSchema } = useLogin();
   const { showSuccess, showError } = useFeedback();
   const { saveToken } = useToken();
 
@@ -29,7 +28,7 @@ const LoginForm = () => {
     isLoading,
     error,
     isError,
-  } = useMutation(login);
+  } = useMutation(/*login*/ "");
 
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
@@ -45,9 +44,9 @@ const LoginForm = () => {
 
   const onSubmit: SubmitHandler<UserCredentials> = async (data) => {
     try {
-      const result = await loginUser(data);
-      console.log("Hello World!");
-      saveToken(result.data);
+      // const result = await loginUser(data);
+      // console.log("Hello World!");
+      // saveToken(result.data);
 
       showSuccess("Successfully logged in");
       navigate("/");

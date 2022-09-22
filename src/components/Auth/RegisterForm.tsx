@@ -1,6 +1,5 @@
 import { Box, Button, Input, Spinner } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +9,7 @@ import { RegisterDetails } from "../../interfaces/auth";
 import ErrorMessage from "../utils/ErrorMessage";
 
 const RegisterForm = () => {
-  const { registerSchema, register } = useRegister();
+  const { registerSchema } = useRegister();
   const { showError } = useFeedback();
 
   const {
@@ -18,7 +17,7 @@ const RegisterForm = () => {
     isLoading,
     isError,
     error,
-  } = useMutation(register);
+  } = useMutation(/*register*/ "");
   const navigate = useNavigate();
 
   const {
@@ -31,11 +30,11 @@ const RegisterForm = () => {
 
   const onSubmit: SubmitHandler<RegisterDetails> = async (data) => {
     try {
-      await createAccount({
-        userName: data.userName,
-        email: data.email,
-        password: data.password,
-      });
+      // await createAccount({
+      //   userName: data.userName,
+      //   email: data.email,
+      //   password: data.password,
+      // });
 
       navigate("/register/confirm");
     } catch (err: any) {

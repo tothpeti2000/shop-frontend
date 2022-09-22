@@ -7,7 +7,6 @@ import {
 } from "@chakra-ui/number-input";
 import { useState } from "react";
 import { useMutation } from "react-query";
-import useCart from "../../hooks/api/useCart";
 
 interface IProps {
   id: number;
@@ -16,13 +15,12 @@ interface IProps {
 
 const QuantityPicker = (props: IProps) => {
   const [value, setValue] = useState(props.amount);
-  const { updateItemAmount } = useCart();
-  const { mutateAsync } = useMutation(updateItemAmount);
+  //const { mutateAsync } = useMutation(updateItemAmount);
 
   const HandleChange = async (diff: number) => {
     setValue(value + diff);
 
-    await mutateAsync({ itemID: props.id, amount: value + diff });
+    //await mutateAsync({ itemID: props.id, amount: value + diff });
   };
 
   return (

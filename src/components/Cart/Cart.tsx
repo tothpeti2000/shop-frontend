@@ -7,7 +7,6 @@ import {
   DrawerHeader,
   DrawerOverlay,
 } from "@chakra-ui/react";
-import useCart from "../../hooks/api/useCart";
 import { useToggleContext } from "../../context/ToggleContext";
 import { CartItemProps } from "../../interfaces/cart";
 import CartItem from "./CartItem";
@@ -17,8 +16,7 @@ import { useQuery } from "react-query";
 const Cart = () => {
   const { isOpen, close } = useToggleContext();
 
-  const { getCartItems } = useCart();
-  const { data } = useQuery("cart-items", getCartItems);
+  //const { data } = useQuery("cart-items", getCartItems);
 
   const cartItems: CartItemProps[] = [
     {
