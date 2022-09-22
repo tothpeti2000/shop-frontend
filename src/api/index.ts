@@ -4,12 +4,6 @@
  * Shop API
  * OpenAPI spec version: v1
  */
-import axios from 'axios'
-import type {
-  AxiosRequestConfig,
-  AxiosResponse,
-  AxiosError
-} from 'axios'
 import {
   useQuery,
   useMutation
@@ -29,104 +23,124 @@ import type {
   GetAllProductsResponse,
   GetProductByIdResponse
 } from '../models'
+import { useClient } from './client'
+import type { ErrorType } from './client'
 
 
 
-export const postapiAuthregisterundefined = (
-    registerUserCommand: RegisterUserCommand, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<void>> => {
-    return axios.post(
-      `/api/Auth/register`,
-      registerUserCommand,options
-    );
-  }
+export const useRegisterUserHook = () => {
+        const registerUser = useClient<void>();
 
-
-
-    export type PostapiAuthregisterundefinedMutationResult = NonNullable<Awaited<ReturnType<typeof postapiAuthregisterundefined>>>
-    export type PostapiAuthregisterundefinedMutationBody = RegisterUserCommand
-    export type PostapiAuthregisterundefinedMutationError = AxiosError<unknown>
-
-    export const usePostapiAuthregisterundefined = <TError = AxiosError<unknown>,
+        return (
+    registerUserCommand: RegisterUserCommand,
+ ) => {
+        return registerUser(
+          {url: `/api/Auth/register`, method: 'post',
+      headers: {'Content-Type': 'application/json', },
+      data: registerUserCommand
+    },
+          );
+        }
+      }
     
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postapiAuthregisterundefined>>, TError,{data: RegisterUserCommand}, TContext>, axios?: AxiosRequestConfig}
+
+
+    export type RegisterUserMutationResult = NonNullable<Awaited<ReturnType<ReturnType<typeof useRegisterUserHook>>>>
+    export type RegisterUserMutationBody = RegisterUserCommand
+    export type RegisterUserMutationError = ErrorType<unknown>
+
+    export const useRegisterUser = <TError = ErrorType<unknown>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<ReturnType<typeof useRegisterUserHook>>>, TError,{data: RegisterUserCommand}, TContext>, }
 ) => {
-      const {mutation: mutationOptions, axios: axiosOptions} = options ?? {};
+      const {mutation: mutationOptions} = options ?? {};
 
-      
+      const registerUser =  useRegisterUserHook()
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postapiAuthregisterundefined>>, {data: RegisterUserCommand}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<ReturnType<typeof useRegisterUserHook>>>, {data: RegisterUserCommand}> = (props) => {
           const {data} = props ?? {};
 
-          return  postapiAuthregisterundefined(data,axiosOptions)
+          return  registerUser(data,)
         }
 
-      return useMutation<Awaited<ReturnType<typeof postapiAuthregisterundefined>>, TError, {data: RegisterUserCommand}, TContext>(mutationFn, mutationOptions)
+      return useMutation<Awaited<ReturnType<typeof registerUser>>, TError, {data: RegisterUserCommand}, TContext>(mutationFn, mutationOptions)
     }
     
-export const postapiAuthloginundefined = (
-    loginUserRequest: LoginUserRequest, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<LoginUserResponse>> => {
-    return axios.post(
-      `/api/Auth/login`,
-      loginUserRequest,options
-    );
-  }
+export const useLoginUserHook = () => {
+        const loginUser = useClient<LoginUserResponse>();
 
-
-
-    export type PostapiAuthloginundefinedMutationResult = NonNullable<Awaited<ReturnType<typeof postapiAuthloginundefined>>>
-    export type PostapiAuthloginundefinedMutationBody = LoginUserRequest
-    export type PostapiAuthloginundefinedMutationError = AxiosError<unknown>
-
-    export const usePostapiAuthloginundefined = <TError = AxiosError<unknown>,
+        return (
+    loginUserRequest: LoginUserRequest,
+ ) => {
+        return loginUser(
+          {url: `/api/Auth/login`, method: 'post',
+      headers: {'Content-Type': 'application/json', },
+      data: loginUserRequest
+    },
+          );
+        }
+      }
     
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postapiAuthloginundefined>>, TError,{data: LoginUserRequest}, TContext>, axios?: AxiosRequestConfig}
+
+
+    export type LoginUserMutationResult = NonNullable<Awaited<ReturnType<ReturnType<typeof useLoginUserHook>>>>
+    export type LoginUserMutationBody = LoginUserRequest
+    export type LoginUserMutationError = ErrorType<unknown>
+
+    export const useLoginUser = <TError = ErrorType<unknown>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<ReturnType<typeof useLoginUserHook>>>, TError,{data: LoginUserRequest}, TContext>, }
 ) => {
-      const {mutation: mutationOptions, axios: axiosOptions} = options ?? {};
+      const {mutation: mutationOptions} = options ?? {};
 
-      
+      const loginUser =  useLoginUserHook()
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postapiAuthloginundefined>>, {data: LoginUserRequest}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<ReturnType<typeof useLoginUserHook>>>, {data: LoginUserRequest}> = (props) => {
           const {data} = props ?? {};
 
-          return  postapiAuthloginundefined(data,axiosOptions)
+          return  loginUser(data,)
         }
 
-      return useMutation<Awaited<ReturnType<typeof postapiAuthloginundefined>>, TError, {data: LoginUserRequest}, TContext>(mutationFn, mutationOptions)
+      return useMutation<Awaited<ReturnType<typeof loginUser>>, TError, {data: LoginUserRequest}, TContext>(mutationFn, mutationOptions)
     }
     
-export const getapiProductsundefined = (
-     options?: AxiosRequestConfig
- ): Promise<AxiosResponse<GetAllProductsResponse>> => {
-    return axios.get(
-      `/api/Products`,options
-    );
-  }
+export const useGetAllProductsHook = () => {
+        const getAllProducts = useClient<GetAllProductsResponse>();
 
+        return (
+    
+ signal?: AbortSignal
+) => {
+        return getAllProducts(
+          {url: `/api/Products`, method: 'get', signal
+    },
+          );
+        }
+      }
+    
 
-export const getGetapiProductsundefinedQueryKey = () => [`/api/Products`];
+export const getGetAllProductsQueryKey = () => [`/api/Products`];
 
     
-export type GetapiProductsundefinedQueryResult = NonNullable<Awaited<ReturnType<typeof getapiProductsundefined>>>
-export type GetapiProductsundefinedQueryError = AxiosError<unknown>
+export type GetAllProductsQueryResult = NonNullable<Awaited<ReturnType<ReturnType<typeof useGetAllProductsHook>>>>
+export type GetAllProductsQueryError = ErrorType<unknown>
 
-export const useGetapiProductsundefined = <TData = Awaited<ReturnType<typeof getapiProductsundefined>>, TError = AxiosError<unknown>>(
-  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getapiProductsundefined>>, TError, TData>, axios?: AxiosRequestConfig}
+export const useGetAllProducts = <TData = Awaited<ReturnType<ReturnType<typeof useGetAllProductsHook>>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<ReturnType<typeof useGetAllProductsHook>>>, TError, TData>, }
 
   ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
 
-  const {query: queryOptions, axios: axiosOptions} = options ?? {};
+  const {query: queryOptions} = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetapiProductsundefinedQueryKey();
+  const queryKey = queryOptions?.queryKey ?? getGetAllProductsQueryKey();
 
-  
+  const getAllProducts =  useGetAllProductsHook();
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getapiProductsundefined>>> = ({ signal }) => getapiProductsundefined({ signal, ...axiosOptions });
+  const queryFn: QueryFunction<Awaited<ReturnType<ReturnType<typeof useGetAllProductsHook>>>> = ({ signal }) => getAllProducts(signal);
 
-  const query = useQuery<Awaited<ReturnType<typeof getapiProductsundefined>>, TError, TData>(queryKey, queryFn, queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery<Awaited<ReturnType<ReturnType<typeof useGetAllProductsHook>>>, TError, TData>(queryKey, queryFn, queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   query.queryKey = queryKey;
 
@@ -134,35 +148,41 @@ export const useGetapiProductsundefined = <TData = Awaited<ReturnType<typeof get
 }
 
 
-export const getapiProductsidundefined = (
-    id: string, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<GetProductByIdResponse>> => {
-    return axios.get(
-      `/api/Products/${id}`,options
-    );
-  }
+export const useGetProductByIdHook = () => {
+        const getProductById = useClient<GetProductByIdResponse>();
 
+        return (
+    id: string,
+ signal?: AbortSignal
+) => {
+        return getProductById(
+          {url: `/api/Products/${id}`, method: 'get', signal
+    },
+          );
+        }
+      }
+    
 
-export const getGetapiProductsidundefinedQueryKey = (id: string,) => [`/api/Products/${id}`];
+export const getGetProductByIdQueryKey = (id: string,) => [`/api/Products/${id}`];
 
     
-export type GetapiProductsidundefinedQueryResult = NonNullable<Awaited<ReturnType<typeof getapiProductsidundefined>>>
-export type GetapiProductsidundefinedQueryError = AxiosError<unknown>
+export type GetProductByIdQueryResult = NonNullable<Awaited<ReturnType<ReturnType<typeof useGetProductByIdHook>>>>
+export type GetProductByIdQueryError = ErrorType<unknown>
 
-export const useGetapiProductsidundefined = <TData = Awaited<ReturnType<typeof getapiProductsidundefined>>, TError = AxiosError<unknown>>(
- id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getapiProductsidundefined>>, TError, TData>, axios?: AxiosRequestConfig}
+export const useGetProductById = <TData = Awaited<ReturnType<ReturnType<typeof useGetProductByIdHook>>>, TError = ErrorType<unknown>>(
+ id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<ReturnType<typeof useGetProductByIdHook>>>, TError, TData>, }
 
   ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
 
-  const {query: queryOptions, axios: axiosOptions} = options ?? {};
+  const {query: queryOptions} = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetapiProductsidundefinedQueryKey(id);
+  const queryKey = queryOptions?.queryKey ?? getGetProductByIdQueryKey(id);
 
-  
+  const getProductById =  useGetProductByIdHook();
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getapiProductsidundefined>>> = ({ signal }) => getapiProductsidundefined(id, { signal, ...axiosOptions });
+  const queryFn: QueryFunction<Awaited<ReturnType<ReturnType<typeof useGetProductByIdHook>>>> = ({ signal }) => getProductById(id, signal);
 
-  const query = useQuery<Awaited<ReturnType<typeof getapiProductsidundefined>>, TError, TData>(queryKey, queryFn, {enabled: !!(id), ...queryOptions}) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery<Awaited<ReturnType<ReturnType<typeof useGetProductByIdHook>>>, TError, TData>(queryKey, queryFn, {enabled: !!(id), ...queryOptions}) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   query.queryKey = queryKey;
 

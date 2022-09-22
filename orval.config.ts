@@ -9,10 +9,11 @@ export default defineConfig({
       target: "src/api/index.ts",
       schemas: "src/models",
       client: "react-query",
-      // TODO: Modify the name of generated hooks
       override: {
-        operationName: (operation, route, verb) =>
-          `${verb}${route}${operation.description}`,
+        mutator: {
+          path: "src/api/client.ts",
+          name: "useClient",
+        },
       },
     },
   },
