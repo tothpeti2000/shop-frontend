@@ -15,6 +15,7 @@ export default defineConfig({
           name: "useClient",
         },
       },
+      prettier: true,
     },
   },
 });

@@ -4,7 +4,7 @@
  * Shop API
  * OpenAPI spec version: v1
  */
-import type { Category } from './category';
+import type { Category } from "./category";
 
 export interface Product {
   id?: string;

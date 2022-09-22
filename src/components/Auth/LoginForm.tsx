@@ -8,18 +8,17 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import useLogin from "../../hooks/api/useLogin";
-import ErrorMessage from "../utils/ErrorMessage";
 import { useState } from "react";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
+import { Link, useNavigate } from "react-router-dom";
 import useFeedback from "../../hooks/useFeedback";
 import useToken from "../../hooks/useToken";
 import { UserCredentials } from "../../interfaces/auth";
+import loginSchema from "../form/schemas/login";
+import ErrorMessage from "../utils/ValidationError";
 
 const LoginForm = () => {
-  const { loginSchema } = useLogin();
   const { showSuccess, showError } = useFeedback();
   const { saveToken } = useToken();
 

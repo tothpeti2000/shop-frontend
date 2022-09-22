@@ -5,7 +5,7 @@ import FullScreenCenter from "../utils/FullScreenCenter";
 const FormContainer: FC = ({ children }) => {
   return (
     <FullScreenCenter>
-      <Box w={"30%"} p={5} borderRadius={"2xl"} boxShadow={"dark-lg"}>
+      <Box w="30%" p={5} borderRadius="2xl" boxShadow="lg">
         {children}
       </Box>
     </FullScreenCenter>

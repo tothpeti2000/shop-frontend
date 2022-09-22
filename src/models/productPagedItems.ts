@@ -4,7 +4,7 @@
  * Shop API
  * OpenAPI spec version: v1
  */
-import type { Product } from './product';
+import type { Product } from "./product";
 
 export interface ProductPagedItems {
   items?: Product[] | null;

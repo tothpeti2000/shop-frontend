@@ -4,7 +4,7 @@
  * Shop API
  * OpenAPI spec version: v1
  */
-import type { ProductPagedItems } from './productPagedItems';
+import type { ProductPagedItems } from "./productPagedItems";
 
 export interface GetAllProductsResponse {
   response?: ProductPagedItems;
