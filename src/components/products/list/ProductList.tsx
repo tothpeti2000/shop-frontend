@@ -27,7 +27,7 @@ const ProductList = () => {
   };
 
   return (
-    <Flex direction={"column"} flex="3">
+    <Flex direction={"column"}>
       <Skeleton isLoaded={!isLoading} minH="100vh">
         <Flex px={5} mb={5}>
           <Heading>

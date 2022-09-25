@@ -2,31 +2,32 @@ import { Box, Flex } from "@chakra-ui/layout";
 import { Collapse, Text, useDisclosure } from "@chakra-ui/react";
 import { FC, useState } from "react";
 
-type Props = {
-  title: String;
-};
+interface Props {
+  label: String;
+}
 
-const FilterItem: FC<Props> = ({ children, title }) => {
+const FilterItem: FC<Props> = ({ children, label }) => {
   const { isOpen, onToggle } = useDisclosure();
-  const [toggleIcon, SetToggleIcon] = useState("+");
+  const [toggleIcon, setToggleIcon] = useState("+");
 
-  const HandleClick = () => {
+  const toggleItem = () => {
     onToggle();
-    SetToggleIcon(toggleIcon === "+" ? "-" : "+");
+    setToggleIcon(toggleIcon === "+" ? "-" : "+");
   };
 
   return (
-    <Box w="100%" px={10} py={5} borderBottom="1px solid lightgrey">
+    <Box p={5} borderBottom="1px" borderColor="lightgrey">
       <Flex
         as="button"
+        justifyContent="space-between"
         w="100%"
         fontSize="xl"
-        justifyContent="space-between"
-        onClick={HandleClick}
+        onClick={toggleItem}
       >
-        <Text>{title}</Text>
+        <Text>{label}</Text>
         <Text>{toggleIcon}</Text>
       </Flex>
+
       <Collapse in={isOpen} animateOpacity>
         <Box mt={5}>{children}</Box>
       </Collapse>

@@ -1,23 +1,29 @@
-import { Flex } from "@chakra-ui/react";
-import Filter from "../../components/products/productFilter/Filter";
-import FilterHeader from "../../components/products/productSort/Sort";
-import ProductList from "../../components/products/productList/ProductList";
-import NavBar from "../../components/common/navBar/NavBar";
-import Footer from "../../components/common/footer/Footer";
+import { Box, Flex } from "@chakra-ui/react";
+import Layout from "../../components/Layout";
+import Filter from "../../components/products/filter/Filter";
+import ProductList from "../../components/products/list/ProductList";
+import Sort from "../../components/products/sort/Sort";
+import { ProductListProvider } from "../../context/ProductListContext";
 
 const ProductListPage = () => {
   return (
-    <>
-      <NavBar />
-      <Flex direction="column" p={10}>
-        <FilterHeader />
-        <Flex>
-          <Filter />
-          <ProductList />
+    <Layout>
+      <ProductListProvider>
+        <Flex p={10} gap={2}>
+          <Box flex={1}>
+            <Filter />
+          </Box>
+
+          <Flex flex={3} direction="column">
+            <Box alignSelf="flex-end" mb={5}>
+              <Sort />
+            </Box>
+
+            <ProductList />
+          </Flex>
         </Flex>
-      </Flex>
-      <Footer />
-    </>
+      </ProductListProvider>
+    </Layout>
   );
 };
 

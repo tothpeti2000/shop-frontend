@@ -1,14 +1,11 @@
-import Footer from "../../components/common/footer/Footer";
-import NavBar from "../../components/common/navBar/NavBar";
-import Details from "../../components/products/productDetails/Details";
+import Layout from "../../components/Layout";
+import Details from "../../components/products/details/Details";
 
 const ProductDetailsPage = () => {
   return (
-    <>
-      <NavBar />
+    <Layout>
       <Details />
-      <Footer />
-    </>
+    </Layout>
   );
 };
 

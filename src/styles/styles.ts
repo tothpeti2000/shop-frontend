@@ -9,5 +9,5 @@ export const bgDark = {
 };
 
 export const animated = {
-  transition: "0.5s",
+  transition: "200ms ease-out",
 };

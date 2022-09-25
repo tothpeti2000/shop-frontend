@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Spacer } from "@chakra-ui/react";
 import { ToggleProvider } from "../../../context/ToggleContext";
 import useUser from "../../../hooks/useUser";
 import { animated, basicFlex, bgDark } from "../../../styles/styles";
@@ -17,7 +17,7 @@ const NavBar = () => {
   return (
     <Flex
       as="nav"
-      {...basicFlex}
+      alignItems="center"
       px="10%"
       h={height}
       {...bgDark}
@@ -29,18 +29,18 @@ const NavBar = () => {
     >
       <NavBrand />
 
-      <Flex {...basicFlex}>
-        <SearchBar />
-        <NavLinks />
-        <AuthButton />
+      <Spacer />
 
-        {isLoggedIn() && (
-          <ToggleProvider>
-            <CartButton />
-            <Cart />
-          </ToggleProvider>
-        )}
-      </Flex>
+      <SearchBar />
+      <NavLinks />
+      <AuthButton />
+
+      {isLoggedIn() && (
+        <ToggleProvider>
+          <CartButton />
+          <Cart />
+        </ToggleProvider>
+      )}
     </Flex>
   );
 };

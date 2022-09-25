@@ -1,10 +1,7 @@
-import { Image } from "@chakra-ui/image";
-import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
+import { Box, Flex } from "@chakra-ui/layout";
 import { Skeleton } from "@chakra-ui/skeleton";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import useProducts from "../../../hooks/api/useProducts";
-import AddToCartButton from "../productList/AddToCartButton";
 
 const Details = () => {
   const { id } = useParams();

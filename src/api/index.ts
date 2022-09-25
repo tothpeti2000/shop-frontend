@@ -17,7 +17,8 @@ import type {
   RegisterUserCommand,
   LoginUserResponse,
   LoginUserRequest,
-  GetAllProductsResponse,
+  GetProductsResponse,
+  GetProductsParams,
   GetProductByIdResponse,
 } from "../models";
 import { useClient } from "./client";
@@ -125,43 +126,49 @@ export const useLoginUser = <
   >(mutationFn, mutationOptions);
 };
 
-export const useGetAllProductsHook = () => {
-  const getAllProducts = useClient<GetAllProductsResponse>();
+export const useGetProductsHook = () => {
+  const getProducts = useClient<GetProductsResponse>();
 
-  return (signal?: AbortSignal) => {
-    return getAllProducts({ url: `/api/Products`, method: "get", signal });
+  return (params?: GetProductsParams, signal?: AbortSignal) => {
+    return getProducts({ url: `/api/Products`, method: "get", params, signal });
   };
 };
 
-export const getGetAllProductsQueryKey = () => [`/api/Products`];
+export const getGetProductsQueryKey = (params?: GetProductsParams) => [
+  `/api/Products`,
+  ...(params ? [params] : []),
+];
 
-export type GetAllProductsQueryResult = NonNullable<
-  Awaited<ReturnType<ReturnType<typeof useGetAllProductsHook>>>
+export type GetProductsQueryResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useGetProductsHook>>>
 >;
-export type GetAllProductsQueryError = ErrorType<unknown>;
+export type GetProductsQueryError = ErrorType<unknown>;
 
-export const useGetAllProducts = <
-  TData = Awaited<ReturnType<ReturnType<typeof useGetAllProductsHook>>>,
+export const useGetProducts = <
+  TData = Awaited<ReturnType<ReturnType<typeof useGetProductsHook>>>,
   TError = ErrorType<unknown>
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<ReturnType<typeof useGetAllProductsHook>>>,
-    TError,
-    TData
-  >;
-}): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+>(
+  params?: GetProductsParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<ReturnType<typeof useGetProductsHook>>>,
+      TError,
+      TData
+    >;
+  }
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
   const { query: queryOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetAllProductsQueryKey();
+  const queryKey = queryOptions?.queryKey ?? getGetProductsQueryKey(params);
 
-  const getAllProducts = useGetAllProductsHook();
+  const getProducts = useGetProductsHook();
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<ReturnType<typeof useGetAllProductsHook>>>
-  > = ({ signal }) => getAllProducts(signal);
+    Awaited<ReturnType<ReturnType<typeof useGetProductsHook>>>
+  > = ({ signal }) => getProducts(params, signal);
 
   const query = useQuery<
-    Awaited<ReturnType<ReturnType<typeof useGetAllProductsHook>>>,
+    Awaited<ReturnType<ReturnType<typeof useGetProductsHook>>>,
     TError,
     TData
   >(queryKey, queryFn, queryOptions) as UseQueryResult<TData, TError> & {

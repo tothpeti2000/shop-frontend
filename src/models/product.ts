@@ -14,5 +14,6 @@ export interface Product {
   description?: string | null;
   averageRating?: number;
   imgUrl?: string | null;
+  categoryId?: string;
   category?: Category;
 }

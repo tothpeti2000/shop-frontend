@@ -4,8 +4,12 @@
  * Shop API
  * OpenAPI spec version: v1
  */
-import type { Product } from "./product";
 
 export interface GetProductByIdResponse {
-  product?: Product;
+  name?: string | null;
+  price?: number;
+  stock?: number;
+  description?: string | null;
+  averageRating?: number;
+  imgUrl?: string | null;
 }
