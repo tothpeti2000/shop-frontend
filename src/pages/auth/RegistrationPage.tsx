@@ -1,5 +1,5 @@
-import FormContainer from "../../components/form/FormContainer";
-import RegistrationForm from "../../components/auth/RegistrationForm";
+import FormContainer from "../../components/form/utils/FormContainer";
+import RegistrationForm from "../../components/form/RegistrationForm";
 
 const RegistrationPage = () => {
   return (

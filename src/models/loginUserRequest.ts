@@ -6,6 +6,6 @@
  */
 
 export interface LoginUserRequest {
-  email?: string | null;
+  userName?: string | null;
   password?: string | null;
 }

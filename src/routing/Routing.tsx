@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import AxiosInterceptor from "../api/AxiosInterceptor";
 import LoginPage from "../pages/auth/LoginPage";
 import RegistrationPage from "../pages/auth/RegistrationPage";
 import HomePage from "../pages/HomePage";
@@ -7,12 +6,9 @@ import NotFound from "../pages/NotFound";
 import ProductDetailsPage from "../pages/product/ProductDetailsPage";
 import ProductListPage from "../pages/product/ProductListPage";
 
-// Check if <AxiosInterceptor /> is necessary
-
 const Routing = () => {
   return (
     <Router>
-      {/* <AxiosInterceptor> */}
       <Routes>
         <Route path="/">
           <Route index element={<HomePage />} />
@@ -28,7 +24,6 @@ const Routing = () => {
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
-      {/* </AxiosInterceptor> */}
     </Router>
   );
 };

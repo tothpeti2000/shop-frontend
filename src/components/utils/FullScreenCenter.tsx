@@ -1,16 +1,15 @@
-import { Flex } from "@chakra-ui/react";
+import { Center } from "@chakra-ui/react";
 import { FC } from "react";
 
-const FullScreenCenter: FC = ({ children }) => {
+interface Props {
+  bgColor?: string;
+}
+
+const FullScreenCenter: FC<Props> = ({ bgColor, children }) => {
   return (
-    <Flex
-      direction={"column"}
-      justifyContent={"center"}
-      alignItems={"center"}
-      h={"100vh"}
-    >
+    <Center h="100vh" bgColor={bgColor}>
       {children}
-    </Flex>
+    </Center>
   );
 };
 

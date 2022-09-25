@@ -4,43 +4,43 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { useRegisterUserHook } from "../../api";
-import { ErrorType } from "../../api/client";
+import { useErrorHandler } from "../../api/client";
 import useFeedback from "../../hooks/useFeedback";
-import { RegisterDetails } from "../../interfaces/auth";
 import InputField from "../form/InputField";
 import registrationSchema from "../form/schemas/registration";
 
+interface RegistrationData {
+  userName: string;
+  email: string;
+  password: string;
+  passwordAgain: string;
+}
+
 const RegistrationForm = () => {
-  const { showError } = useFeedback();
+  const { showSuccess } = useFeedback();
+  const { handleError } = useErrorHandler();
+  const navigate = useNavigate();
 
   const { mutateAsync: createAccount, isLoading } = useMutation(
     useRegisterUserHook()
   );
 
-  const navigate = useNavigate();
-
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterDetails>({
+  } = useForm<RegistrationData>({
     resolver: yupResolver(registrationSchema),
   });
 
-  const onSubmit: SubmitHandler<RegisterDetails> = async (data) => {
+  const onSubmit: SubmitHandler<RegistrationData> = async (data) => {
     try {
-      await createAccount({
-        userName: data.userName,
-        email: data.email,
-        password: data.password,
-      });
+      await createAccount(data);
 
+      showSuccess("Account created successfully");
       navigate("/login");
     } catch (err: any) {
-      const errorMessage = (err as ErrorType<Error>).response?.data.message;
-      console.log(errorMessage);
-
-      showError("Registration failed", errorMessage);
+      handleError(err.response);
     }
   };
 
@@ -53,6 +53,7 @@ const RegistrationForm = () => {
         control={control}
         autoFocus
         validationError={errors.userName?.message}
+        size="lg"
       />
 
       <InputField
@@ -61,6 +62,7 @@ const RegistrationForm = () => {
         placeholder="Email"
         control={control}
         validationError={errors.email?.message}
+        size="lg"
       />
 
       <InputField
@@ -69,6 +71,7 @@ const RegistrationForm = () => {
         placeholder="Password"
         control={control}
         validationError={errors.password?.message}
+        size="lg"
       />
 
       <InputField
@@ -77,6 +80,7 @@ const RegistrationForm = () => {
         placeholder="Password again"
         control={control}
         validationError={errors.passwordAgain?.message}
+        size="lg"
       />
 
       <Button
@@ -84,6 +88,7 @@ const RegistrationForm = () => {
         w="100%"
         colorScheme="messenger"
         disabled={isLoading}
+        size="lg"
       >
         {isLoading && <Spinner />}
         Create account
