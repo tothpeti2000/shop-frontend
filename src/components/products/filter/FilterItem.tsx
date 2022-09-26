@@ -1,37 +1,28 @@
-import { Box, Flex } from "@chakra-ui/layout";
-import { Collapse, Text, useDisclosure } from "@chakra-ui/react";
-import { FC, useState } from "react";
+import { Box } from "@chakra-ui/layout";
+import {
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+} from "@chakra-ui/react";
+import { FC } from "react";
 
 interface Props {
   label: String;
 }
 
 const FilterItem: FC<Props> = ({ children, label }) => {
-  const { isOpen, onToggle } = useDisclosure();
-  const [toggleIcon, setToggleIcon] = useState("+");
-
-  const toggleItem = () => {
-    onToggle();
-    setToggleIcon(toggleIcon === "+" ? "-" : "+");
-  };
-
   return (
-    <Box p={5} borderBottom="1px" borderColor="lightgrey">
-      <Flex
-        as="button"
-        justifyContent="space-between"
-        w="100%"
-        fontSize="xl"
-        onClick={toggleItem}
-      >
-        <Text>{label}</Text>
-        <Text>{toggleIcon}</Text>
-      </Flex>
+    <AccordionItem p={2}>
+      <AccordionButton>
+        <Box flex="1" textAlign="left" fontSize="xl">
+          {label}
+        </Box>
+        <AccordionIcon />
+      </AccordionButton>
 
-      <Collapse in={isOpen} animateOpacity>
-        <Box mt={5}>{children}</Box>
-      </Collapse>
-    </Box>
+      <AccordionPanel>{children}</AccordionPanel>
+    </AccordionItem>
   );
 };
 

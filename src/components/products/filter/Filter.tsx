@@ -1,16 +1,16 @@
-import { Box, Heading } from "@chakra-ui/react";
+import { Accordion, Heading } from "@chakra-ui/react";
 import CategoryPicker from "./CategoryPicker";
 import FilterItem from "./FilterItem";
 import PriceRangePicker from "./PriceRangePicker";
 
 const Filter = () => {
   return (
-    <Box>
+    <>
       <Heading size="lg" mb={5}>
         Filter by
       </Heading>
 
-      <Box border="1px" borderColor="grey" borderRadius={10}>
+      <Accordion allowMultiple allowToggle borderColor="#acacac">
         <FilterItem label="Price">
           <PriceRangePicker />
         </FilterItem>
@@ -18,8 +18,8 @@ const Filter = () => {
         <FilterItem label="Category">
           <CategoryPicker />
         </FilterItem>
-      </Box>
-    </Box>
+      </Accordion>
+    </>
   );
 };
 
