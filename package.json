@@ -16,6 +16,7 @@
     "@types/react-dom": "^16.9.14",
     "axios": "^0.26.1",
     "framer-motion": "^4.1.17",
+    "lodash-es": "^4.17.21",
     "orval": "^6.10.0",
     "react": "^17.0.2",
     "react-awesome-reveal": "^3.8.1",
