@@ -1,9 +1,8 @@
 import { Button, Spinner } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { useRegisterUserHook } from "../../api";
+import { useRegisterUser } from "../../api";
 import { useErrorHandler } from "../../api/client";
 import useFeedback from "../../hooks/useFeedback";
 import InputField from "../form/InputField";
@@ -21,9 +20,7 @@ const RegistrationForm = () => {
   const { handleError } = useErrorHandler();
   const navigate = useNavigate();
 
-  const { mutateAsync: createAccount, isLoading } = useMutation(
-    useRegisterUserHook()
-  );
+  const { mutateAsync: createAccount, isLoading } = useRegisterUser();
 
   const {
     control,
@@ -35,7 +32,7 @@ const RegistrationForm = () => {
 
   const onSubmit: SubmitHandler<RegistrationData> = async (data) => {
     try {
-      await createAccount(data);
+      await createAccount({ data: data });
 
       showSuccess("Account created successfully");
       navigate("/login");

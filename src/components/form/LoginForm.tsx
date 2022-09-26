@@ -1,9 +1,9 @@
 import { Button, Center, Divider, Flex, Spinner, Text } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "react-query";
+import { useQueryClient } from "react-query";
 import { Link, useNavigate } from "react-router-dom";
-import { useLoginUserHook } from "../../api";
+import { useLoginUser } from "../../api";
 import { useErrorHandler } from "../../api/client";
 import useFeedback from "../../hooks/useFeedback";
 import useToken from "../../hooks/useToken";
@@ -20,7 +20,7 @@ const LoginForm = () => {
   const { saveToken } = useToken();
   const { handleError } = useErrorHandler();
 
-  const { mutateAsync: loginUser, isLoading } = useMutation(useLoginUserHook());
+  const { mutateAsync: loginUser, isLoading } = useLoginUser();
 
   const navigate = useNavigate();
   const queryCache = useQueryClient();
@@ -35,7 +35,7 @@ const LoginForm = () => {
 
   const onSubmit: SubmitHandler<UserCredentials> = async (data) => {
     try {
-      const response = await loginUser(data);
+      const response = await loginUser({ data: data });
 
       saveToken(response.token ?? "");
       queryCache.invalidateQueries("cart-items");
