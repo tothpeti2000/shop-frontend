@@ -20,6 +20,7 @@ import type {
   GetProductsResponse,
   GetProductsParams,
   GetProductByIdResponse,
+  GetPriceRangeResponse,
 } from "../models";
 import { useClient } from "./client";
 import type { ErrorType } from "./client";
@@ -232,6 +233,58 @@ export const useGetProductById = <
     TData,
     TError
   > & { queryKey: QueryKey };
+
+  query.queryKey = queryKey;
+
+  return query;
+};
+
+export const useGetPriceRangeHook = () => {
+  const getPriceRange = useClient<GetPriceRangeResponse>();
+
+  return (signal?: AbortSignal) => {
+    return getPriceRange({
+      url: `/api/Products/price-range`,
+      method: "get",
+      signal,
+    });
+  };
+};
+
+export const getGetPriceRangeQueryKey = () => [`/api/Products/price-range`];
+
+export type GetPriceRangeQueryResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useGetPriceRangeHook>>>
+>;
+export type GetPriceRangeQueryError = ErrorType<unknown>;
+
+export const useGetPriceRange = <
+  TData = Awaited<ReturnType<ReturnType<typeof useGetPriceRangeHook>>>,
+  TError = ErrorType<unknown>
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<ReturnType<typeof useGetPriceRangeHook>>>,
+    TError,
+    TData
+  >;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+  const { query: queryOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetPriceRangeQueryKey();
+
+  const getPriceRange = useGetPriceRangeHook();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<ReturnType<typeof useGetPriceRangeHook>>>
+  > = ({ signal }) => getPriceRange(signal);
+
+  const query = useQuery<
+    Awaited<ReturnType<ReturnType<typeof useGetPriceRangeHook>>>,
+    TError,
+    TData
+  >(queryKey, queryFn, queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
 
   query.queryKey = queryKey;
 

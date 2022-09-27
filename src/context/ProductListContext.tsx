@@ -4,6 +4,7 @@ const useProductListContextValue = () => {
   const [priceRange, setPriceRange] = useState([0, 0]);
 
   return {
+    priceRange,
     setPriceRange,
   };
 };

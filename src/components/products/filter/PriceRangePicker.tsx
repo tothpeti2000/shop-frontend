@@ -1,4 +1,5 @@
 import {
+  Box,
   Flex,
   RangeSlider,
   RangeSliderFilledTrack,
@@ -6,37 +7,42 @@ import {
   RangeSliderTrack,
   Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import { useQuery, useQueryClient } from "react-query";
+import { debounce } from "lodash-es";
+import { useMemo } from "react";
+import { useQueryClient } from "react-query";
+import { useGetPriceRange } from "../../../api";
 import { useProductListContext } from "../../../context/ProductListContext";
+import Loading from "../../Loading";
 
 const PriceRangePicker = () => {
-  const [sliderRange, setSliderRange] = useState([0, 100]);
-  const { setPriceRange } = useProductListContext();
-  // const maxPrice = useQuery("maxPrice", getMaxPrice).data?.data as number;
+  const { priceRange, setPriceRange } = useProductListContext();
+  const { data: range, isLoading } = useGetPriceRange({
+    query: {
+      onSuccess: (data) => setPriceRange([data.min!, data.max!]),
+      refetchOnWindowFocus: false,
+    },
+  });
+
   const queryCache = useQueryClient();
 
-  const scaleUp = (value: number) => {
-    // const scale = Math.ceil(maxPrice) / 100;
-    // return (value * scale).toFixed(2);
+  const scaleUp = (rangePickerValue: number) => {
+    const scale = Math.ceil(range?.max ?? 0) / 100;
+    return rangePickerValue * scale;
   };
 
-  const scaleUpRange = (values: number[]) => {
-    const scale = Math.ceil(/*maxPrice*/ 100) / 100;
-    return [values[0] * scale, values[1] * scale];
-  };
+  const handleRangeChange = useMemo(
+    () =>
+      debounce((value: number[]) => {
+        console.log(value);
 
-  const handleRangeChange = (value: number[]) => {
-    setSliderRange(value);
+        setPriceRange([scaleUp(value[0]), scaleUp(value[1])]);
+      }, 300),
 
-    const range = scaleUpRange(value);
-    setPriceRange(range);
-
-    queryCache.invalidateQueries("products");
-  };
+    [queryCache]
+  );
 
   return (
-    <>
+    <Loading isLoading={isLoading}>
       <RangeSlider
         defaultValue={[0, 100]}
         onChangeEnd={(value) => handleRangeChange(value)}
@@ -47,17 +53,18 @@ const PriceRangePicker = () => {
         <RangeSliderThumb index={0} />
         <RangeSliderThumb index={1} />
       </RangeSlider>
-
       <Flex justifyContent="space-between">
-        <Text>From:</Text>
-        <Text>To:</Text>
-      </Flex>
+        <Box>
+          <Text>From:</Text>
+          <Text>{`$${priceRange[0]}`}</Text>
+        </Box>
 
-      <Flex justifyContent="space-between">
-        <Text>{`$${scaleUp(sliderRange[0])}`}</Text>
-        <Text>{`$${scaleUp(sliderRange[1])}`}</Text>
+        <Box>
+          <Text>To:</Text>
+          <Text>{`$${priceRange[1]}`}</Text>
+        </Box>
       </Flex>
-    </>
+    </Loading>
   );
 };
 

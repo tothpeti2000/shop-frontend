@@ -1,3 +1,4 @@
+export * from "./getPriceRangeResponse";
 export * from "./getProductByIdResponse";
 export * from "./getProductsParams";
 export * from "./getProductsRequest";

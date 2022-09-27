@@ -5,6 +5,12 @@ import ProductList from "../../components/products/list/ProductList";
 import Sort from "../../components/products/sort/Sort";
 import { ProductListProvider } from "../../context/ProductListContext";
 
+// TODO: Check components
+//    PriceRangePicker
+//    CategoryPicker
+// Sort
+// ProductList
+
 const ProductListPage = () => {
   return (
     <Layout>
