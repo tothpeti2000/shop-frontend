@@ -1,41 +1,46 @@
 import { Badge, Box, Flex, Image, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { ProductDto } from "../../../models";
+import { animated } from "../../../styles/styles";
 import AddToCartButton from "./AddToCartButton";
 
-const ProductItem = (props: /*ProductListItem*/ any) => {
-  const isAvailable = props.stock > 0;
+const ProductListItem = (props: ProductDto) => {
+  const isAvailable = props.stock! > 0;
 
   return (
-    <Flex
-      direction="column"
-      justifyContent="space-between"
-      w="20%"
+    <Box
+      w="300px"
       p={2}
-      mx={5}
-      mb={20}
-      _hover={{ boxShadow: "dark-lg" }}
-      transition="0.5s"
-      border="1px solid lightgrey"
+      _hover={{ boxShadow: "2xl" }}
+      border="2px"
+      borderColor="#efefef"
       borderRadius={10}
+      {...animated}
     >
       <Link to={`/products/${props.id}`}>
         <Image
-          src={props.imgURL || "https://picsum.photos/200"}
+          src={props.imgUrl || "https://picsum.photos/300"}
           alt="Product"
         />
       </Link>
-      <Box>
-        <Flex justifyContent={"space-between"} alignItems={"center"}>
-          <Text fontWeight="bold">{props.name}</Text>
+
+      <Box my={3}>
+        <Text fontSize="lg" fontWeight="bold" mb={2}>
+          {props.name}
+        </Text>
+
+        <Flex justifyContent="space-between" alignItems="center">
+          <Text fontSize="lg">{`$${props.price}`}</Text>
+
           <Badge bgColor={isAvailable ? "green.200" : "red.500"}>
             {isAvailable ? "IN STOCK" : "NOT AVAILABLE"}
           </Badge>
         </Flex>
-        <Text>{`$${props.price}`}</Text>
-        <AddToCartButton productID={props.id} />
       </Box>
-    </Flex>
+
+      <AddToCartButton productId={props.id!} />
+    </Box>
   );
 };
 
-export default ProductItem;
+export default ProductListItem;

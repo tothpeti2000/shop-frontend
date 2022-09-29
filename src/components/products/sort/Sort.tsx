@@ -1,23 +1,26 @@
 import { Select } from "@chakra-ui/react";
 import { ChangeEvent } from "react";
-import { useQueryClient } from "react-query";
+import { useProductListContext } from "../../../context/ProductListContext";
+import { SortOption } from "../../../models/sortOption";
 
 const Sort = () => {
-  const queryCache = useQueryClient();
-  localStorage.setItem("sortOption", "all");
+  const { updateSortOption } = useProductListContext();
 
-  const HandleSelection = (e: ChangeEvent<HTMLSelectElement>) => {
-    localStorage.setItem("sortOption", e.target.value);
-    queryCache.invalidateQueries("products");
+  const handleSelection = (e: ChangeEvent<HTMLSelectElement>) => {
+    updateSortOption(e.target.value as SortOption);
   };
 
   return (
-    <Select onChange={HandleSelection} borderColor="black">
-      <option value="all">Sort by</option>
-      <option value="priceLTH">Price (low to high)</option>
-      <option value="priceHTL">Price (high to low)</option>
-      <option value="nameAZ">Name A-Z</option>
-      <option value="nameZA">Name Z-A</option>
+    <Select
+      placeholder="Sort by"
+      onChange={handleSelection}
+      variant="filled"
+      borderColor="#acacac"
+    >
+      <option value={SortOption.PRICE_ASC}>Price (low to high)</option>
+      <option value={SortOption.PRICE_DESC}>Price (high to low)</option>
+      <option value={SortOption.NAME_ASC}>Name (A-Z)</option>
+      <option value={SortOption.NAME_DESC}>Name (Z-A)</option>
     </Select>
   );
 };

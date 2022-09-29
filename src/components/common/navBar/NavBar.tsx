@@ -25,7 +25,7 @@ const NavBar = () => {
       fontSize="lg"
       opacity={opacity}
       {...animated}
-      zIndex="1"
+      zIndex="99999"
     >
       <NavBrand />
 

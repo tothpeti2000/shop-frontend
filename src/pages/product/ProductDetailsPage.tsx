@@ -1,10 +1,10 @@
 import Layout from "../../components/Layout";
-import Details from "../../components/products/details/Details";
+import ProductDetails from "../../components/products/details/ProductDetails";
 
 const ProductDetailsPage = () => {
   return (
     <Layout>
-      <Details />
+      <ProductDetails />
     </Layout>
   );
 };

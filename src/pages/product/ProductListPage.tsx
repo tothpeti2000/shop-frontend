@@ -15,7 +15,7 @@ const ProductListPage = () => {
   return (
     <Layout>
       <ProductListProvider>
-        <Flex p={10} gap={2}>
+        <Flex p={10} gap={10}>
           <Box flex={1}>
             <Filter />
           </Box>

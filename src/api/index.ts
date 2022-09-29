@@ -17,6 +17,8 @@ import type {
   RegisterUserCommand,
   LoginUserResponse,
   LoginUserRequest,
+  GetCategoriesResponse,
+  GetCategoriesParams,
   GetProductsResponse,
   GetProductsParams,
   GetProductByIdResponse,
@@ -125,6 +127,65 @@ export const useLoginUser = <
     { data: LoginUserRequest },
     TContext
   >(mutationFn, mutationOptions);
+};
+
+export const useGetCategoriesHook = () => {
+  const getCategories = useClient<GetCategoriesResponse>();
+
+  return (params?: GetCategoriesParams, signal?: AbortSignal) => {
+    return getCategories({
+      url: `/api/Categories`,
+      method: "get",
+      params,
+      signal,
+    });
+  };
+};
+
+export const getGetCategoriesQueryKey = (params?: GetCategoriesParams) => [
+  `/api/Categories`,
+  ...(params ? [params] : []),
+];
+
+export type GetCategoriesQueryResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useGetCategoriesHook>>>
+>;
+export type GetCategoriesQueryError = ErrorType<unknown>;
+
+export const useGetCategories = <
+  TData = Awaited<ReturnType<ReturnType<typeof useGetCategoriesHook>>>,
+  TError = ErrorType<unknown>
+>(
+  params?: GetCategoriesParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<ReturnType<typeof useGetCategoriesHook>>>,
+      TError,
+      TData
+    >;
+  }
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+  const { query: queryOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetCategoriesQueryKey(params);
+
+  const getCategories = useGetCategoriesHook();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<ReturnType<typeof useGetCategoriesHook>>>
+  > = ({ signal }) => getCategories(params, signal);
+
+  const query = useQuery<
+    Awaited<ReturnType<ReturnType<typeof useGetCategoriesHook>>>,
+    TError,
+    TData
+  >(queryKey, queryFn, queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  query.queryKey = queryKey;
+
+  return query;
 };
 
 export const useGetProductsHook = () => {

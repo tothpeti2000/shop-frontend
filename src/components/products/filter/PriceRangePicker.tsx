@@ -13,11 +13,11 @@ import { useProductListContext } from "../../../context/ProductListContext";
 import Loading from "../../Loading";
 
 const PriceRangePicker = () => {
-  const { priceRange, setPriceRange } = useProductListContext();
+  const { priceRange, updatePriceRange } = useProductListContext();
 
   const { data: dbRange, isLoading } = useGetPriceRange({
     query: {
-      onSuccess: (data) => setPriceRange([data.min!, data.max!]),
+      onSuccess: (data) => updatePriceRange([data.min!, data.max!]),
       refetchOnWindowFocus: false,
     },
   });
@@ -33,7 +33,7 @@ const PriceRangePicker = () => {
 
   // Without debounce, the callback would be triggered too frequently when the user makes small pointer adjustments
   const handleRangeChange = debounce((value: number[]) => {
-    setPriceRange([scaleUp(value[0]), scaleUp(value[1])]);
+    updatePriceRange([scaleUp(value[0]), scaleUp(value[1])]);
   }, 600);
 
   return (

@@ -5,10 +5,8 @@
  * OpenAPI spec version: v1
  */
 
-export interface ProductDto {
+export interface CategoryDto {
   id?: string;
   name?: string | null;
-  price?: number;
-  stock?: number;
-  imgUrl?: string | null;
+  parentCategoryId?: string | null;
 }

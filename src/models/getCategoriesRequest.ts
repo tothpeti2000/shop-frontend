@@ -4,6 +4,7 @@
  * Shop API
  * OpenAPI spec version: v1
  */
-import type { SortOption } from "./sortOption";
 
-export type GetProductsParams = { SortOption?: SortOption };
+export interface GetCategoriesRequest {
+  [key: string]: any;
+}
