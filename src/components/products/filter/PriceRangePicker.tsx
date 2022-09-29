@@ -8,38 +8,33 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { debounce } from "lodash-es";
-import { useMemo } from "react";
-import { useQueryClient } from "react-query";
 import { useGetPriceRange } from "../../../api";
 import { useProductListContext } from "../../../context/ProductListContext";
 import Loading from "../../Loading";
 
 const PriceRangePicker = () => {
   const { priceRange, setPriceRange } = useProductListContext();
-  const { data: range, isLoading } = useGetPriceRange({
+
+  const { data: dbRange, isLoading } = useGetPriceRange({
     query: {
       onSuccess: (data) => setPriceRange([data.min!, data.max!]),
       refetchOnWindowFocus: false,
     },
   });
 
-  const queryCache = useQueryClient();
-
+  // rangePickerValue is between 0 and 100 so we have to do a conversion before modifying the price range in the context
   const scaleUp = (rangePickerValue: number) => {
-    const scale = Math.ceil(range?.max ?? 0) / 100;
-    return rangePickerValue * scale;
+    const min = dbRange?.min ?? 0;
+    const max = dbRange?.max ?? 0;
+    const scale = Math.ceil(max - min) / 100;
+
+    return min + rangePickerValue * scale;
   };
 
-  const handleRangeChange = useMemo(
-    () =>
-      debounce((value: number[]) => {
-        console.log(value);
-
-        setPriceRange([scaleUp(value[0]), scaleUp(value[1])]);
-      }, 300),
-
-    [queryCache]
-  );
+  // Without debounce, the callback would be triggered too frequently when the user makes small pointer adjustments
+  const handleRangeChange = debounce((value: number[]) => {
+    setPriceRange([scaleUp(value[0]), scaleUp(value[1])]);
+  }, 600);
 
   return (
     <Loading isLoading={isLoading}>
@@ -56,12 +51,12 @@ const PriceRangePicker = () => {
       <Flex justifyContent="space-between">
         <Box>
           <Text>From:</Text>
-          <Text>{`$${priceRange[0]}`}</Text>
+          <Text>{`$${priceRange[0].toFixed(2)}`}</Text>
         </Box>
 
         <Box>
           <Text>To:</Text>
-          <Text>{`$${priceRange[1]}`}</Text>
+          <Text>{`$${priceRange[1].toFixed(2)}`}</Text>
         </Box>
       </Flex>
     </Loading>
