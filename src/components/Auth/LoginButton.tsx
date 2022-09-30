@@ -9,7 +9,6 @@ const LoginButton = () => {
         aria-label="Login"
         icon={<Icon as={FaUserCircle} boxSize="80%" />}
         colorScheme="yellow"
-        mx={5}
       />
     </Link>
   );
