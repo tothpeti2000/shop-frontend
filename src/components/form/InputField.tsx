@@ -1,6 +1,13 @@
-import { Box, Input } from "@chakra-ui/react";
+import {
+  Box,
+  Icon,
+  Input,
+  InputGroup,
+  InputLeftElement,
+} from "@chakra-ui/react";
 import { HTMLInputTypeAttribute } from "react";
 import { Control, Controller } from "react-hook-form";
+import { IconType } from "react-icons";
 import ValidationError from "./utils/ValidationError";
 
 interface Props {
@@ -11,6 +18,7 @@ interface Props {
   autoFocus?: boolean;
   validationError?: string;
   size?: "xs" | "sm" | "md" | "lg";
+  icon?: IconType;
 }
 
 const InputField = (props: Props) => {
@@ -21,14 +29,25 @@ const InputField = (props: Props) => {
       control={props.control}
       render={({ field }) => (
         <Box mb={2}>
-          <Input
-            type={props.type}
-            autoFocus={props.autoFocus}
-            placeholder={props.placeholder}
-            mb={1}
-            size={props.size}
-            {...field}
-          />
+          <InputGroup>
+            {props.icon && (
+              <InputLeftElement
+                pointerEvents="none"
+                children={<Icon as={props.icon} color="gray.400" />}
+              />
+            )}
+            <Input
+              type={props.type}
+              autoFocus={props.autoFocus}
+              placeholder={props.placeholder}
+              mb={1}
+              border="1px"
+              borderColor="#acacac"
+              size={props.size}
+              {...field}
+            />
+          </InputGroup>
+
           <Box
             minH={6}
             visibility={props.validationError ? "visible" : "hidden"}
