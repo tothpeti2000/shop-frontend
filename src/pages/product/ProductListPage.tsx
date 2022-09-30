@@ -2,14 +2,9 @@ import { Box, Flex } from "@chakra-ui/react";
 import Layout from "../../components/Layout";
 import Filter from "../../components/products/filter/Filter";
 import ProductList from "../../components/products/list/ProductList";
+import Search from "../../components/products/search/Search";
 import Sort from "../../components/products/sort/Sort";
 import { ProductListProvider } from "../../context/ProductListContext";
-
-// TODO: Check components
-//    PriceRangePicker
-//    CategoryPicker
-// Sort
-// ProductList
 
 const ProductListPage = () => {
   return (
@@ -20,13 +15,19 @@ const ProductListPage = () => {
             <Filter />
           </Box>
 
-          <Flex flex={3} direction="column">
-            <Box alignSelf="flex-end" mb={5}>
-              <Sort />
-            </Box>
+          <Box flex={3}>
+            <Flex justifyContent="space-between" mb={5}>
+              <Box w="400px">
+                <Search />
+              </Box>
+
+              <Box w="200px">
+                <Sort />
+              </Box>
+            </Flex>
 
             <ProductList />
-          </Flex>
+          </Box>
         </Flex>
       </ProductListProvider>
     </Layout>

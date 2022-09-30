@@ -6,32 +6,30 @@ import { SortOption } from "../models/sortOption";
 const useProductListContextValue = () => {
   const [priceRange, setPriceRange] = useState([0, 0]);
   const [sortOption, setSortOption] = useState<SortOption | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string | null>(null);
 
   const queryCache = useQueryClient();
 
   const updatePriceRange = (range: [number, number]) => {
     setPriceRange(range);
     queryCache.invalidateQueries(getGetProductsQueryKey());
-
-    printDetails();
   };
 
   const updateSortOption = (option: SortOption | null) => {
     setSortOption(option);
     queryCache.invalidateQueries(getGetProductsQueryKey());
-
-    printDetails();
   };
 
-  const printDetails = () => {
-    console.log(priceRange, sortOption);
+  const updateSearchQuery = (query: string | null) => {
+    setSearchQuery(query);
+    queryCache.invalidateQueries(getGetProductsQueryKey());
   };
 
   return {
     priceRange,
-    sortOption,
     updatePriceRange,
     updateSortOption,
+    updateSearchQuery,
   };
 };
 
