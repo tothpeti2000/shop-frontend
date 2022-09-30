@@ -14,6 +14,11 @@ export default defineConfig({
           path: "src/api/client.ts",
           name: "useClient",
         },
+        query: {
+          options: {
+            refetchOnWindowFocus: false,
+          },
+        },
       },
       prettier: true,
     },

@@ -5,4 +5,6 @@
  * OpenAPI spec version: v1
  */
 
-export type GetProductsParams = { Name?: string };
+export interface GetTopCategoriesRequest {
+  [key: string]: any;
+}

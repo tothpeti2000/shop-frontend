@@ -1,7 +1,6 @@
-import { Button, Center, Divider, Flex, Spinner, Text } from "@chakra-ui/react";
+import { Button, Center, Divider, Spinner, Text } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useQueryClient } from "react-query";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginUser } from "../../api";
 import { useErrorHandler } from "../../api/client";
@@ -23,7 +22,6 @@ const LoginForm = () => {
   const { mutateAsync: loginUser, isLoading } = useLoginUser();
 
   const navigate = useNavigate();
-  const queryCache = useQueryClient();
 
   const {
     control,
@@ -38,10 +36,10 @@ const LoginForm = () => {
       const response = await loginUser({ data: data });
 
       saveToken(response.token ?? "");
-      queryCache.invalidateQueries("cart-items");
-
       showSuccess("Successfully logged in");
-      navigate("/");
+
+      // Redirect back to the previous route after successful login
+      navigate(-1);
     } catch (err: any) {
       handleError(err.response);
     }
@@ -84,16 +82,14 @@ const LoginForm = () => {
       <Divider my={5} />
 
       <Center flexDir="column">
-        <Text color={"gray.500"}>You don't have an account yet?</Text>
+        <Text color="gray.500">You don't have an account yet?</Text>
 
-        <Link to={"/register"}>
-          <Button mt={2} size={"lg"} colorScheme={"whatsapp"}>
+        <Link to="/register">
+          <Button mt={2} size="lg" colorScheme="whatsapp">
             Create new account
           </Button>
         </Link>
       </Center>
-
-      <Flex direction={"column"} alignItems={"center"}></Flex>
     </>
   );
 };

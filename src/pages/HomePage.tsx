@@ -1,4 +1,4 @@
-import Categories from "../components/category/Categories";
+import Categories from "../components/home/Categories";
 import Banner from "../components/home/Banner";
 import Layout from "../components/Layout";
 

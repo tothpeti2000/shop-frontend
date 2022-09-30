@@ -1,10 +1,9 @@
 import { Badge, Box, Flex, Image, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { ProductDto } from "../../../models";
 import { animated } from "../../../styles/styles";
 import AddToCartButton from "./AddToCartButton";
 
-const ProductListItem = (props: ProductDto) => {
+const ProductListItem = (props: any) => {
   const isAvailable = props.stock! > 0;
 
   return (

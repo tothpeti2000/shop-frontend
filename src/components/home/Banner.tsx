@@ -1,24 +1,22 @@
-import { Button, Flex, Heading, Text } from "@chakra-ui/react";
+import { Button, Center, Heading, Text } from "@chakra-ui/react";
 import { Zoom } from "react-awesome-reveal";
 import { Link } from "react-router-dom";
 
 const Banner = () => {
-  const image = `${process.env.PUBLIC_URL}/assets/mercedes.jpg`;
+  const bgImage = `${process.env.PUBLIC_URL}/assets/mercedes.jpg`;
 
   return (
-    <Flex
+    <Center
+      flexDir="column"
       h="88vh"
-      direction="column"
-      justify="center"
-      align="center"
-      bgImage={image}
+      bgImage={bgImage}
       bgRepeat="no-repeat"
       bgPosition="center"
       bgAttachment="fixed"
       bgSize="cover"
       color="white"
     >
-      <Zoom cascade>
+      <Zoom cascade triggerOnce>
         <Heading fontSize={100}>Logo</Heading>
         <Text p={5} fontSize={50}>
           AWESOME SNEAKERS
@@ -29,12 +27,12 @@ const Banner = () => {
           fontSize={40}
           color="black"
           _hover={{ bgColor: "black", color: "white" }}
-          transition="0.5s"
+          transition="500ms"
         >
           <Link to="/products">SHOP NOW</Link>
         </Button>
       </Zoom>
-    </Flex>
+    </Center>
   );
 };
 

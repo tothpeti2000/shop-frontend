@@ -19,6 +19,8 @@ import type {
   LoginUserRequest,
   GetCategoriesResponse,
   GetCategoriesParams,
+  GetTopCategoriesResponse,
+  GetTopCategoriesParams,
   GetProductsResponse,
   GetProductsParams,
   GetProductByIdResponse,
@@ -179,9 +181,70 @@ export const useGetCategories = <
     Awaited<ReturnType<ReturnType<typeof useGetCategoriesHook>>>,
     TError,
     TData
-  >(queryKey, queryFn, queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
+  >(queryKey, queryFn, {
+    refetchOnWindowFocus: false,
+    ...queryOptions,
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryKey;
+
+  return query;
+};
+
+export const useGetTopCategoriesHook = () => {
+  const getTopCategories = useClient<GetTopCategoriesResponse>();
+
+  return (params?: GetTopCategoriesParams, signal?: AbortSignal) => {
+    return getTopCategories({
+      url: `/api/Categories/top`,
+      method: "get",
+      params,
+      signal,
+    });
   };
+};
+
+export const getGetTopCategoriesQueryKey = (
+  params?: GetTopCategoriesParams
+) => [`/api/Categories/top`, ...(params ? [params] : [])];
+
+export type GetTopCategoriesQueryResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useGetTopCategoriesHook>>>
+>;
+export type GetTopCategoriesQueryError = ErrorType<unknown>;
+
+export const useGetTopCategories = <
+  TData = Awaited<ReturnType<ReturnType<typeof useGetTopCategoriesHook>>>,
+  TError = ErrorType<unknown>
+>(
+  params?: GetTopCategoriesParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<ReturnType<typeof useGetTopCategoriesHook>>>,
+      TError,
+      TData
+    >;
+  }
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+  const { query: queryOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getGetTopCategoriesQueryKey(params);
+
+  const getTopCategories = useGetTopCategoriesHook();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<ReturnType<typeof useGetTopCategoriesHook>>>
+  > = ({ signal }) => getTopCategories(params, signal);
+
+  const query = useQuery<
+    Awaited<ReturnType<ReturnType<typeof useGetTopCategoriesHook>>>,
+    TError,
+    TData
+  >(queryKey, queryFn, {
+    refetchOnWindowFocus: false,
+    ...queryOptions,
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   query.queryKey = queryKey;
 
@@ -233,9 +296,10 @@ export const useGetProducts = <
     Awaited<ReturnType<ReturnType<typeof useGetProductsHook>>>,
     TError,
     TData
-  >(queryKey, queryFn, queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+  >(queryKey, queryFn, {
+    refetchOnWindowFocus: false,
+    ...queryOptions,
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   query.queryKey = queryKey;
 
@@ -290,10 +354,11 @@ export const useGetProductById = <
     Awaited<ReturnType<ReturnType<typeof useGetProductByIdHook>>>,
     TError,
     TData
-  >(queryKey, queryFn, { enabled: !!id, ...queryOptions }) as UseQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+  >(queryKey, queryFn, {
+    enabled: !!id,
+    refetchOnWindowFocus: false,
+    ...queryOptions,
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   query.queryKey = queryKey;
 
@@ -343,9 +408,10 @@ export const useGetPriceRange = <
     Awaited<ReturnType<ReturnType<typeof useGetPriceRangeHook>>>,
     TError,
     TData
-  >(queryKey, queryFn, queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+  >(queryKey, queryFn, {
+    refetchOnWindowFocus: false,
+    ...queryOptions,
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   query.queryKey = queryKey;
 

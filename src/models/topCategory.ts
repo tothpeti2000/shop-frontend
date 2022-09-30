@@ -5,4 +5,8 @@
  * OpenAPI spec version: v1
  */
 
-export type GetProductsParams = { Name?: string };
+export interface TopCategory {
+  id?: string;
+  name?: string | null;
+  imgUrl?: string | null;
+}

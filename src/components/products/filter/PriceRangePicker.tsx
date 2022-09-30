@@ -18,7 +18,6 @@ const PriceRangePicker = () => {
   const { data: dbRange, isLoading } = useGetPriceRange({
     query: {
       onSuccess: (data) => updatePriceRange([data.min!, data.max!]),
-      refetchOnWindowFocus: false,
     },
   });
 

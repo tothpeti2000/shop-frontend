@@ -4,11 +4,7 @@
  * Shop API
  * OpenAPI spec version: v1
  */
-import type { ProductDto } from "./productDto";
 
 export interface GetProductsResponse {
-  products?: ProductDto[] | null;
-  currentPage?: number;
-  totalPages?: number;
-  totalItems?: number;
+  [key: string]: any;
 }

@@ -1,14 +1,14 @@
-import { Flex, Spacer } from "@chakra-ui/react";
+import { Box, Flex, Spacer } from "@chakra-ui/react";
 import { ToggleProvider } from "../../../context/ToggleContext";
 import useUser from "../../../hooks/useUser";
-import { animated, basicFlex, bgDark } from "../../../styles/styles";
+import { animated, bgDark } from "../../../styles/styles";
 import Cart from "../../cart/Cart";
 import CartButton from "../../cart/CartButton";
 import AuthButton from "./AuthButton";
 import NavBrand from "./NavBrand";
 import NavLinks from "./NavLinks";
 import SearchBar from "./SearchBar";
-import useNavBar from "./useNavBar";
+import useNavBar from "../../../hooks/useNavBar";
 
 const NavBar = () => {
   const { height, opacity } = useNavBar();
@@ -25,15 +25,21 @@ const NavBar = () => {
       fontSize="lg"
       opacity={opacity}
       {...animated}
-      zIndex="99999"
+      zIndex="999"
     >
       <NavBrand />
 
       <Spacer />
 
-      <SearchBar />
+      <ToggleProvider>
+        <SearchBar />
+      </ToggleProvider>
+
       <NavLinks />
-      <AuthButton />
+
+      <Box mx={2}>
+        <AuthButton />
+      </Box>
 
       {isLoggedIn() && (
         <ToggleProvider>
