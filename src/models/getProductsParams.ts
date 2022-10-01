@@ -5,4 +5,8 @@
  * OpenAPI spec version: v1
  */
 
-export type GetProductsParams = { Name?: string };
+export type GetProductsParams = {
+  Name?: string;
+  "PagingOptions.Page"?: number;
+  "PagingOptions.Count"?: number;
+};

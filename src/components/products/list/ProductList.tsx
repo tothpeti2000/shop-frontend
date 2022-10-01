@@ -9,7 +9,7 @@ const ProductList = () => {
   return (
     <Loading isLoading={isLoading}>
       <Flex justifyContent="space-between" wrap="wrap" rowGap={10}>
-        {data?.products!.map((p: any) => (
+        {data?.items!.map((p: any) => (
           <ProductListItem key={p.id} {...p} />
         ))}
       </Flex>

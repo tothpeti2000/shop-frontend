@@ -17,10 +17,8 @@ import type {
   RegisterUserCommand,
   LoginUserResponse,
   LoginUserRequest,
-  GetCategoriesResponse,
-  GetCategoriesParams,
+  GetAllCategoriesResponse,
   GetTopCategoriesResponse,
-  GetTopCategoriesParams,
   GetProductsResponse,
   GetProductsParams,
   GetProductByIdResponse,
@@ -131,54 +129,43 @@ export const useLoginUser = <
   >(mutationFn, mutationOptions);
 };
 
-export const useGetCategoriesHook = () => {
-  const getCategories = useClient<GetCategoriesResponse>();
+export const useGetAllCategoriesHook = () => {
+  const getAllCategories = useClient<GetAllCategoriesResponse>();
 
-  return (params?: GetCategoriesParams, signal?: AbortSignal) => {
-    return getCategories({
-      url: `/api/Categories`,
-      method: "get",
-      params,
-      signal,
-    });
+  return (signal?: AbortSignal) => {
+    return getAllCategories({ url: `/api/Categories`, method: "get", signal });
   };
 };
 
-export const getGetCategoriesQueryKey = (params?: GetCategoriesParams) => [
-  `/api/Categories`,
-  ...(params ? [params] : []),
-];
+export const getGetAllCategoriesQueryKey = () => [`/api/Categories`];
 
-export type GetCategoriesQueryResult = NonNullable<
-  Awaited<ReturnType<ReturnType<typeof useGetCategoriesHook>>>
+export type GetAllCategoriesQueryResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useGetAllCategoriesHook>>>
 >;
-export type GetCategoriesQueryError = ErrorType<unknown>;
+export type GetAllCategoriesQueryError = ErrorType<unknown>;
 
-export const useGetCategories = <
-  TData = Awaited<ReturnType<ReturnType<typeof useGetCategoriesHook>>>,
+export const useGetAllCategories = <
+  TData = Awaited<ReturnType<ReturnType<typeof useGetAllCategoriesHook>>>,
   TError = ErrorType<unknown>
->(
-  params?: GetCategoriesParams,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<ReturnType<typeof useGetCategoriesHook>>>,
-      TError,
-      TData
-    >;
-  }
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<ReturnType<typeof useGetAllCategoriesHook>>>,
+    TError,
+    TData
+  >;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
   const { query: queryOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetCategoriesQueryKey(params);
+  const queryKey = queryOptions?.queryKey ?? getGetAllCategoriesQueryKey();
 
-  const getCategories = useGetCategoriesHook();
+  const getAllCategories = useGetAllCategoriesHook();
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<ReturnType<typeof useGetCategoriesHook>>>
-  > = ({ signal }) => getCategories(params, signal);
+    Awaited<ReturnType<ReturnType<typeof useGetAllCategoriesHook>>>
+  > = ({ signal }) => getAllCategories(signal);
 
   const query = useQuery<
-    Awaited<ReturnType<ReturnType<typeof useGetCategoriesHook>>>,
+    Awaited<ReturnType<ReturnType<typeof useGetAllCategoriesHook>>>,
     TError,
     TData
   >(queryKey, queryFn, {
@@ -194,19 +181,16 @@ export const useGetCategories = <
 export const useGetTopCategoriesHook = () => {
   const getTopCategories = useClient<GetTopCategoriesResponse>();
 
-  return (params?: GetTopCategoriesParams, signal?: AbortSignal) => {
+  return (signal?: AbortSignal) => {
     return getTopCategories({
       url: `/api/Categories/top`,
       method: "get",
-      params,
       signal,
     });
   };
 };
 
-export const getGetTopCategoriesQueryKey = (
-  params?: GetTopCategoriesParams
-) => [`/api/Categories/top`, ...(params ? [params] : [])];
+export const getGetTopCategoriesQueryKey = () => [`/api/Categories/top`];
 
 export type GetTopCategoriesQueryResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof useGetTopCategoriesHook>>>
@@ -216,26 +200,22 @@ export type GetTopCategoriesQueryError = ErrorType<unknown>;
 export const useGetTopCategories = <
   TData = Awaited<ReturnType<ReturnType<typeof useGetTopCategoriesHook>>>,
   TError = ErrorType<unknown>
->(
-  params?: GetTopCategoriesParams,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<ReturnType<typeof useGetTopCategoriesHook>>>,
-      TError,
-      TData
-    >;
-  }
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<ReturnType<typeof useGetTopCategoriesHook>>>,
+    TError,
+    TData
+  >;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
   const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getGetTopCategoriesQueryKey(params);
+  const queryKey = queryOptions?.queryKey ?? getGetTopCategoriesQueryKey();
 
   const getTopCategories = useGetTopCategoriesHook();
 
   const queryFn: QueryFunction<
     Awaited<ReturnType<ReturnType<typeof useGetTopCategoriesHook>>>
-  > = ({ signal }) => getTopCategories(params, signal);
+  > = ({ signal }) => getTopCategories(signal);
 
   const query = useQuery<
     Awaited<ReturnType<ReturnType<typeof useGetTopCategoriesHook>>>,

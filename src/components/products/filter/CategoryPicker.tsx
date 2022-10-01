@@ -1,9 +1,9 @@
-import { useGetCategories } from "../../../api";
+import { useGetAllCategories } from "../../../api";
 import Loading from "../../Loading";
 import { createCategoryGroups } from "./utils";
 
 const CategoryPicker = () => {
-  const { data, isLoading } = useGetCategories(undefined, {
+  const { data, isLoading } = useGetAllCategories({
     query: {
       onSuccess: (data) => createCategoryGroups(data.categories!),
     },
