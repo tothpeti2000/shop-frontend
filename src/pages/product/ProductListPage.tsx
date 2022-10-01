@@ -1,6 +1,7 @@
 import { Box, Flex } from "@chakra-ui/react";
 import Layout from "../../components/Layout";
 import Filter from "../../components/products/filter/Filter";
+import Paginator from "../../components/products/list/Paginator";
 import ProductList from "../../components/products/list/ProductList";
 import Search from "../../components/products/search/Search";
 import Sort from "../../components/products/sort/Sort";
@@ -27,6 +28,10 @@ const ProductListPage = () => {
             </Flex>
 
             <ProductList />
+
+            <Box mt={10}>
+              <Paginator />
+            </Box>
           </Box>
         </Flex>
       </ProductListProvider>

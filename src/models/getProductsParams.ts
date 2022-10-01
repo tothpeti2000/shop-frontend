@@ -7,6 +7,9 @@
 
 export type GetProductsParams = {
   Name?: string;
-  "PagingOptions.Page"?: number;
-  "PagingOptions.Count"?: number;
+  FromPrice?: number;
+  ToPrice?: number;
+  Page?: number;
+  Count?: number;
+  OrderBy?: string;
 };
