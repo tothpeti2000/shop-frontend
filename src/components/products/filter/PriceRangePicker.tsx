@@ -8,12 +8,14 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { debounce } from "lodash-es";
+import { useState } from "react";
 import { useGetPriceRange } from "../../../api";
 import { useProductListContext } from "../../../context/ProductListContext";
 import Loading from "../../Loading";
 
 const PriceRangePicker = () => {
-  const { priceRange, updatePriceRange } = useProductListContext();
+  const [value, setValue] = useState([0, 100]);
+  const { updatePriceRange } = useProductListContext();
 
   const { data: dbRange, isLoading } = useGetPriceRange({
     query: {
@@ -31,15 +33,16 @@ const PriceRangePicker = () => {
   };
 
   // Without debounce, the callback would be triggered too frequently when the user makes small pointer adjustments
-  const handleRangeChange = debounce((value: number[]) => {
+  const setPriceRange = debounce((value: number[]) => {
     updatePriceRange([scaleUp(value[0]), scaleUp(value[1])]);
   }, 600);
 
   return (
     <Loading isLoading={isLoading}>
       <RangeSlider
-        defaultValue={[0, 100]}
-        onChangeEnd={(value) => handleRangeChange(value)}
+        value={value}
+        onChange={(value) => setValue(value)}
+        onChangeEnd={(value) => setPriceRange(value)}
       >
         <RangeSliderTrack>
           <RangeSliderFilledTrack />
@@ -50,12 +53,12 @@ const PriceRangePicker = () => {
       <Flex justifyContent="space-between">
         <Box>
           <Text>From:</Text>
-          <Text>{`$${priceRange[0].toFixed(2)}`}</Text>
+          <Text>{`$${scaleUp(value[0]).toFixed(2)}`}</Text>
         </Box>
 
-        <Box>
+        <Box textAlign="right">
           <Text>To:</Text>
-          <Text>{`$${priceRange[1].toFixed(2)}`}</Text>
+          <Text>{`$${scaleUp(value[1]).toFixed(2)}`}</Text>
         </Box>
       </Flex>
     </Loading>
