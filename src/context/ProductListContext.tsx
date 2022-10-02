@@ -6,7 +6,9 @@ const useProductListContextValue = () => {
   const [priceRange, setPriceRange] = useState([0, 0]);
   const [sortOption, setSortOption] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [categories, setCategories] = useState<string[]>([]);
   const [page, setPage] = useState(1);
+  const [count, setCount] = useState(5);
   const [totalPages, setTotalPages] = useState(1);
 
   const queryCache = useQueryClient();
@@ -29,8 +31,20 @@ const useProductListContextValue = () => {
     refreshProducts();
   };
 
+  const updateCategories = (categories: string[]) => {
+    setCategories(categories);
+    resetPage();
+    refreshProducts();
+  };
+
   const updatePage = (page: number) => {
     setPage(page);
+    refreshProducts();
+  };
+
+  const updateCount = (count: number) => {
+    setCount(count);
+    resetPage();
     refreshProducts();
   };
 
@@ -47,12 +61,16 @@ const useProductListContextValue = () => {
     priceRange,
     sortOption,
     searchQuery,
+    categories,
     page,
+    count,
     totalPages,
     updatePriceRange,
     updateSortOption,
     updateSearchQuery,
+    updateCategories,
     updatePage,
+    updateCount,
     updateTotalPages,
   };
 };

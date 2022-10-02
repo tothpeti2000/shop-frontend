@@ -4,11 +4,11 @@
 
 .paginator li > a {
     display: inline-block;
-    padding: 1rem 1.5rem;
+    padding: 0.5rem 1rem;
     margin: 0 0.5rem;
     background-color: #343434;
     color: white;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
@@ -20,7 +20,7 @@
 .paginator .selected a {
     background-color: #cacaca;
     color: black;
-    outline: 1px solid #efefef;
+    box-shadow: 0 0 4px #121212;
 }
 
 .paginator .selected a:hover {
@@ -43,9 +43,9 @@
 }
 
 .paginator li.previous > a {
-    margin-right: 1rem;
+    margin: 0 1rem 0 0;
 }
 
 .paginator li.next > a {
-    margin-left: 1rem;
+    margin: 0 0 0 1rem;
 }
