@@ -1,25 +1,41 @@
-import { Box, Flex } from "@chakra-ui/layout";
-import { CloseButton, Text } from "@chakra-ui/react";
-import { CartItemProps } from "../../interfaces/cart";
+import { Flex } from "@chakra-ui/layout";
+import { CloseButton, Image, Text } from "@chakra-ui/react";
+import { useCartContext } from "../../context/CartContext";
 import QuantityPicker from "./QuantityPicker";
 
-const CartItem = (props: CartItemProps) => {
+interface Props {
+  id: string;
+  amount: number;
+  name: string;
+  price: number;
+  imgUrl?: string;
+}
+
+const CartItem = (props: Props) => {
+  const { deleteCartItem } = useCartContext();
+
+  const handleClick = () => {
+    deleteCartItem(props.id);
+  };
+
   return (
     <Flex
-      align="center"
-      textAlign="start"
-      p={2}
-      mb={5}
-      boxShadow="dark-lg"
-      gridGap="10px"
+      alignItems="center"
+      border="1px"
+      borderColor="#cacaca"
+      borderRadius={5}
+      boxShadow="2xl"
+      pos="relative"
     >
-      <Box flex="1" alignSelf="stretch" bgColor="gray.200"></Box>
-      <Flex direction="column" align="flex-start" flex="2">
+      <Image src={props.imgUrl || "https://picsum.photos/100"} mr={2} />
+
+      <Flex direction="column" align="flex-start">
         <Text>{props.name}</Text>
         <Text fontWeight="bold">{props.price}$</Text>
         <QuantityPicker id={props.id} amount={props.amount} />
       </Flex>
-      <CloseButton alignSelf="start" onClick={() => {}} />
+
+      <CloseButton pos="absolute" top={1} right={1} onClick={handleClick} />
     </Flex>
   );
 };

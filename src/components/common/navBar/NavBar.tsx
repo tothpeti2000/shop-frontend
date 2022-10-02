@@ -1,14 +1,15 @@
 import { Box, Flex, Spacer } from "@chakra-ui/react";
+import { CartProvider } from "../../../context/CartContext";
 import { ToggleProvider } from "../../../context/ToggleContext";
+import useNavBar from "../../../hooks/useNavBar";
 import useUser from "../../../hooks/useUser";
 import { animated, bgDark } from "../../../styles/styles";
-import Cart from "../../cart/Cart";
-import CartButton from "../../cart/CartButton";
+import CartButton from "./CartButton";
 import AuthButton from "./AuthButton";
 import NavBrand from "./NavBrand";
 import NavLinks from "./NavLinks";
 import SearchBar from "./SearchBar";
-import useNavBar from "../../../hooks/useNavBar";
+import Cart from "../../cart/Cart";
 
 const NavBar = () => {
   const { height, opacity } = useNavBar();
@@ -43,8 +44,10 @@ const NavBar = () => {
 
       {isLoggedIn() && (
         <ToggleProvider>
-          <CartButton />
-          <Cart />
+          <CartProvider>
+            <CartButton />
+            <Cart />
+          </CartProvider>
         </ToggleProvider>
       )}
     </Flex>

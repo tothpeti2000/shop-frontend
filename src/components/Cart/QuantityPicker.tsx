@@ -6,14 +6,13 @@ import {
   NumberInputStepper,
 } from "@chakra-ui/number-input";
 import { useState } from "react";
-import { useMutation } from "react-query";
 
-interface IProps {
-  id: number;
+interface Props {
+  id: string;
   amount: number;
 }
 
-const QuantityPicker = (props: IProps) => {
+const QuantityPicker = (props: Props) => {
   const [value, setValue] = useState(props.amount);
   //const { mutateAsync } = useMutation(updateItemAmount);
 

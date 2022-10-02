@@ -17,6 +17,7 @@ import type {
   RegisterUserCommand,
   LoginUserResponse,
   LoginUserRequest,
+  AddItemToCartCommand,
   GetAllCategoriesResponse,
   GetTopCategoriesResponse,
   GetProductsResponse,
@@ -125,6 +126,57 @@ export const useLoginUser = <
     Awaited<ReturnType<typeof loginUser>>,
     TError,
     { data: LoginUserRequest },
+    TContext
+  >(mutationFn, mutationOptions);
+};
+
+export const useAddItemToCartHook = () => {
+  const addItemToCart = useClient<void>();
+
+  return (addItemToCartCommand: AddItemToCartCommand) => {
+    return addItemToCart({
+      url: `/api/Carts`,
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      data: addItemToCartCommand,
+    });
+  };
+};
+
+export type AddItemToCartMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useAddItemToCartHook>>>
+>;
+export type AddItemToCartMutationBody = AddItemToCartCommand;
+export type AddItemToCartMutationError = ErrorType<unknown>;
+
+export const useAddItemToCart = <
+  TError = ErrorType<unknown>,
+  TContext = unknown
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof useAddItemToCartHook>>>,
+    TError,
+    { data: AddItemToCartCommand },
+    TContext
+  >;
+}) => {
+  const { mutation: mutationOptions } = options ?? {};
+
+  const addItemToCart = useAddItemToCartHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof useAddItemToCartHook>>>,
+    { data: AddItemToCartCommand }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return addItemToCart(data);
+  };
+
+  return useMutation<
+    Awaited<ReturnType<typeof addItemToCart>>,
+    TError,
+    { data: AddItemToCartCommand },
     TContext
   >(mutationFn, mutationOptions);
 };

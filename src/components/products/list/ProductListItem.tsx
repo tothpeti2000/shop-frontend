@@ -37,7 +37,7 @@ const ProductListItem = (props: any) => {
         </Flex>
       </Box>
 
-      <AddToCartButton productId={props.id!} />
+      <AddToCartButton productId={props.id!} disabled={!isAvailable} />
     </Box>
   );
 };
