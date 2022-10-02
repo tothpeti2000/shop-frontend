@@ -1,10 +1,10 @@
 import { Box, Flex } from "@chakra-ui/layout";
-import { Heading, Image, Text } from "@chakra-ui/react";
+import { Heading, Image, Text, Spacer } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useGetProductById } from "../../../api";
 import Loading from "../../Loading";
 import AddToCartButton from "../list/AddToCartButton";
-import RatingStars from "./RatingStars";
+import ProductRating from "./ProductRating";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -12,26 +12,32 @@ const ProductDetails = () => {
 
   return (
     <Loading isLoading={isLoading}>
-      <Flex p={50} m="auto">
-        <Image src={product?.imgUrl || "https://picsum.photos/500"} />
+      <Flex p={10}>
+        <Image
+          src={product?.imgUrl || "https://picsum.photos/500"}
+          borderRadius={20}
+          boxShadow="md"
+        />
 
-        <Flex
-          direction="column"
-          justifyContent="space-between"
-          px={10}
-          py={5}
-          boxShadow={"2xl"}
-        >
-          <Box>
-            <Heading mb={2}>{product?.name}</Heading>
-            <Text fontSize="2xl" fontWeight="bold" mb={2}>
-              ${product?.price}
-            </Text>
-            <Text>In stock: {product?.stock}</Text>
-            <RatingStars ratingValue={product?.averageRating!} />
-            <Text fontSize={"lg"}>{product?.description}</Text>
+        <Flex direction="column" px={10}>
+          <Flex justifyContent="space-between">
+            <Heading>{product?.name}</Heading>
+            <ProductRating ratingValue={product?.averageRating!} />
+          </Flex>
+
+          <Text fontSize="2xl" fontWeight="bold" mb={2}>
+            ${product?.price}
+          </Text>
+
+          <Text fontSize="lg">In stock: {product?.stock}</Text>
+
+          <Spacer />
+          <Text>{product?.description}</Text>
+          <Spacer />
+
+          <Box alignSelf="start" w="35%" minW="200px">
+            <AddToCartButton productId={id!} />
           </Box>
-          <Box>{/* <AddToCartButton productId={product?.id!} /> */}</Box>
         </Flex>
       </Flex>
     </Loading>
