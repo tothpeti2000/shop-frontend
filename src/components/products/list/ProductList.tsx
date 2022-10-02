@@ -6,17 +6,25 @@ import Loading from "../../Loading";
 import ProductListItem from "./ProductListItem";
 
 const ProductList = () => {
-  const { priceRange, sortOption, searchQuery, page, updateTotalPages } =
-    useProductListContext();
+  const {
+    priceRange,
+    sortOption,
+    searchQuery,
+    categories,
+    page,
+    count,
+    updateTotalPages,
+  } = useProductListContext();
 
   const { data, isLoading } = useGetProducts(
     {
       Name: searchQuery,
       FromPrice: priceRange[0],
       ToPrice: priceRange[1],
+      CategoryIds: categories,
       OrderBy: sortOption,
       Page: page,
-      Count: 5,
+      Count: count,
     },
     {
       query: {

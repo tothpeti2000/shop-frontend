@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
+import qs from "qs";
 import { useNavigate } from "react-router-dom";
 import useFeedback from "../hooks/useFeedback";
 import useToken from "../hooks/useToken";
@@ -18,6 +19,9 @@ export const useClient = <T>(): ((
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      // Without this, the array items in a query string would be in an array[]=...&array[]=...&array[]=... format and the backend wouldn't parse the query string correctly
+      paramsSerializer: (params) =>
+        qs.stringify(params, { arrayFormat: "repeat" }),
     }).then(({ data }) => data);
 
     return promise;

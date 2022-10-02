@@ -9,6 +9,7 @@ export type GetProductsParams = {
   Name?: string;
   FromPrice?: number;
   ToPrice?: number;
+  CategoryIds?: string[];
   Page?: number;
   Count?: number;
   OrderBy?: string;

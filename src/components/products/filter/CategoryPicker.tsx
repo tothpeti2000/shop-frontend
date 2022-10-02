@@ -1,15 +1,32 @@
+import { Checkbox, CheckboxGroup, Flex } from "@chakra-ui/react";
 import { useGetAllCategories } from "../../../api";
+import { useProductListContext } from "../../../context/ProductListContext";
 import Loading from "../../Loading";
-import { createCategoryGroups } from "./utils";
 
 const CategoryPicker = () => {
-  const { data, isLoading } = useGetAllCategories({
-    query: {
-      onSuccess: (data) => createCategoryGroups(data.categories!),
-    },
-  });
+  const { categories, updateCategories } = useProductListContext();
+  const { data, isLoading } = useGetAllCategories();
 
-  return <Loading isLoading={isLoading}></Loading>;
+  const handleChange = (value: string[]) => {
+    updateCategories(value);
+  };
+
+  return (
+    <Loading isLoading={isLoading}>
+      <CheckboxGroup
+        value={categories}
+        onChange={(value) => handleChange(value as string[])}
+      >
+        <Flex direction="column">
+          {data?.categories!.map((c) => (
+            <Checkbox key={c.id} value={c.id} mb={2}>
+              {c.name}
+            </Checkbox>
+          ))}
+        </Flex>
+      </CheckboxGroup>
+    </Loading>
+  );
 };
 
 export default CategoryPicker;
