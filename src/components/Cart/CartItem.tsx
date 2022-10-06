@@ -1,5 +1,7 @@
 import { Flex } from "@chakra-ui/layout";
 import { CloseButton, Image, Text } from "@chakra-ui/react";
+import { useDeleteCartItem } from "../../api";
+
 import { useCartContext } from "../../context/CartContext";
 import QuantityPicker from "./QuantityPicker";
 
@@ -12,10 +14,13 @@ interface Props {
 }
 
 const CartItem = (props: Props) => {
-  const { deleteCartItem } = useCartContext();
+  const { mutateAsync: deleteItem } = useDeleteCartItem();
+  const { refreshCartItems } = useCartContext();
 
-  const handleClick = () => {
-    deleteCartItem(props.id);
+  const handleClick = async () => {
+    await deleteItem({ data: { id: props.id } });
+
+    //refreshCartItems();
   };
 
   return (

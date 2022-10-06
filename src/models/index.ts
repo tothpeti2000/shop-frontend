@@ -1,6 +1,9 @@
 export * from "./addItemToCartCommand";
+export * from "./cartItemDto";
 export * from "./categoryDto";
+export * from "./deleteCartItemCommand";
 export * from "./getAllCategoriesResponse";
+export * from "./getCartItemsResponse";
 export * from "./getPriceRangeResponse";
 export * from "./getProductByIdResponse";
 export * from "./getProductsParams";
@@ -11,3 +14,4 @@ export * from "./loginUserResponse";
 export * from "./productDto";
 export * from "./registerUserCommand";
 export * from "./topCategory";
+export * from "./updateCartItemAmountCommand";

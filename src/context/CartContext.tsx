@@ -1,42 +1,23 @@
 import { createContext, FC, useContext, useState } from "react";
+import { useQueryClient } from "react-query";
+import { getGetCartItemsQueryKey } from "../api";
+import { CartItemDto } from "../models";
 
 const useCartContextValue = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: "Activity playgim",
-      name: "Activity playgim",
-      amount: 3,
-      price: 7488,
-      imgUrl: undefined,
-    },
-    {
-      id: "Colorful baby book",
-      name: "Colorful baby book",
-      amount: 1,
-      price: 1738,
-      imgUrl: undefined,
-    },
-    {
-      id: "Baby telephone",
-      name: "Baby telephone",
-      amount: 1,
-      price: 3725,
-      imgUrl: undefined,
-    },
-  ]);
+  const [cartItems, setCartItems] = useState<CartItemDto[]>([]);
+  const queryCache = useQueryClient();
 
-  const deleteCartItem = (productId: string) => {
-    const itemIdx = cartItems.findIndex((item) => item.id === productId);
-
-    var newItems = [...cartItems];
-    newItems.splice(itemIdx, 1);
-
-    setCartItems(newItems);
+  const updateCartItems = (cartItems: CartItemDto[]) => {
+    setCartItems(cartItems);
   };
+
+  const refreshCartItems = () =>
+    queryCache.invalidateQueries(getGetCartItemsQueryKey());
 
   return {
     cartItems,
-    deleteCartItem,
+    updateCartItems,
+    refreshCartItems,
   };
 };
 

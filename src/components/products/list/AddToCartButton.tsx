@@ -1,5 +1,8 @@
-import { Button, Icon } from "@chakra-ui/react";
+import { Button, Icon, Spinner } from "@chakra-ui/react";
 import { FaCartPlus } from "react-icons/fa";
+import { useAddItemToCart } from "../../../api";
+import { useErrorHandler } from "../../../api/client";
+import { useCartContext } from "../../../context/CartContext";
 import useFeedback from "../../../hooks/useFeedback";
 
 interface Props {
@@ -8,10 +11,25 @@ interface Props {
 }
 
 const AddToCartButton = (props: Props) => {
+  const { mutateAsync: addItemToCart, isLoading } = useAddItemToCart();
+  const { refreshCartItems } = useCartContext();
   const { showSuccess } = useFeedback();
+  const { handleError } = useErrorHandler();
 
   const handleClick = async () => {
-    showSuccess("Item added", "We've added the item to your cart");
+    try {
+      await addItemToCart({
+        data: {
+          productId: props.productId,
+          amount: 1,
+        },
+      });
+
+      showSuccess("Item added", "We've added the item to your cart");
+      refreshCartItems();
+    } catch (err: any) {
+      handleError(err.response);
+    }
   };
 
   return (
@@ -22,6 +40,7 @@ const AddToCartButton = (props: Props) => {
       leftIcon={<Icon as={FaCartPlus} />}
       onClick={handleClick}
     >
+      {isLoading && <Spinner />}
       Add to cart
     </Button>
   );

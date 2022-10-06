@@ -36,7 +36,7 @@ const ProductDetails = () => {
           <Spacer />
 
           <Box alignSelf="start" w="35%" minW="200px">
-            <AddToCartButton productId={id!} />
+            <AddToCartButton productId={id!} disabled={product?.stock! < 1} />
           </Box>
         </Flex>
       </Flex>

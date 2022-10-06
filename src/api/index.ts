@@ -18,6 +18,9 @@ import type {
   LoginUserResponse,
   LoginUserRequest,
   AddItemToCartCommand,
+  GetCartItemsResponse,
+  UpdateCartItemAmountCommand,
+  DeleteCartItemCommand,
   GetAllCategoriesResponse,
   GetTopCategoriesResponse,
   GetProductsResponse,
@@ -135,7 +138,7 @@ export const useAddItemToCartHook = () => {
 
   return (addItemToCartCommand: AddItemToCartCommand) => {
     return addItemToCart({
-      url: `/api/Carts`,
+      url: `/api/Carts/add-item`,
       method: "post",
       headers: { "Content-Type": "application/json" },
       data: addItemToCartCommand,
@@ -177,6 +180,202 @@ export const useAddItemToCart = <
     Awaited<ReturnType<typeof addItemToCart>>,
     TError,
     { data: AddItemToCartCommand },
+    TContext
+  >(mutationFn, mutationOptions);
+};
+
+export const useGetCartItemsHook = () => {
+  const getCartItems = useClient<GetCartItemsResponse>();
+
+  return (signal?: AbortSignal) => {
+    return getCartItems({ url: `/api/Carts/items`, method: "get", signal });
+  };
+};
+
+export const getGetCartItemsQueryKey = () => [`/api/Carts/items`];
+
+export type GetCartItemsQueryResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useGetCartItemsHook>>>
+>;
+export type GetCartItemsQueryError = ErrorType<unknown>;
+
+export const useGetCartItems = <
+  TData = Awaited<ReturnType<ReturnType<typeof useGetCartItemsHook>>>,
+  TError = ErrorType<unknown>
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<ReturnType<typeof useGetCartItemsHook>>>,
+    TError,
+    TData
+  >;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+  const { query: queryOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetCartItemsQueryKey();
+
+  const getCartItems = useGetCartItemsHook();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<ReturnType<typeof useGetCartItemsHook>>>
+  > = ({ signal }) => getCartItems(signal);
+
+  const query = useQuery<
+    Awaited<ReturnType<ReturnType<typeof useGetCartItemsHook>>>,
+    TError,
+    TData
+  >(queryKey, queryFn, {
+    refetchOnWindowFocus: false,
+    ...queryOptions,
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryKey;
+
+  return query;
+};
+
+export const useUpdateCartItemAmountHook = () => {
+  const updateCartItemAmount = useClient<void>();
+
+  return (updateCartItemAmountCommand: UpdateCartItemAmountCommand) => {
+    return updateCartItemAmount({
+      url: `/api/Carts/update-item`,
+      method: "put",
+      headers: { "Content-Type": "application/json" },
+      data: updateCartItemAmountCommand,
+    });
+  };
+};
+
+export type UpdateCartItemAmountMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useUpdateCartItemAmountHook>>>
+>;
+export type UpdateCartItemAmountMutationBody = UpdateCartItemAmountCommand;
+export type UpdateCartItemAmountMutationError = ErrorType<unknown>;
+
+export const useUpdateCartItemAmount = <
+  TError = ErrorType<unknown>,
+  TContext = unknown
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof useUpdateCartItemAmountHook>>>,
+    TError,
+    { data: UpdateCartItemAmountCommand },
+    TContext
+  >;
+}) => {
+  const { mutation: mutationOptions } = options ?? {};
+
+  const updateCartItemAmount = useUpdateCartItemAmountHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof useUpdateCartItemAmountHook>>>,
+    { data: UpdateCartItemAmountCommand }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return updateCartItemAmount(data);
+  };
+
+  return useMutation<
+    Awaited<ReturnType<typeof updateCartItemAmount>>,
+    TError,
+    { data: UpdateCartItemAmountCommand },
+    TContext
+  >(mutationFn, mutationOptions);
+};
+
+export const useDeleteCartItemHook = () => {
+  const deleteCartItem = useClient<void>();
+
+  return (deleteCartItemCommand: DeleteCartItemCommand) => {
+    return deleteCartItem({
+      url: `/api/Carts/delete-item`,
+      method: "put",
+      headers: { "Content-Type": "application/json" },
+      data: deleteCartItemCommand,
+    });
+  };
+};
+
+export type DeleteCartItemMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useDeleteCartItemHook>>>
+>;
+export type DeleteCartItemMutationBody = DeleteCartItemCommand;
+export type DeleteCartItemMutationError = ErrorType<unknown>;
+
+export const useDeleteCartItem = <
+  TError = ErrorType<unknown>,
+  TContext = unknown
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof useDeleteCartItemHook>>>,
+    TError,
+    { data: DeleteCartItemCommand },
+    TContext
+  >;
+}) => {
+  const { mutation: mutationOptions } = options ?? {};
+
+  const deleteCartItem = useDeleteCartItemHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof useDeleteCartItemHook>>>,
+    { data: DeleteCartItemCommand }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return deleteCartItem(data);
+  };
+
+  return useMutation<
+    Awaited<ReturnType<typeof deleteCartItem>>,
+    TError,
+    { data: DeleteCartItemCommand },
+    TContext
+  >(mutationFn, mutationOptions);
+};
+
+export const useClearCartHook = () => {
+  const clearCart = useClient<void>();
+
+  return () => {
+    return clearCart({ url: `/api/Carts/clear`, method: "put" });
+  };
+};
+
+export type ClearCartMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useClearCartHook>>>
+>;
+
+export type ClearCartMutationError = ErrorType<unknown>;
+
+export const useClearCart = <
+  TError = ErrorType<unknown>,
+  TVariables = void,
+  TContext = unknown
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof useClearCartHook>>>,
+    TError,
+    TVariables,
+    TContext
+  >;
+}) => {
+  const { mutation: mutationOptions } = options ?? {};
+
+  const clearCart = useClearCartHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof useClearCartHook>>>,
+    TVariables
+  > = () => {
+    return clearCart();
+  };
+
+  return useMutation<
+    Awaited<ReturnType<typeof clearCart>>,
+    TError,
+    TVariables,
     TContext
   >(mutationFn, mutationOptions);
 };
