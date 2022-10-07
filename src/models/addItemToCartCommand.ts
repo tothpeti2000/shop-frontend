@@ -7,5 +7,4 @@
 
 export interface AddItemToCartCommand {
   productId?: string;
-  amount?: number;
 }

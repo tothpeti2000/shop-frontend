@@ -1,6 +1,7 @@
 import { Flex } from "@chakra-ui/layout";
 import { CloseButton, Image, Text } from "@chakra-ui/react";
 import { useDeleteCartItem } from "../../api";
+import { useErrorHandler } from "../../api/client";
 
 import { useCartContext } from "../../context/CartContext";
 import QuantityPicker from "./QuantityPicker";
@@ -16,11 +17,15 @@ interface Props {
 const CartItem = (props: Props) => {
   const { mutateAsync: deleteItem } = useDeleteCartItem();
   const { refreshCartItems } = useCartContext();
+  const { handleError } = useErrorHandler();
 
   const handleClick = async () => {
-    await deleteItem({ data: { id: props.id } });
-
-    //refreshCartItems();
+    try {
+      await deleteItem({ data: { id: props.id } });
+      refreshCartItems();
+    } catch (err: any) {
+      handleError(err.response);
+    }
   };
 
   return (
@@ -36,8 +41,8 @@ const CartItem = (props: Props) => {
 
       <Flex direction="column" align="flex-start">
         <Text>{props.name}</Text>
-        <Text fontWeight="bold">{props.price}$</Text>
-        <QuantityPicker id={props.id} amount={props.amount} />
+        <Text fontWeight="bold">${props.price.toFixed(2)}</Text>
+        <QuantityPicker cartItemId={props.id} amount={props.amount} />
       </Flex>
 
       <CloseButton pos="absolute" top={1} right={1} onClick={handleClick} />

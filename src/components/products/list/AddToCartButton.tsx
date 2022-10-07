@@ -21,7 +21,6 @@ const AddToCartButton = (props: Props) => {
       await addItemToCart({
         data: {
           productId: props.productId,
-          amount: 1,
         },
       });
 

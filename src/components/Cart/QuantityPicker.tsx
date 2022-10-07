@@ -5,29 +5,48 @@ import {
   NumberInputField,
   NumberInputStepper,
 } from "@chakra-ui/number-input";
-import { useState } from "react";
+import { debounce } from "lodash-es";
+import { FiMinus, FiPlus } from "react-icons/fi";
+import { useUpdateCartItemAmount } from "../../api";
+import { useErrorHandler } from "../../api/client";
+import { useCartContext } from "../../context/CartContext";
 
 interface Props {
-  id: string;
+  cartItemId: string;
   amount: number;
 }
 
 const QuantityPicker = (props: Props) => {
-  const [value, setValue] = useState(props.amount);
-  //const { mutateAsync } = useMutation(updateItemAmount);
+  const { mutateAsync: updateAmount } = useUpdateCartItemAmount();
+  const { refreshCartItems } = useCartContext();
+  const { handleError } = useErrorHandler();
 
-  const HandleChange = async (diff: number) => {
-    setValue(value + diff);
+  const handleChange = debounce(
+    async (valueAsString: string, valueAsNumber: number) => {
+      try {
+        await updateAmount({
+          data: { id: props.cartItemId, amount: valueAsNumber },
+        });
 
-    //await mutateAsync({ itemID: props.id, amount: value + diff });
-  };
+        refreshCartItems();
+      } catch (err: any) {
+        handleError(err.response);
+      }
+    },
+    600
+  );
 
   return (
-    <NumberInput size="sm" value={value} min={1}>
+    <NumberInput
+      size="sm"
+      defaultValue={props.amount}
+      min={1}
+      onChange={handleChange}
+    >
       <NumberInputField />
       <NumberInputStepper>
-        <NumberIncrementStepper children="+" onClick={() => HandleChange(1)} />
-        <NumberDecrementStepper children="-" onClick={() => HandleChange(-1)} />
+        <NumberIncrementStepper children={<FiPlus />} />
+        <NumberDecrementStepper children={<FiMinus />} />
       </NumberInputStepper>
     </NumberInput>
   );

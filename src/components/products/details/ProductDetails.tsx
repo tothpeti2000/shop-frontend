@@ -26,7 +26,7 @@ const ProductDetails = () => {
           </Flex>
 
           <Text fontSize="2xl" fontWeight="bold" mb={2}>
-            ${product?.price}
+            ${product?.price?.toFixed(2)}
           </Text>
 
           <Text fontSize="lg">In stock: {product?.stock}</Text>
