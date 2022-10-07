@@ -1,30 +1,31 @@
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Icon, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import { debounce } from "lodash-es";
+import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { useProductListContext } from "../../../context/ProductListContext";
-import InputField from "../../form/InputField";
-
-interface QueryData {
-  query: string;
-}
 
 const Search = () => {
-  const { control, handleSubmit } = useForm<QueryData>();
   const { updateSearchQuery } = useProductListContext();
 
-  const onSubmit: SubmitHandler<QueryData> = (data) => {
-    updateSearchQuery(data.query);
-  };
+  const handleChange = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
+    updateSearchQuery(e.target.value);
+  }, 600);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <InputField
-        type="text"
-        name="query"
-        placeholder="Type here to search..."
-        control={control}
-        icon={FaSearch}
+    <InputGroup>
+      <InputLeftElement
+        pointerEvents="none"
+        children={<Icon as={FaSearch} color="gray.400" />}
       />
-    </form>
+
+      <Input
+        type="text"
+        onChange={handleChange}
+        placeholder="Type here to search"
+        border="1px"
+        borderColor="#acacac"
+      />
+    </InputGroup>
   );
 };
 
