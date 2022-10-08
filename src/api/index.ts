@@ -27,6 +27,7 @@ import type {
   GetProductsParams,
   GetProductByIdResponse,
   GetPriceRangeResponse,
+  CreateSharedCartResponse,
   CreateSharedCartCommand,
   GetSharedCartsResponse,
 } from "../models";
@@ -652,7 +653,7 @@ export const useGetPriceRange = <
 };
 
 export const useCreateSharedCartHook = () => {
-  const createSharedCart = useClient<void>();
+  const createSharedCart = useClient<CreateSharedCartResponse>();
 
   return (createSharedCartCommand: CreateSharedCartCommand) => {
     return createSharedCart({

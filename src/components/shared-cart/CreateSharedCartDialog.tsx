@@ -3,7 +3,7 @@ import DialogFrame from "../utils/DialogFrame";
 
 const CreateSharedCartDialog = () => {
   return (
-    <DialogFrame title="New shared cart" positiveButtonLabel="Create cart">
+    <DialogFrame title="New shared cart" hasCustomActions>
       <CreateSharedCartForm />
     </DialogFrame>
   );

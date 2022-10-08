@@ -2,6 +2,7 @@ export * from "./addItemToCartCommand";
 export * from "./cartItemDto";
 export * from "./categoryDto";
 export * from "./createSharedCartCommand";
+export * from "./createSharedCartResponse";
 export * from "./deleteCartItemCommand";
 export * from "./getAllCategoriesResponse";
 export * from "./getCartItemsResponse";

@@ -16,6 +16,8 @@ interface Props {
   negativeButtonLabel?: string;
   positiveButtonLabel?: string;
   positiveButtonColorScheme?: string;
+  onClick?: () => void;
+  hasCustomActions?: boolean;
 }
 
 const DialogFrame: FC<Props> = ({
@@ -24,8 +26,15 @@ const DialogFrame: FC<Props> = ({
   negativeButtonLabel,
   positiveButtonLabel,
   positiveButtonColorScheme,
+  onClick,
+  hasCustomActions,
 }) => {
   const { isOpen, close } = useToggleContext();
+
+  const handleClick = () => {
+    onClick?.();
+    close();
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={close} isCentered>
@@ -37,13 +46,20 @@ const DialogFrame: FC<Props> = ({
         <ModalBody>{children}</ModalBody>
 
         <ModalFooter>
-          <Button mr={3} onClick={close}>
-            {negativeButtonLabel || "Cancel"}
-          </Button>
+          {!hasCustomActions && (
+            <>
+              <Button mr={3} onClick={close}>
+                {negativeButtonLabel || "Cancel"}
+              </Button>
 
-          <Button colorScheme={positiveButtonColorScheme || "teal"}>
-            {positiveButtonLabel || "OK"}
-          </Button>
+              <Button
+                colorScheme={positiveButtonColorScheme || "teal"}
+                onClick={handleClick}
+              >
+                {positiveButtonLabel || "OK"}
+              </Button>
+            </>
+          )}
         </ModalFooter>
       </ModalContent>
     </Modal>
