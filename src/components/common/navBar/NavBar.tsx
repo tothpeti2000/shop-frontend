@@ -1,15 +1,18 @@
 import { Box, Flex, Spacer } from "@chakra-ui/react";
+import { FaSlideshare } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { CartProvider } from "../../../context/CartContext";
 import { ToggleProvider } from "../../../context/ToggleContext";
 import useNavBar from "../../../hooks/useNavBar";
 import useUser from "../../../hooks/useUser";
 import { animated, bgDark } from "../../../styles/styles";
-import CartButton from "./CartButton";
+import Cart from "../../cart/Cart";
+import AppIconButton from "../../utils/AppIconButton";
 import AuthButton from "./AuthButton";
+import CartButton from "./CartButton";
 import NavBrand from "./NavBrand";
 import NavLinks from "./NavLinks";
 import SearchBar from "./SearchBar";
-import Cart from "../../cart/Cart";
 
 const NavBar = () => {
   const { height, opacity } = useNavBar();
@@ -45,8 +48,15 @@ const NavBar = () => {
       {isLoggedIn() && (
         <ToggleProvider>
           <CartProvider>
-            <CartButton />
+            <Box mx={3}>
+              <CartButton />
+            </Box>
+
             <Cart />
+
+            <Link to="/shop-mates">
+              <AppIconButton label="Shared cart" icon={FaSlideshare} />
+            </Link>
           </CartProvider>
         </ToggleProvider>
       )}

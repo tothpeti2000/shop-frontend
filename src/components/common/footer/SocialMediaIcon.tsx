@@ -1,5 +1,5 @@
-import { Icon, IconButton } from "@chakra-ui/react";
 import { IconType } from "react-icons";
+import AppIconButton from "../../utils/AppIconButton";
 
 interface Props {
   icon: IconType;
@@ -7,11 +7,7 @@ interface Props {
 
 const SocialMediaIcon = (props: Props) => {
   return (
-    <IconButton
-      aria-label="SocialMedia"
-      icon={<Icon as={props.icon} boxSize={10} />}
-      colorScheme="black"
-    />
+    <AppIconButton label="SocialMedia" icon={props.icon} colorScheme="black" />
   );
 };
 

@@ -1,11 +1,21 @@
+import { FaUserCircle } from "react-icons/fa";
+import { FiLogOut } from "react-icons/fi";
+import { Link } from "react-router-dom";
 import useUser from "../../../hooks/useUser";
-import LoginButton from "../../auth/LoginButton";
-import LogoutButton from "../../auth/LogoutButton";
+import AppIconButton from "../../utils/AppIconButton";
 
 const AuthButton = () => {
-  const { isLoggedIn } = useUser();
+  const { isLoggedIn, logout } = useUser();
 
-  return isLoggedIn() ? <LogoutButton /> : <LoginButton />;
+  return (
+    <Link to="/login">
+      {isLoggedIn() ? (
+        <AppIconButton label="Logout" icon={FiLogOut} onClick={logout} />
+      ) : (
+        <AppIconButton label="Login" icon={FaUserCircle} />
+      )}
+    </Link>
+  );
 };
 
 export default AuthButton;

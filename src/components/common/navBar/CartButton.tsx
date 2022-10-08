@@ -1,7 +1,8 @@
-import { Badge, Box, Icon, IconButton } from "@chakra-ui/react";
+import { Badge, Box } from "@chakra-ui/react";
 import { FaShoppingCart } from "react-icons/fa";
 import { useCartContext } from "../../../context/CartContext";
 import { useToggleContext } from "../../../context/ToggleContext";
+import AppIconButton from "../../utils/AppIconButton";
 
 const CartButton = () => {
   const { cartItems } = useCartContext();
@@ -9,12 +10,7 @@ const CartButton = () => {
 
   return (
     <Box pos="relative">
-      <IconButton
-        aria-label="Cart"
-        colorScheme="yellow"
-        icon={<Icon as={FaShoppingCart} boxSize="80%" />}
-        onClick={open}
-      />
+      <AppIconButton label="Cart" icon={FaShoppingCart} onClick={open} />
 
       <Badge pos="absolute" top={-2} right={-2}>
         {cartItems.length}
