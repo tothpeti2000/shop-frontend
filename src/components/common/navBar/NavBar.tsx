@@ -54,7 +54,7 @@ const NavBar = () => {
 
             <Cart />
 
-            <Link to="/shop-mates">
+            <Link to="/shared-carts">
               <AppIconButton label="Shared cart" icon={FaSlideshare} />
             </Link>
           </CartProvider>
