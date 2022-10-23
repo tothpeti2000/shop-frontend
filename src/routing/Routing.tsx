@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LoginPage from "../pages/auth/LoginPage";
 import RegistrationPage from "../pages/auth/RegistrationPage";
+import CheckoutPage from "../pages/checkout/CheckoutPage";
 import HomePage from "../pages/HomePage";
 import NotFound from "../pages/NotFound";
 import ProductDetailsPage from "../pages/product/ProductDetailsPage";
@@ -27,6 +28,8 @@ const Routing = () => {
             <Route index element={<SharedCartListPage />} />
             <Route path=":id" element={<SharedCartPage />} />
           </Route>
+
+          <Route path="checkout" element={<CheckoutPage />} />
 
           <Route path="*" element={<NotFound />} />
         </Route>
