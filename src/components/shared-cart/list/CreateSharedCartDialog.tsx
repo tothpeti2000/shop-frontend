@@ -1,5 +1,5 @@
-import CreateSharedCartForm from "../form/CreateSharedCartForm";
-import DialogFrame from "../utils/DialogFrame";
+import CreateSharedCartForm from "../../form/CreateSharedCartForm";
+import DialogFrame from "../../utils/DialogFrame";
 
 const CreateSharedCartDialog = () => {
   return (
