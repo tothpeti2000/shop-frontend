@@ -4,6 +4,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  LayoutProps,
 } from "@chakra-ui/react";
 import { HTMLInputTypeAttribute } from "react";
 import { Control, Controller } from "react-hook-form";
@@ -17,6 +18,7 @@ interface Props {
   control: Control<any>;
   autoFocus?: boolean;
   validationError?: string;
+  width?: LayoutProps["w"];
   size?: "xs" | "sm" | "md" | "lg";
   icon?: IconType;
 }
@@ -28,7 +30,7 @@ const InputField = (props: Props) => {
       defaultValue=""
       control={props.control}
       render={({ field }) => (
-        <Box mb={2}>
+        <Box w={props.width} mb={2}>
           <InputGroup>
             {props.icon && (
               <InputLeftElement
