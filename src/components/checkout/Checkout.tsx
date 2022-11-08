@@ -6,6 +6,7 @@ import {
   FaShoppingCart,
   FaTruck,
 } from "react-icons/fa";
+import { CheckoutProvider } from "../../context/CheckoutContext";
 import { useStepperContext } from "../../context/StepperContext";
 import DeliveryDetails from "./steps/DeliveryDetails";
 import OrderSummary from "./steps/OrderSummary";
@@ -23,17 +24,19 @@ const Checkout = () => {
   ];
 
   return (
-    <Steps activeStep={stepIdx}>
-      {steps.map((step, idx) => (
-        <Step key={idx} label={step.label} icon={step.icon}>
-          <Flex minH="65vh" p={10}>
-            <Flex direction="column" justifyContent="space-between" w="100%">
-              {step.content}
+    <CheckoutProvider>
+      <Steps activeStep={stepIdx}>
+        {steps.map((step, idx) => (
+          <Step key={idx} label={step.label} icon={step.icon}>
+            <Flex minH="65vh" p={10} boxShadow="lg" borderBottomRadius={20}>
+              <Flex direction="column" justifyContent="space-between" w="100%">
+                {step.content}
+              </Flex>
             </Flex>
-          </Flex>
-        </Step>
-      ))}
-    </Steps>
+          </Step>
+        ))}
+      </Steps>
+    </CheckoutProvider>
   );
 };
 

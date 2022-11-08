@@ -5,12 +5,17 @@ import { useErrorHandler } from "../../../api/client";
 import Loading from "../../Loading";
 import StepButtons from "../StepButtons";
 import { RiArrowGoBackFill } from "react-icons/ri";
+import { useCheckoutContext } from "../../../context/CheckoutContext";
 
 const OrderSummary = () => {
   const { data, isLoading } = useGetCartItems({
-    query: { onError: (err) => handleError(err.response) },
+    query: {
+      onSuccess: (data) => setCartItems(data.cartItems!),
+      onError: (err) => handleError(err.response),
+    },
   });
 
+  const { setCartItems } = useCheckoutContext();
   const { handleError } = useErrorHandler();
 
   const getTotalPrice = () =>

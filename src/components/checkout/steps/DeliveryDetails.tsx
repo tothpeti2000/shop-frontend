@@ -26,9 +26,7 @@ const DeliveryDetails = () => {
     resolver: yupResolver(deliveryDetailsSchema),
   });
 
-  const onSubmit: SubmitHandler<DeliveryData> = async (data) => {
-    console.log(data);
-  };
+  const onSubmit: SubmitHandler<DeliveryData> = () => {};
 
   const buttonRef = useRef<HTMLButtonElement>(null);
 
