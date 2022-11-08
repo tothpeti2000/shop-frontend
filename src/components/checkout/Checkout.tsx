@@ -10,7 +10,7 @@ import { CheckoutProvider } from "../../context/CheckoutContext";
 import { useStepperContext } from "../../context/StepperContext";
 import DeliveryDetails from "./steps/DeliveryDetails";
 import OrderSummary from "./steps/OrderSummary";
-import PaymentMethod from "./steps/PaymentMethod";
+import PaymentMethod from "./steps/payment/PaymentMethod";
 import PlaceOrder from "./steps/PlaceOrder";
 
 const Checkout = () => {
