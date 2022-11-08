@@ -11,16 +11,16 @@ import { useStepperContext } from "../../context/StepperContext";
 import DeliveryDetails from "./steps/DeliveryDetails";
 import OrderSummary from "./steps/OrderSummary";
 import PaymentMethod from "./steps/payment/PaymentMethod";
-import PlaceOrder from "./steps/PlaceOrder";
+import CartContent from "./steps/CartContent";
 
 const Checkout = () => {
   const { stepIdx } = useStepperContext();
 
   const steps = [
-    { label: "Summary", icon: FaShoppingCart, content: <OrderSummary /> },
+    { label: "Cart content", icon: FaShoppingCart, content: <CartContent /> },
     { label: "Delivery", icon: FaTruck, content: <DeliveryDetails /> },
     { label: "Payment", icon: FaMoneyCheckAlt, content: <PaymentMethod /> },
-    { label: "Finish", icon: FaFlag, content: <PlaceOrder /> },
+    { label: "Summary", icon: FaFlag, content: <OrderSummary /> },
   ];
 
   return (
