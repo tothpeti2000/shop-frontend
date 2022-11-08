@@ -4,10 +4,10 @@ import { useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { GrContactInfo } from "react-icons/gr";
 import { HiLocationMarker } from "react-icons/hi";
-import { useCheckoutContext } from "../../../context/CheckoutContext";
-import InputField from "../../form/InputField";
-import deliveryDetailsSchema from "../../form/schemas/deliveryDetails";
-import StepButtons from "../StepButtons";
+import { useCheckoutContext } from "../../../../context/CheckoutContext";
+import InputField from "../../../form/InputField";
+import deliveryDetailsSchema from "../../../form/schemas/deliveryDetails";
+import StepButtons from "../../StepButtons";
 
 export interface DeliveryData {
   firstName: string;

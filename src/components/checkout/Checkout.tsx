@@ -8,10 +8,10 @@ import {
 } from "react-icons/fa";
 import { CheckoutProvider } from "../../context/CheckoutContext";
 import { useStepperContext } from "../../context/StepperContext";
-import DeliveryDetails from "./steps/DeliveryDetails";
-import OrderSummary from "./steps/OrderSummary";
+import DeliveryDetails from "./steps/delivery/DeliveryDetails";
+import OrderSummary from "./steps/summary/OrderSummary";
 import PaymentMethod from "./steps/payment/PaymentMethod";
-import CartContent from "./steps/CartContent";
+import CartContent from "./steps/cart/CartContent";
 
 const Checkout = () => {
   const { stepIdx } = useStepperContext();

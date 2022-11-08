@@ -1,5 +1,5 @@
 import { createContext, FC, useContext, useState } from "react";
-import { DeliveryData } from "../components/checkout/steps/DeliveryDetails";
+import { DeliveryData } from "../components/checkout/steps/delivery/DeliveryDetails";
 import { CartItemDto } from "../models";
 
 // TODO: Modify types based on backend DTOs
