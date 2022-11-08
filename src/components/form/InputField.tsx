@@ -16,6 +16,7 @@ interface Props {
   name: string;
   placeholder: string;
   control: Control<any>;
+  defaultValue?: string;
   autoFocus?: boolean;
   validationError?: string;
   width?: LayoutProps["w"];
@@ -27,7 +28,7 @@ const InputField = (props: Props) => {
   return (
     <Controller
       name={props.name}
-      defaultValue=""
+      defaultValue={props.defaultValue || ""}
       control={props.control}
       render={({ field }) => (
         <Box w={props.width} mb={2}>

@@ -4,11 +4,12 @@ import { useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { GrContactInfo } from "react-icons/gr";
 import { HiLocationMarker } from "react-icons/hi";
+import { useCheckoutContext } from "../../../context/CheckoutContext";
 import InputField from "../../form/InputField";
 import deliveryDetailsSchema from "../../form/schemas/deliveryDetails";
 import StepButtons from "../StepButtons";
 
-interface DeliveryData {
+export interface DeliveryData {
   firstName: string;
   lastName: string;
   phone: string;
@@ -26,8 +27,9 @@ const DeliveryDetails = () => {
     resolver: yupResolver(deliveryDetailsSchema),
   });
 
-  const onSubmit: SubmitHandler<DeliveryData> = () => {};
+  const { deliveryData, setDeliveryData } = useCheckoutContext();
 
+  const onSubmit: SubmitHandler<DeliveryData> = (data) => setDeliveryData(data);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const validateForm = () => {
@@ -52,6 +54,7 @@ const DeliveryDetails = () => {
               name="firstName"
               placeholder="First name"
               control={control}
+              defaultValue={deliveryData.firstName}
               autoFocus
               validationError={errors.firstName?.message}
               width="70%"
@@ -62,6 +65,7 @@ const DeliveryDetails = () => {
               name="lastName"
               placeholder="Last name"
               control={control}
+              defaultValue={deliveryData.lastName}
               validationError={errors.lastName?.message}
               width="70%"
             />
@@ -71,6 +75,7 @@ const DeliveryDetails = () => {
               name="phone"
               placeholder="Phone number"
               control={control}
+              defaultValue={deliveryData.phone}
               validationError={errors.phone?.message}
               width="50%"
             />
@@ -89,6 +94,7 @@ const DeliveryDetails = () => {
               name="zipCode"
               placeholder="Zip code"
               control={control}
+              defaultValue={deliveryData.zipCode}
               validationError={errors.zipCode?.message}
               width="40%"
             />
@@ -98,6 +104,7 @@ const DeliveryDetails = () => {
               name="city"
               placeholder="City"
               control={control}
+              defaultValue={deliveryData.city}
               validationError={errors.city?.message}
               width="70%"
             />
@@ -107,6 +114,7 @@ const DeliveryDetails = () => {
               name="address"
               placeholder="Address"
               control={control}
+              defaultValue={deliveryData.address}
               validationError={errors.address?.message}
               width="70%"
             />
