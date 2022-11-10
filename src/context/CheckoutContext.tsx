@@ -1,8 +1,7 @@
 import { createContext, FC, useContext, useState } from "react";
 import { DeliveryData } from "../components/checkout/steps/delivery/DeliveryDetails";
-import { CartItemDto } from "../models";
-
-// TODO: Modify types based on backend DTOs
+import { PaymentOption } from "../components/checkout/steps/payment/PaymentMethod";
+import { CartItemDto, PlaceOrderCommand } from "../models";
 
 const useCheckoutContextValue = () => {
   const [cartItems, setCartItems] = useState<CartItemDto[]>([]);
@@ -14,15 +13,36 @@ const useCheckoutContextValue = () => {
     city: "",
     address: "",
   });
-  const [paymentMethod, setPaymentMethod] = useState("");
+  const [paymentOption, setPaymentOption] = useState<PaymentOption | undefined>(
+    undefined
+  );
+
+  const getOrderDto = () => {
+    const dto: PlaceOrderCommand = {
+      customerData: {
+        firstName: deliveryData.firstName,
+        lastName: deliveryData.lastName,
+        phone: deliveryData.phone,
+      },
+      deliveryData: {
+        zipCode: deliveryData.zipCode,
+        city: deliveryData.city,
+        address: deliveryData.address,
+      },
+      paymentMethod: paymentOption?.value,
+    };
+
+    return dto;
+  };
 
   return {
     cartItems,
     setCartItems,
     deliveryData,
     setDeliveryData,
-    paymentMethod,
-    setPaymentMethod,
+    paymentOption,
+    setPaymentOption,
+    getOrderDto,
   };
 };
 

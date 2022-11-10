@@ -44,7 +44,7 @@ export const useErrorHandler = () => {
     if (response.status >= 500) {
       showError(
         "Internal server error",
-        "An unknown server error occurred. Please, try again later!"
+        "An unexpected server error occurred. Please, try again later!"
       );
       return;
     }

@@ -2,7 +2,6 @@ import { Button, Spinner } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useCreateSharedCart } from "../../api";
 import { useErrorHandler } from "../../api/client";
 import useFeedback from "../../hooks/useFeedback";
 import InputField from "./InputField";
@@ -19,7 +18,7 @@ const CreateSharedCartForm = () => {
   const { handleError } = useErrorHandler();
   const navigate = useNavigate();
 
-  const { mutateAsync: createCart, isLoading } = useCreateSharedCart();
+  // const { mutateAsync: createCart, isLoading } = useCreateSharedCart();
 
   const {
     control,
@@ -30,14 +29,13 @@ const CreateSharedCartForm = () => {
   });
 
   const onSubmit: SubmitHandler<SharedCartData> = async (data) => {
-    try {
-      const response = await createCart({ data: { ...data } });
-
-      showSuccess("Cart created successfully");
-      navigate(`/shared-carts/${response.id}`);
-    } catch (err: any) {
-      handleError(err.response);
-    }
+    // try {
+    //   const response = await createCart({ data: { ...data } });
+    //   showSuccess("Cart created successfully");
+    //   navigate(`/shared-carts/${response.id}`);
+    // } catch (err: any) {
+    //   handleError(err.response);
+    // }
   };
 
   return (
@@ -57,7 +55,7 @@ const CreateSharedCartForm = () => {
         control={control}
       />
 
-      <Button
+      {/* <Button
         type="submit"
         w="100%"
         colorScheme="messenger"
@@ -65,7 +63,7 @@ const CreateSharedCartForm = () => {
       >
         {isLoading && <Spinner />}
         Create cart
-      </Button>
+      </Button> */}
     </form>
   );
 };

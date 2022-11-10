@@ -34,7 +34,9 @@ const CartContent = () => {
           </Box>
 
           <Flex direction="column" alignItems="center" mr={10}>
-            <Heading mb={10}>Total: ${getTotalPrice(data?.cartItems)}</Heading>
+            <Heading mb={10}>
+              Total: ${getTotalPrice(data?.cartItems).toFixed(2)}
+            </Heading>
 
             <Text>You're not done yet?</Text>
             <Link to="/products">

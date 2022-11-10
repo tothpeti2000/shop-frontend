@@ -1,14 +1,41 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Spinner, Text } from "@chakra-ui/react";
 import { FaMapMarkedAlt, FaPhoneAlt, FaUserAlt } from "react-icons/fa";
 import { HiCreditCard } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
+import { usePlaceOrder } from "../../../../api";
+import { useErrorHandler } from "../../../../api/client";
 import { useCheckoutContext } from "../../../../context/CheckoutContext";
+import useFeedback from "../../../../hooks/useFeedback";
 import { getTotalPrice } from "../../../cart/utils";
 import StepButtons from "../../StepButtons";
 import CartItem from "../cart/CartItem";
 import SummaryItem from "./SummaryItem";
 
 const OrderSummary = () => {
-  const { cartItems, deliveryData, paymentMethod } = useCheckoutContext();
+  const { cartItems, deliveryData, paymentOption, getOrderDto } =
+    useCheckoutContext();
+
+  const { mutateAsync: placeOrder, isLoading } = usePlaceOrder();
+  const { showSuccess } = useFeedback();
+  const { handleError } = useErrorHandler();
+  const navigate = useNavigate();
+
+  const submitOrder = async () => {
+    const orderDto = getOrderDto();
+
+    try {
+      await placeOrder({ data: orderDto });
+
+      showSuccess(
+        "Order placed",
+        "Your order has been placed successfully. Check out your mailbox for the confirmation email"
+      );
+
+      navigate("/products");
+    } catch (err: any) {
+      handleError(err.response);
+    }
+  };
 
   return (
     <>
@@ -52,17 +79,18 @@ const OrderSummary = () => {
                 <SummaryItem
                   icon={HiCreditCard}
                   label="Payment method"
-                  value={paymentMethod}
+                  value={paymentOption?.value!}
                 />
               </Box>
             </Box>
 
             <Text fontSize="30px" fontWeight="bold">
-              Total: ${getTotalPrice(cartItems)}
+              Total: ${getTotalPrice(cartItems).toFixed(2)}
             </Text>
           </Box>
 
-          <Button p={6} fontSize="2xl" colorScheme="teal">
+          <Button p={6} fontSize="2xl" colorScheme="teal" onClick={submitOrder}>
+            {isLoading && <Spinner />}
             Place order
           </Button>
         </Flex>

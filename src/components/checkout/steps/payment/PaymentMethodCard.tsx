@@ -3,10 +3,10 @@ import { useCheckoutContext } from "../../../../context/CheckoutContext";
 import { PaymentOption } from "./PaymentMethod";
 
 const PaymentMethodCard = (props: PaymentOption) => {
-  const { paymentMethod, setPaymentMethod } = useCheckoutContext();
+  const { paymentOption, setPaymentOption } = useCheckoutContext();
 
-  const isCurrentlySelected = paymentMethod === props.value;
-  const handleClick = () => setPaymentMethod(props.value);
+  const isCurrentlySelected = paymentOption?.value === props.value;
+  const handleClick = () => setPaymentOption(props);
 
   return (
     <Button

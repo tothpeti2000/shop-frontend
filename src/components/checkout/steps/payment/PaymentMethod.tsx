@@ -6,24 +6,29 @@ import { useCheckoutContext } from "../../../../context/CheckoutContext";
 import useFeedback from "../../../../hooks/useFeedback";
 import StepButtons from "../../StepButtons";
 import PaymentMethodCard from "./PaymentMethodCard";
+import { PaymentMethod as Payment } from "../../../../models";
 
 export interface PaymentOption {
   name: string;
-  value: string;
+  value: Payment;
   icon: ReactElement;
 }
 
 const PaymentMethod = () => {
   const paymentMethods: PaymentOption[] = [
-    { name: "Cash on delivery", value: "cod", icon: <GiMoneyStack /> },
-    { name: "Credit card in advance", value: "card", icon: <HiCreditCard /> },
+    { name: "On delivery", value: Payment.OnDelivery, icon: <GiMoneyStack /> },
+    {
+      name: "Credit card in advance",
+      value: Payment.CreditCard,
+      icon: <HiCreditCard />,
+    },
   ];
 
-  const { paymentMethod } = useCheckoutContext();
+  const { paymentOption } = useCheckoutContext();
   const { showError } = useFeedback();
 
   const validateStep = () => {
-    if (!paymentMethod) {
+    if (paymentOption === undefined) {
       showError("You must choose a payment method before you continue");
       return false;
     }
