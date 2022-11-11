@@ -6,6 +6,7 @@ export * from "./createSharedCartResponse";
 export * from "./customerDetails";
 export * from "./deleteCartItemCommand";
 export * from "./deliveryDetails";
+export * from "./editProfileCommand";
 export * from "./getAllCategoriesResponse";
 export * from "./getCartItemsResponse";
 export * from "./getPriceRangeResponse";

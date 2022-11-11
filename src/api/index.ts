@@ -28,6 +28,7 @@ import type {
   GetProductsParams,
   GetProductByIdResponse,
   GetPriceRangeResponse,
+  EditProfileCommand,
   CreateSharedCartResponse,
   CreateSharedCartCommand,
   GetSharedCartsResponse,
@@ -704,6 +705,57 @@ export const useGetPriceRange = <
   query.queryKey = queryKey;
 
   return query;
+};
+
+export const useEditProfileHook = () => {
+  const editProfile = useClient<void>();
+
+  return (editProfileCommand: EditProfileCommand) => {
+    return editProfile({
+      url: `/api/Profiles/edit`,
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      data: editProfileCommand,
+    });
+  };
+};
+
+export type EditProfileMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useEditProfileHook>>>
+>;
+export type EditProfileMutationBody = EditProfileCommand;
+export type EditProfileMutationError = ErrorType<unknown>;
+
+export const useEditProfile = <
+  TError = ErrorType<unknown>,
+  TContext = unknown
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof useEditProfileHook>>>,
+    TError,
+    { data: EditProfileCommand },
+    TContext
+  >;
+}) => {
+  const { mutation: mutationOptions } = options ?? {};
+
+  const editProfile = useEditProfileHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof useEditProfileHook>>>,
+    { data: EditProfileCommand }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return editProfile(data);
+  };
+
+  return useMutation<
+    Awaited<ReturnType<typeof editProfile>>,
+    TError,
+    { data: EditProfileCommand },
+    TContext
+  >(mutationFn, mutationOptions);
 };
 
 export const useCreateSharedCartHook = () => {

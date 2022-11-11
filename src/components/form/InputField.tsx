@@ -16,7 +16,7 @@ interface Props {
   name: string;
   placeholder: string;
   control: Control<any>;
-  defaultValue?: string;
+  defaultValue?: string | null;
   autoFocus?: boolean;
   validationError?: string;
   width?: LayoutProps["w"];

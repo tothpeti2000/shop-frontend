@@ -6,6 +6,7 @@ import HomePage from "../pages/HomePage";
 import NotFound from "../pages/NotFound";
 import ProductDetailsPage from "../pages/product/ProductDetailsPage";
 import ProductListPage from "../pages/product/ProductListPage";
+import ProfilePage from "../pages/profile/ProfilePage";
 import SharedCartListPage from "../pages/shared-cart/SharedCartListPage";
 import SharedCartPage from "../pages/shared-cart/SharedCartPage";
 import ProtectedRoute from "./ProtectedRoute";
@@ -29,6 +30,15 @@ const Routing = () => {
             <Route index element={<SharedCartListPage />} />
             <Route path=":id" element={<SharedCartPage />} />
           </Route>
+
+          <Route
+            path="profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
 
           <Route
             path="checkout"
