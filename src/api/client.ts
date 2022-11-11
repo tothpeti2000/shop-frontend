@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
 import useFeedback from "../hooks/useFeedback";
-import useToken from "../hooks/useToken";
+import useUserCredentials from "../hooks/useUserCredentials";
 
 const AXIOS_INSTANCE = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
@@ -11,7 +11,7 @@ const AXIOS_INSTANCE = axios.create({
 export const useClient = <T>(): ((
   config: AxiosRequestConfig
 ) => Promise<T>) => {
-  const { token } = useToken();
+  const { token } = useUserCredentials();
 
   return (config: AxiosRequestConfig) => {
     const promise = AXIOS_INSTANCE({

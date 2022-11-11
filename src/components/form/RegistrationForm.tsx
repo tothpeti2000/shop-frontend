@@ -9,6 +9,7 @@ import InputField from "../form/InputField";
 import registrationSchema from "../form/schemas/registration";
 
 interface RegistrationData {
+  name: string;
   userName: string;
   email: string;
   password: string;
@@ -45,10 +46,19 @@ const RegistrationForm = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <InputField
         type="text"
+        name="name"
+        placeholder="Name"
+        control={control}
+        autoFocus
+        validationError={errors.name?.message}
+        size="lg"
+      />
+
+      <InputField
+        type="text"
         name="userName"
         placeholder="Username"
         control={control}
-        autoFocus
         validationError={errors.userName?.message}
         size="lg"
       />

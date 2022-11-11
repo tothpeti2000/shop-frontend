@@ -1,20 +1,47 @@
-import { FaUserCircle } from "react-icons/fa";
-import { FiLogOut } from "react-icons/fi";
-import { Link } from "react-router-dom";
-import useUser from "../../../hooks/useUser";
+import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import { FaEdit, FaUserCircle } from "react-icons/fa";
+import { FiChevronDown, FiLogOut } from "react-icons/fi";
+import { Link, useNavigate } from "react-router-dom";
+import { useUserContext } from "../../../context/UserContext";
 import AppIconButton from "../../utils/AppIconButton";
 
 const AuthButton = () => {
-  const { isLoggedIn, logout } = useUser();
+  const { token, name, logout } = useUserContext();
+  const navigate = useNavigate();
+
+  const logoutUser = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
-    <Link to="/login">
-      {isLoggedIn() ? (
-        <AppIconButton label="Logout" icon={FiLogOut} onClick={logout} />
+    <>
+      {token !== null ? (
+        <Menu>
+          <MenuButton
+            as={Button}
+            rightIcon={<FiChevronDown />}
+            colorScheme="yellow"
+          >
+            {name}
+          </MenuButton>
+
+          <MenuList color="black">
+            <Link to="/profile">
+              <MenuItem icon={<FaEdit />}>Edit profile</MenuItem>
+            </Link>
+
+            <MenuItem icon={<FiLogOut />} onClick={logoutUser}>
+              Log out
+            </MenuItem>
+          </MenuList>
+        </Menu>
       ) : (
-        <AppIconButton label="Login" icon={FaUserCircle} />
+        <Link to="/login">
+          <AppIconButton label="Login" icon={FaUserCircle} />
+        </Link>
       )}
-    </Link>
+    </>
   );
 };
 

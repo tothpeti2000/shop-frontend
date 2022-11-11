@@ -6,6 +6,7 @@
  */
 
 export interface RegisterUserCommand {
+  name?: string | null;
   userName?: string | null;
   email?: string | null;
   password?: string | null;

@@ -7,4 +7,5 @@
 
 export interface LoginUserResponse {
   token?: string | null;
+  name?: string | null;
 }

@@ -1,10 +1,9 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Center } from "@chakra-ui/react";
 import { FC } from "react";
-import FullScreenCenter from "../../utils/FullScreenCenter";
 
-const FormContainer: FC = ({ children }) => {
+const AuthFormContainer: FC = ({ children }) => {
   return (
-    <FullScreenCenter>
+    <Center h="86vh">
       <Box
         w="30%"
         minW="400px"
@@ -16,8 +15,8 @@ const FormContainer: FC = ({ children }) => {
       >
         {children}
       </Box>
-    </FullScreenCenter>
+    </Center>
   );
 };
 
-export default FormContainer;
+export default AuthFormContainer;

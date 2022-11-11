@@ -3,6 +3,8 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { App } from "./App";
+import { CartProvider } from "./context/CartContext";
+import { UserProvider } from "./context/UserContext";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
 import { theme } from "./styles/chakra-theme";
@@ -14,7 +16,11 @@ ReactDOM.render(
     <ColorModeScript />
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <App />
+        <UserProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </UserProvider>
       </QueryClientProvider>
     </ChakraProvider>
   </React.StrictMode>,

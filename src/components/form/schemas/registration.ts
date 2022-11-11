@@ -1,6 +1,7 @@
 import * as yup from "yup";
 
 const registrationSchema = yup.object({
+  name: yup.string().required("Please, enter your name!"),
   userName: yup
     .string()
     .min(4, "Username must be at least 4 characters long")

@@ -2,8 +2,8 @@ import { Box, Flex, Spacer } from "@chakra-ui/react";
 import { FaSlideshare } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { ToggleProvider } from "../../../context/ToggleContext";
+import { useUserContext } from "../../../context/UserContext";
 import useNavBar from "../../../hooks/useNavBar";
-import useUser from "../../../hooks/useUser";
 import { animated, bgDark } from "../../../styles/styles";
 import Cart from "../../cart/Cart";
 import AppIconButton from "../../utils/AppIconButton";
@@ -15,13 +15,13 @@ import SearchBar from "./SearchBar";
 
 const NavBar = () => {
   const { height, opacity } = useNavBar();
-  const { isLoggedIn } = useUser();
+  const { token } = useUserContext();
 
   return (
     <Flex
       as="nav"
       alignItems="center"
-      px="10%"
+      px="5%"
       h={height}
       {...bgDark}
       sx={{ pos: "sticky", top: "0" }}
@@ -40,11 +40,7 @@ const NavBar = () => {
 
       <NavLinks />
 
-      <Box mx={2}>
-        <AuthButton />
-      </Box>
-
-      {isLoggedIn() && (
+      {token !== null && (
         <ToggleProvider>
           <Box mx={3}>
             <CartButton />
@@ -57,6 +53,10 @@ const NavBar = () => {
           </Link>
         </ToggleProvider>
       )}
+
+      <Box mx={5}>
+        <AuthButton />
+      </Box>
     </Flex>
   );
 };

@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import useUser from "../hooks/useUser";
+import { useUserContext } from "../context/UserContext";
 
 const ProtectedRoute: FC<any> = ({ children }) => {
-  const { isLoggedIn } = useUser();
+  const { token } = useUserContext();
 
-  return isLoggedIn() ? children || <Outlet /> : <Navigate to="/login" />;
+  return token !== null ? children || <Outlet /> : <Navigate to="/login" />;
 };
 
 export default ProtectedRoute;

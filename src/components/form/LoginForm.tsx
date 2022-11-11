@@ -4,8 +4,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginUser } from "../../api";
 import { useErrorHandler } from "../../api/client";
+import { useUserContext } from "../../context/UserContext";
 import useFeedback from "../../hooks/useFeedback";
-import useToken from "../../hooks/useToken";
 import InputField from "./InputField";
 import loginSchema from "./schemas/login";
 
@@ -16,7 +16,7 @@ interface UserCredentials {
 
 const LoginForm = () => {
   const { showSuccess } = useFeedback();
-  const { saveToken } = useToken();
+  const { saveUserData } = useUserContext();
   const { handleError } = useErrorHandler();
 
   const { mutateAsync: loginUser, isLoading } = useLoginUser();
@@ -35,7 +35,7 @@ const LoginForm = () => {
     try {
       const response = await loginUser({ data: data });
 
-      saveToken(response.token ?? "");
+      saveUserData(response.token ?? "", response.name ?? "");
       showSuccess("Successfully logged in");
 
       // Redirect back to the previous route after successful login
