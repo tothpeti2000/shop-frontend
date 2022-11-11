@@ -31,6 +31,8 @@ import type {
   CreateSharedCartResponse,
   CreateSharedCartCommand,
   GetSharedCartsResponse,
+  JoinSharedCartResponse,
+  JoinSharedCartCommand,
 } from "../models";
 import { useClient } from "./client";
 import type { ErrorType } from "./client";
@@ -802,4 +804,55 @@ export const useGetSharedCarts = <
   query.queryKey = queryKey;
 
   return query;
+};
+
+export const useJoinSharedCartHook = () => {
+  const joinSharedCart = useClient<JoinSharedCartResponse>();
+
+  return (joinSharedCartCommand: JoinSharedCartCommand) => {
+    return joinSharedCart({
+      url: `/api/SharedCarts/join`,
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      data: joinSharedCartCommand,
+    });
+  };
+};
+
+export type JoinSharedCartMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useJoinSharedCartHook>>>
+>;
+export type JoinSharedCartMutationBody = JoinSharedCartCommand;
+export type JoinSharedCartMutationError = ErrorType<unknown>;
+
+export const useJoinSharedCart = <
+  TError = ErrorType<unknown>,
+  TContext = unknown
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof useJoinSharedCartHook>>>,
+    TError,
+    { data: JoinSharedCartCommand },
+    TContext
+  >;
+}) => {
+  const { mutation: mutationOptions } = options ?? {};
+
+  const joinSharedCart = useJoinSharedCartHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof useJoinSharedCartHook>>>,
+    { data: JoinSharedCartCommand }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return joinSharedCart(data);
+  };
+
+  return useMutation<
+    Awaited<ReturnType<typeof joinSharedCart>>,
+    TError,
+    { data: JoinSharedCartCommand },
+    TContext
+  >(mutationFn, mutationOptions);
 };

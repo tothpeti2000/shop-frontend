@@ -14,6 +14,8 @@ export * from "./getProductsParams";
 export * from "./getProductsResponse";
 export * from "./getSharedCartsResponse";
 export * from "./getTopCategoriesResponse";
+export * from "./joinSharedCartCommand";
+export * from "./joinSharedCartResponse";
 export * from "./loginUserRequest";
 export * from "./loginUserResponse";
 export * from "./paymentMethod";

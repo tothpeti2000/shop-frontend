@@ -2,7 +2,7 @@ import { Button, Spinner } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-
+import { useJoinSharedCart } from "../../api";
 import { useErrorHandler } from "../../api/client";
 import useFeedback from "../../hooks/useFeedback";
 import InputField from "./InputField";
@@ -13,7 +13,7 @@ interface JoinSharedCartData {
 }
 
 const JoinSharedCartForm = () => {
-  // const { mutateAsync: joinSharedCart, isLoading } = useJoinSharedCart();
+  const { mutateAsync: joinSharedCart, isLoading } = useJoinSharedCart();
   const { showSuccess } = useFeedback();
   const { handleError } = useErrorHandler();
   const navigate = useNavigate();
@@ -28,9 +28,10 @@ const JoinSharedCartForm = () => {
 
   const onSubmit: SubmitHandler<JoinSharedCartData> = async (data) => {
     try {
-      // const cart = await joinSharedCart({ data });
-      // showSuccess(`Joined cart ${cart.name} successfully`);
-      // navigate(`/shared-carts/${cart.id}`);
+      const cart = await joinSharedCart({ data });
+
+      showSuccess(`Joined cart ${cart.name} successfully`);
+      navigate(`/shared-carts/${cart.id}`);
     } catch (err: any) {
       handleError(err.response);
     }
@@ -46,7 +47,7 @@ const JoinSharedCartForm = () => {
         validationError={errors.passcode?.message}
       />
 
-      {/* <Button
+      <Button
         type="submit"
         w="100%"
         colorScheme="messenger"
@@ -54,7 +55,7 @@ const JoinSharedCartForm = () => {
       >
         {isLoading && <Spinner />}
         Join cart
-      </Button> */}
+      </Button>
     </form>
   );
 };
