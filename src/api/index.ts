@@ -23,13 +23,11 @@ import type {
   DeleteCartItemCommand,
   GetAllCategoriesResponse,
   GetTopCategoriesResponse,
+  PlaceOrderCommand,
   GetProductsResponse,
   GetProductsParams,
   GetProductByIdResponse,
   GetPriceRangeResponse,
-  CreateSharedCartResponse,
-  CreateSharedCartCommand,
-  GetSharedCartsResponse,
 } from "../models";
 import { useClient } from "./client";
 import type { ErrorType } from "./client";
@@ -485,6 +483,57 @@ export const useGetTopCategories = <
   return query;
 };
 
+export const usePlaceOrderHook = () => {
+  const placeOrder = useClient<void>();
+
+  return (placeOrderCommand: PlaceOrderCommand) => {
+    return placeOrder({
+      url: `/api/Orders`,
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      data: placeOrderCommand,
+    });
+  };
+};
+
+export type PlaceOrderMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof usePlaceOrderHook>>>
+>;
+export type PlaceOrderMutationBody = PlaceOrderCommand;
+export type PlaceOrderMutationError = ErrorType<unknown>;
+
+export const usePlaceOrder = <
+  TError = ErrorType<unknown>,
+  TContext = unknown
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof usePlaceOrderHook>>>,
+    TError,
+    { data: PlaceOrderCommand },
+    TContext
+  >;
+}) => {
+  const { mutation: mutationOptions } = options ?? {};
+
+  const placeOrder = usePlaceOrderHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof usePlaceOrderHook>>>,
+    { data: PlaceOrderCommand }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return placeOrder(data);
+  };
+
+  return useMutation<
+    Awaited<ReturnType<typeof placeOrder>>,
+    TError,
+    { data: PlaceOrderCommand },
+    TContext
+  >(mutationFn, mutationOptions);
+};
+
 export const useGetProductsHook = () => {
   const getProducts = useClient<GetProductsResponse>();
 
@@ -640,106 +689,6 @@ export const useGetPriceRange = <
 
   const query = useQuery<
     Awaited<ReturnType<ReturnType<typeof useGetPriceRangeHook>>>,
-    TError,
-    TData
-  >(queryKey, queryFn, {
-    refetchOnWindowFocus: false,
-    ...queryOptions,
-  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryKey;
-
-  return query;
-};
-
-export const useCreateSharedCartHook = () => {
-  const createSharedCart = useClient<CreateSharedCartResponse>();
-
-  return (createSharedCartCommand: CreateSharedCartCommand) => {
-    return createSharedCart({
-      url: `/api/SharedCarts`,
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      data: createSharedCartCommand,
-    });
-  };
-};
-
-export type CreateSharedCartMutationResult = NonNullable<
-  Awaited<ReturnType<ReturnType<typeof useCreateSharedCartHook>>>
->;
-export type CreateSharedCartMutationBody = CreateSharedCartCommand;
-export type CreateSharedCartMutationError = ErrorType<unknown>;
-
-export const useCreateSharedCart = <
-  TError = ErrorType<unknown>,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<ReturnType<typeof useCreateSharedCartHook>>>,
-    TError,
-    { data: CreateSharedCartCommand },
-    TContext
-  >;
-}) => {
-  const { mutation: mutationOptions } = options ?? {};
-
-  const createSharedCart = useCreateSharedCartHook();
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<ReturnType<typeof useCreateSharedCartHook>>>,
-    { data: CreateSharedCartCommand }
-  > = (props) => {
-    const { data } = props ?? {};
-
-    return createSharedCart(data);
-  };
-
-  return useMutation<
-    Awaited<ReturnType<typeof createSharedCart>>,
-    TError,
-    { data: CreateSharedCartCommand },
-    TContext
-  >(mutationFn, mutationOptions);
-};
-
-export const useGetSharedCartsHook = () => {
-  const getSharedCarts = useClient<GetSharedCartsResponse>();
-
-  return (signal?: AbortSignal) => {
-    return getSharedCarts({ url: `/api/SharedCarts`, method: "get", signal });
-  };
-};
-
-export const getGetSharedCartsQueryKey = () => [`/api/SharedCarts`];
-
-export type GetSharedCartsQueryResult = NonNullable<
-  Awaited<ReturnType<ReturnType<typeof useGetSharedCartsHook>>>
->;
-export type GetSharedCartsQueryError = ErrorType<unknown>;
-
-export const useGetSharedCarts = <
-  TData = Awaited<ReturnType<ReturnType<typeof useGetSharedCartsHook>>>,
-  TError = ErrorType<unknown>
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<ReturnType<typeof useGetSharedCartsHook>>>,
-    TError,
-    TData
-  >;
-}): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions } = options ?? {};
-
-  const queryKey = queryOptions?.queryKey ?? getGetSharedCartsQueryKey();
-
-  const getSharedCarts = useGetSharedCartsHook();
-
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<ReturnType<typeof useGetSharedCartsHook>>>
-  > = ({ signal }) => getSharedCarts(signal);
-
-  const query = useQuery<
-    Awaited<ReturnType<ReturnType<typeof useGetSharedCartsHook>>>,
     TError,
     TData
   >(queryKey, queryFn, {

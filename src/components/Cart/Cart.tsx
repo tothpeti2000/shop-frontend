@@ -11,11 +11,11 @@ import {
 import { useGetCartItems } from "../../api";
 import { useCartContext } from "../../context/CartContext";
 import { useToggleContext } from "../../context/ToggleContext";
-import { CartItemDto } from "../../models";
 import { bgDark } from "../../styles/styles";
 import Loading from "../Loading";
 import CartItem from "./CartItem";
 import Summary from "./Summary";
+import { getTotalPrice } from "./utils";
 
 const Cart = () => {
   const { isLoading } = useGetCartItems({
@@ -26,9 +26,6 @@ const Cart = () => {
 
   const { cartItems, updateCartItems } = useCartContext();
   const { isOpen, close } = useToggleContext();
-
-  const getTotalPrice = (cartItems: CartItemDto[]) =>
-    cartItems.reduce((acc, item) => acc + item.price! * item.amount!, 0);
 
   return (
     <Drawer isOpen={isOpen} placement="right" size="sm" onClose={close}>

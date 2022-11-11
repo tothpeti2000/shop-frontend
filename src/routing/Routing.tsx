@@ -1,12 +1,14 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LoginPage from "../pages/auth/LoginPage";
 import RegistrationPage from "../pages/auth/RegistrationPage";
+import CheckoutPage from "../pages/checkout/CheckoutPage";
 import HomePage from "../pages/HomePage";
 import NotFound from "../pages/NotFound";
 import ProductDetailsPage from "../pages/product/ProductDetailsPage";
 import ProductListPage from "../pages/product/ProductListPage";
 import SharedCartListPage from "../pages/shared-cart/SharedCartListPage";
 import SharedCartPage from "../pages/shared-cart/SharedCartPage";
+import ProtectedRoute from "./ProtectedRoute";
 
 const Routing = () => {
   return (
@@ -23,10 +25,19 @@ const Routing = () => {
             <Route path=":id" element={<ProductDetailsPage />} />
           </Route>
 
-          <Route path="shared-carts">
+          <Route path="shared-carts" element={<ProtectedRoute />}>
             <Route index element={<SharedCartListPage />} />
             <Route path=":id" element={<SharedCartPage />} />
           </Route>
+
+          <Route
+            path="checkout"
+            element={
+              <ProtectedRoute>
+                <CheckoutPage />
+              </ProtectedRoute>
+            }
+          />
 
           <Route path="*" element={<NotFound />} />
         </Route>
