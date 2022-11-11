@@ -5,7 +5,6 @@ import Paginator from "../../components/products/list/Paginator";
 import ProductList from "../../components/products/list/ProductList";
 import Search from "../../components/products/search/Search";
 import Sort from "../../components/products/sort/Sort";
-import { CartProvider } from "../../context/CartContext";
 import { ProductListProvider } from "../../context/ProductListContext";
 
 const ProductListPage = () => {
@@ -28,9 +27,7 @@ const ProductListPage = () => {
               </Box>
             </Flex>
 
-            <CartProvider>
-              <ProductList />
-            </CartProvider>
+            <ProductList />
 
             <Box mt={10}>
               <Paginator />

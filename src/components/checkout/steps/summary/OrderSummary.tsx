@@ -4,6 +4,7 @@ import { HiCreditCard } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { usePlaceOrder } from "../../../../api";
 import { useErrorHandler } from "../../../../api/client";
+import { useCartContext } from "../../../../context/CartContext";
 import { useCheckoutContext } from "../../../../context/CheckoutContext";
 import useFeedback from "../../../../hooks/useFeedback";
 import { getTotalPrice } from "../../../cart/utils";
@@ -12,15 +13,20 @@ import CartItem from "../cart/CartItem";
 import SummaryItem from "./SummaryItem";
 
 const OrderSummary = () => {
-  const { cartItems, deliveryData, paymentOption, getOrderDto } =
-    useCheckoutContext();
+  const { cartItems } = useCartContext();
+  const { deliveryData, paymentOption, getOrderDto } = useCheckoutContext();
 
   const { mutateAsync: placeOrder, isLoading } = usePlaceOrder();
-  const { showSuccess } = useFeedback();
+  const { showSuccess, showError } = useFeedback();
   const { handleError } = useErrorHandler();
   const navigate = useNavigate();
 
   const submitOrder = async () => {
+    if (cartItems.length === 0) {
+      showError("Please, choose some products before placing your order!");
+      return;
+    }
+
     const orderDto = getOrderDto();
 
     try {

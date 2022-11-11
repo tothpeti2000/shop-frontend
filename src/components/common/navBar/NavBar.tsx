@@ -1,7 +1,6 @@
 import { Box, Flex, Spacer } from "@chakra-ui/react";
 import { FaSlideshare } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { CartProvider } from "../../../context/CartContext";
 import { ToggleProvider } from "../../../context/ToggleContext";
 import useNavBar from "../../../hooks/useNavBar";
 import useUser from "../../../hooks/useUser";
@@ -47,17 +46,15 @@ const NavBar = () => {
 
       {isLoggedIn() && (
         <ToggleProvider>
-          <CartProvider>
-            <Box mx={3}>
-              <CartButton />
-            </Box>
+          <Box mx={3}>
+            <CartButton />
+          </Box>
 
-            <Cart />
+          <Cart />
 
-            <Link to="/shared-carts">
-              <AppIconButton label="Shared cart" icon={FaSlideshare} />
-            </Link>
-          </CartProvider>
+          <Link to="/shared-carts">
+            <AppIconButton label="Shared cart" icon={FaSlideshare} />
+          </Link>
         </ToggleProvider>
       )}
     </Flex>
