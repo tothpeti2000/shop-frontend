@@ -85,7 +85,7 @@ const OrderSummary = () => {
                 <SummaryItem
                   icon={HiCreditCard}
                   label="Payment method"
-                  value={paymentOption?.value!}
+                  value={paymentOption?.name!}
                 />
               </Box>
             </Box>
