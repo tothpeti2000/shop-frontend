@@ -9,4 +9,5 @@ export interface EditProfileCommand {
   name?: string | null;
   currentPassword?: string | null;
   newPassword?: string | null;
+  newPasswordConfirm?: string | null;
 }

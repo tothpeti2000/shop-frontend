@@ -10,7 +10,7 @@ import InputField from "./InputField";
 import profileSchema from "./schemas/profile";
 
 interface ProfileData {
-  name: string;
+  name?: string;
   newPassword?: string;
   newPasswordAgain?: string;
   currentPassword: string;
@@ -30,12 +30,20 @@ const ProfileForm = () => {
     resolver: yupResolver(profileSchema),
   });
 
-  const onSubmit: SubmitHandler<ProfileData> = async (data) => {
+  const createDto = (data: ProfileData) => {
     const dto: EditProfileCommand = {
-      name: data.name,
       currentPassword: data.currentPassword,
-      newPassword: data.newPassword === "" ? null : data.newPassword,
     };
+
+    data.name && (dto.name = data.name);
+    data.newPassword && (dto.newPassword = data.newPassword);
+    data.newPasswordAgain && (dto.newPasswordConfirm = data.newPasswordAgain);
+
+    return dto;
+  };
+
+  const onSubmit: SubmitHandler<ProfileData> = async (data) => {
+    const dto = createDto(data);
 
     try {
       await editProfile({ data: dto });
