@@ -1,8 +1,9 @@
-import { Button, Fade, Flex, Icon, Text } from "@chakra-ui/react";
+import { Button, Fade, Flex, Icon, Text, Tooltip } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { HiUserGroup } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import { useUserContext } from "../../../context/UserContext";
 import { SharedCartDto } from "../../../models";
 
 interface Props {
@@ -11,6 +12,12 @@ interface Props {
 
 const SharedCartListItem = (props: Props) => {
   const [cartHovered, setCartHovered] = useState(false);
+  const { name } = useUserContext();
+
+  const getUserNames = () =>
+    props.sharedCart.userNames
+      ?.map((userName) => (userName === name ? "You" : userName))
+      .join(", ");
 
   return (
     <Flex
@@ -25,10 +32,12 @@ const SharedCartListItem = (props: Props) => {
           {props.sharedCart.name}
         </Text>
 
-        <Flex alignItems="center" fontSize={20}>
-          <Icon as={HiUserGroup} />
-          <Text>{props.sharedCart.memberCount}</Text>
-        </Flex>
+        <Tooltip label={getUserNames()} hasArrow>
+          <Flex alignItems="center" fontSize={20}>
+            <Icon as={HiUserGroup} />
+            <Text>{props.sharedCart.userNames?.length}</Text>
+          </Flex>
+        </Tooltip>
       </Flex>
 
       <Text mx={10}>{props.sharedCart.description}</Text>

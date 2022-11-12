@@ -9,5 +9,5 @@ export interface SharedCartDto {
   id?: string;
   name?: string | null;
   description?: string | null;
-  memberCount?: number;
+  userNames?: string[] | null;
 }
