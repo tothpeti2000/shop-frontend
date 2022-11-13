@@ -35,6 +35,7 @@ import type {
   JoinSharedCartResponse,
   JoinSharedCartCommand,
   AddItemToSharedCartCommand,
+  GetSharedCartItemsResponse,
 } from "../models";
 import { useClient } from "./client";
 import type { ErrorType } from "./client";
@@ -959,4 +960,63 @@ export const useAddItemToSharedCart = <
     { data: AddItemToSharedCartCommand },
     TContext
   >(mutationFn, mutationOptions);
+};
+
+export const useGetSharedCartItemsHook = () => {
+  const getSharedCartItems = useClient<GetSharedCartItemsResponse>();
+
+  return (id: string, signal?: AbortSignal) => {
+    return getSharedCartItems({
+      url: `/api/SharedCarts/${id}/items`,
+      method: "get",
+      signal,
+    });
+  };
+};
+
+export const getGetSharedCartItemsQueryKey = (id: string) => [
+  `/api/SharedCarts/${id}/items`,
+];
+
+export type GetSharedCartItemsQueryResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useGetSharedCartItemsHook>>>
+>;
+export type GetSharedCartItemsQueryError = ErrorType<unknown>;
+
+export const useGetSharedCartItems = <
+  TData = Awaited<ReturnType<ReturnType<typeof useGetSharedCartItemsHook>>>,
+  TError = ErrorType<unknown>
+>(
+  id: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<ReturnType<typeof useGetSharedCartItemsHook>>>,
+      TError,
+      TData
+    >;
+  }
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+  const { query: queryOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetSharedCartItemsQueryKey(id);
+
+  const getSharedCartItems = useGetSharedCartItemsHook();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<ReturnType<typeof useGetSharedCartItemsHook>>>
+  > = ({ signal }) => getSharedCartItems(id, signal);
+
+  const query = useQuery<
+    Awaited<ReturnType<ReturnType<typeof useGetSharedCartItemsHook>>>,
+    TError,
+    TData
+  >(queryKey, queryFn, {
+    enabled: !!id,
+    refetchOnWindowFocus: false,
+    ...queryOptions,
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryKey;
+
+  return query;
 };
