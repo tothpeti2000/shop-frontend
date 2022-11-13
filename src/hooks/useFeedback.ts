@@ -26,9 +26,14 @@ const useFeedback = () => {
     showToast("error", title, description);
   };
 
+  const showInfo = (title: string, description?: string) => {
+    showToast("info", title, description);
+  };
+
   return {
     showSuccess,
     showError,
+    showInfo,
   };
 };
 
