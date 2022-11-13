@@ -6,6 +6,7 @@ import ProductList from "../../components/products/list/ProductList";
 import Search from "../../components/products/search/Search";
 import Sort from "../../components/products/sort/Sort";
 import { ProductListProvider } from "../../context/ProductListContext";
+import { ToggleProvider } from "../../context/ToggleContext";
 
 const ProductListPage = () => {
   return (
@@ -27,7 +28,9 @@ const ProductListPage = () => {
               </Box>
             </Flex>
 
-            <ProductList />
+            <ToggleProvider>
+              <ProductList />
+            </ToggleProvider>
 
             <Box mt={10}>
               <Paginator />

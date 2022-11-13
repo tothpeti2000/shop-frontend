@@ -1,9 +1,10 @@
 import { Box, Flex } from "@chakra-ui/layout";
-import { Heading, Image, Text, Spacer } from "@chakra-ui/react";
+import { Heading, Image, Spacer, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useGetProductById } from "../../../api";
 import Loading from "../../Loading";
-import AddToCartButton from "../list/AddToCartButton";
+import AddToCartButton from "../AddToCartButton";
+import AddToSharedCartDialog from "../AddToSharedCartDialog";
 import ProductRating from "./ProductRating";
 
 const ProductDetails = () => {
@@ -40,6 +41,8 @@ const ProductDetails = () => {
           </Box>
         </Flex>
       </Flex>
+
+      <AddToSharedCartDialog productId={id!} />
     </Loading>
   );
 };

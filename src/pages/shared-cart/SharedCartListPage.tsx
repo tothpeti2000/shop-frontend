@@ -23,6 +23,10 @@ const SharedCartListPage = () => {
       showInfo(message);
       await refetch();
     });
+
+    connection.on("ItemAdded", (message) => {
+      showInfo(message);
+    });
   });
 
   const { handleError } = useErrorHandler();

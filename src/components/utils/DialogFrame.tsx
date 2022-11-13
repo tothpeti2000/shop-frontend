@@ -16,7 +16,7 @@ interface Props {
   negativeButtonLabel?: string;
   positiveButtonLabel?: string;
   positiveButtonColorScheme?: string;
-  onClick?: () => void;
+  onClick?: () => boolean | Promise<boolean>;
   hasCustomActions?: boolean;
 }
 
@@ -31,9 +31,10 @@ const DialogFrame: FC<Props> = ({
 }) => {
   const { isOpen, close } = useToggleContext();
 
-  const handleClick = () => {
-    onClick?.();
-    close();
+  const handleClick = async () => {
+    if (!onClick || (await onClick()) === true) {
+      close();
+    }
   };
 
   return (

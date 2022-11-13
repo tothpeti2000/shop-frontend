@@ -11,6 +11,10 @@ const SharedCartPage = () => {
     connection.on("UserJoinedCart", (message) => {
       showInfo(message);
     });
+
+    connection.on("ItemAdded", (message) => {
+      showInfo(message);
+    });
   });
 
   return (

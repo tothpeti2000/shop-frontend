@@ -1,4 +1,5 @@
 export * from "./addItemToCartCommand";
+export * from "./addItemToSharedCartCommand";
 export * from "./cartItemDto";
 export * from "./categoryDto";
 export * from "./createSharedCartCommand";

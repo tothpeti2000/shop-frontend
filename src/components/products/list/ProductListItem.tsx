@@ -1,13 +1,15 @@
 import { Badge, Box, Flex, Image, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { animated } from "../../../styles/styles";
-import AddToCartButton from "./AddToCartButton";
+import AddToCartButton from "../AddToCartButton";
 
 const ProductListItem = (props: any) => {
   const isAvailable = props.stock! > 0;
 
   return (
-    <Box
+    <Flex
+      direction="column"
+      alignItems="center"
       w="300px"
       p={2}
       _hover={{ boxShadow: "2xl" }}
@@ -23,7 +25,7 @@ const ProductListItem = (props: any) => {
         />
       </Link>
 
-      <Box my={3}>
+      <Box w="100%" my={3}>
         <Text fontSize="lg" fontWeight="bold" mb={2}>
           {props.name}
         </Text>
@@ -38,7 +40,7 @@ const ProductListItem = (props: any) => {
       </Box>
 
       <AddToCartButton productId={props.id!} disabled={!isAvailable} />
-    </Box>
+    </Flex>
   );
 };
 

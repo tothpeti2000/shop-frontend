@@ -34,6 +34,7 @@ import type {
   GetSharedCartsResponse,
   JoinSharedCartResponse,
   JoinSharedCartCommand,
+  AddItemToSharedCartCommand,
 } from "../models";
 import { useClient } from "./client";
 import type { ErrorType } from "./client";
@@ -905,6 +906,57 @@ export const useJoinSharedCart = <
     Awaited<ReturnType<typeof joinSharedCart>>,
     TError,
     { data: JoinSharedCartCommand },
+    TContext
+  >(mutationFn, mutationOptions);
+};
+
+export const useAddItemToSharedCartHook = () => {
+  const addItemToSharedCart = useClient<void>();
+
+  return (addItemToSharedCartCommand: AddItemToSharedCartCommand) => {
+    return addItemToSharedCart({
+      url: `/api/SharedCarts/add-item`,
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      data: addItemToSharedCartCommand,
+    });
+  };
+};
+
+export type AddItemToSharedCartMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useAddItemToSharedCartHook>>>
+>;
+export type AddItemToSharedCartMutationBody = AddItemToSharedCartCommand;
+export type AddItemToSharedCartMutationError = ErrorType<unknown>;
+
+export const useAddItemToSharedCart = <
+  TError = ErrorType<unknown>,
+  TContext = unknown
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof useAddItemToSharedCartHook>>>,
+    TError,
+    { data: AddItemToSharedCartCommand },
+    TContext
+  >;
+}) => {
+  const { mutation: mutationOptions } = options ?? {};
+
+  const addItemToSharedCart = useAddItemToSharedCartHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof useAddItemToSharedCartHook>>>,
+    { data: AddItemToSharedCartCommand }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return addItemToSharedCart(data);
+  };
+
+  return useMutation<
+    Awaited<ReturnType<typeof addItemToSharedCart>>,
+    TError,
+    { data: AddItemToSharedCartCommand },
     TContext
   >(mutationFn, mutationOptions);
 };

@@ -1,10 +1,13 @@
 import Layout from "../../components/Layout";
 import ProductDetails from "../../components/products/details/ProductDetails";
+import { ToggleProvider } from "../../context/ToggleContext";
 
 const ProductDetailsPage = () => {
   return (
     <Layout>
-      <ProductDetails />
+      <ToggleProvider>
+        <ProductDetails />
+      </ToggleProvider>
     </Layout>
   );
 };
