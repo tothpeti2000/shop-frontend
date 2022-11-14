@@ -2,9 +2,9 @@ import { Flex } from "@chakra-ui/layout";
 import { CloseButton, Image, Text } from "@chakra-ui/react";
 import { useDeleteCartItem } from "../../api";
 import { useErrorHandler } from "../../api/client";
-
 import { useCartContext } from "../../context/CartContext";
 import QuantityPicker from "./QuantityPicker";
+import { formatPrice } from "./utils";
 
 interface Props {
   id: string;
@@ -41,7 +41,7 @@ const CartItem = (props: Props) => {
 
       <Flex direction="column" align="flex-start">
         <Text>{props.name}</Text>
-        <Text fontWeight="bold">${props.price.toFixed(2)}</Text>
+        <Text fontWeight="bold">{formatPrice(props.price)}</Text>
         <QuantityPicker cartItemId={props.id} amount={props.amount} />
       </Flex>
 

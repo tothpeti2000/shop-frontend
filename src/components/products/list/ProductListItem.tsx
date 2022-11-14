@@ -1,6 +1,7 @@
 import { Badge, Box, Flex, Image, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { animated } from "../../../styles/styles";
+import { formatPrice } from "../../cart/utils";
 import AddToCartButton from "../AddToCartButton";
 
 const ProductListItem = (props: any) => {
@@ -31,7 +32,7 @@ const ProductListItem = (props: any) => {
         </Text>
 
         <Flex justifyContent="space-between" alignItems="center">
-          <Text fontSize="lg">{`$${props.price.toFixed(2)}`}</Text>
+          <Text fontSize="lg">{formatPrice(props.price)}</Text>
 
           <Badge bgColor={isAvailable ? "green.200" : "red.500"}>
             {isAvailable ? "IN STOCK" : "NOT AVAILABLE"}

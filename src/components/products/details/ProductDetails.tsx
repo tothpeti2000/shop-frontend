@@ -2,6 +2,7 @@ import { Box, Flex } from "@chakra-ui/layout";
 import { Heading, Image, Spacer, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useGetProductById } from "../../../api";
+import { formatPrice } from "../../cart/utils";
 import Loading from "../../Loading";
 import AddToCartButton from "../AddToCartButton";
 import AddToSharedCartDialog from "../AddToSharedCartDialog";
@@ -27,7 +28,7 @@ const ProductDetails = () => {
           </Flex>
 
           <Text fontSize="2xl" fontWeight="bold" mb={2}>
-            ${product?.price?.toFixed(2)}
+            {formatPrice(product?.price)}
           </Text>
 
           <Text fontSize="lg">In stock: {product?.stock}</Text>

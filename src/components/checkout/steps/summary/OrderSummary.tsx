@@ -7,7 +7,7 @@ import { useErrorHandler } from "../../../../api/client";
 import { useCartContext } from "../../../../context/CartContext";
 import { useCheckoutContext } from "../../../../context/CheckoutContext";
 import useFeedback from "../../../../hooks/useFeedback";
-import { getTotalPrice } from "../../../cart/utils";
+import { formatPrice, getTotalPrice } from "../../../cart/utils";
 import StepButtons from "../../StepButtons";
 import CartItem from "../cart/CartItem";
 import SummaryItem from "./SummaryItem";
@@ -91,7 +91,7 @@ const OrderSummary = () => {
             </Box>
 
             <Text fontSize="30px" fontWeight="bold">
-              Total: ${getTotalPrice(cartItems).toFixed(2)}
+              Total: {formatPrice(getTotalPrice(cartItems))}
             </Text>
           </Box>
 

@@ -11,6 +11,7 @@ import { debounce } from "lodash-es";
 import { useState } from "react";
 import { useGetPriceRange } from "../../../api";
 import { useProductListContext } from "../../../context/ProductListContext";
+import { formatPrice } from "../../cart/utils";
 import Loading from "../../Loading";
 
 const PriceRangePicker = () => {
@@ -53,12 +54,12 @@ const PriceRangePicker = () => {
       <Flex justifyContent="space-between">
         <Box>
           <Text>From:</Text>
-          <Text>{`$${scaleUp(value[0]).toFixed(2)}`}</Text>
+          <Text>{formatPrice(scaleUp(value[0]))}</Text>
         </Box>
 
         <Box textAlign="right">
           <Text>To:</Text>
-          <Text>{`$${scaleUp(value[1]).toFixed(2)}`}</Text>
+          <Text>{formatPrice(scaleUp(value[1]))}</Text>
         </Box>
       </Flex>
     </Loading>

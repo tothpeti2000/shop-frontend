@@ -6,6 +6,7 @@ import { useClearCart } from "../../api";
 import { useErrorHandler } from "../../api/client";
 import { useCartContext } from "../../context/CartContext";
 import { useToggleContext } from "../../context/ToggleContext";
+import { formatPrice } from "./utils";
 
 interface Props {
   total: number;
@@ -29,7 +30,7 @@ const Summary = (props: Props) => {
 
   return (
     <>
-      <Heading textAlign="right">Total: ${props.total.toFixed(2)}</Heading>
+      <Heading textAlign="right">Total: {formatPrice(props.total)}</Heading>
 
       <Flex justifyContent="space-between" alignItems="center" mt={3}>
         <Button

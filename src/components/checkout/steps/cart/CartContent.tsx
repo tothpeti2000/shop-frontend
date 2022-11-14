@@ -3,7 +3,7 @@ import { RiArrowGoBackFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useCartContext } from "../../../../context/CartContext";
 import useFeedback from "../../../../hooks/useFeedback";
-import { getTotalPrice } from "../../../cart/utils";
+import { formatPrice, getTotalPrice } from "../../../cart/utils";
 import StepButtons from "../../StepButtons";
 import CartItem from "./CartItem";
 
@@ -33,7 +33,7 @@ const CartContent = () => {
 
         <Flex direction="column" alignItems="center" mr={10}>
           <Heading mb={10}>
-            Total: ${getTotalPrice(cartItems).toFixed(2)}
+            Total: {formatPrice(getTotalPrice(cartItems))}
           </Heading>
 
           <Text>You're not done yet?</Text>

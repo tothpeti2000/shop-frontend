@@ -7,3 +7,11 @@ export const getTotalPrice = (cartItems: CartItemDto[] | null | undefined) => {
 
   return cartItems.reduce((acc, item) => acc + item.price! * item.amount!, 0);
 };
+
+export const formatPrice = (price: number | undefined) => {
+  if (price === undefined) {
+    return "$0.00";
+  }
+
+  return `$${price.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+};
