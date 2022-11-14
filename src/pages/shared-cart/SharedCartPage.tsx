@@ -34,6 +34,11 @@ const SharedCartPage = () => {
       await refetch();
     });
 
+    connection.on("ItemAmountUpdated", async (message) => {
+      setActions((actions) => [...actions, message]);
+      await refetch();
+    });
+
     connection.on("ItemDeleted", async (message) => {
       setActions((actions) => [...actions, message]);
       await refetch();

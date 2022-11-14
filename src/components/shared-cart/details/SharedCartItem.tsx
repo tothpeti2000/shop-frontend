@@ -1,11 +1,28 @@
 import { Box, CloseButton, Flex, Image, Text } from "@chakra-ui/react";
+import { debounce } from "lodash-es";
+import { useUpdateSharedCartItemAmount } from "../../../api";
+import { useErrorHandler } from "../../../api/client";
 import { useToggleContext } from "../../../context/ToggleContext";
 import { SharedCartItemDto } from "../../../models";
 import { animated } from "../../../styles/styles";
-import QuantityPicker from "./QuantityPicker";
+import QuantityPicker from "../../cart/QuantityPicker";
 
 const SharedCartItem = (props: SharedCartItemDto) => {
+  const { mutateAsync: updateAmount } = useUpdateSharedCartItemAmount();
   const { open } = useToggleContext();
+  const { handleError } = useErrorHandler();
+
+  const handleChange = debounce(async (value: number) => {
+    if (value === props.amount) {
+      return;
+    }
+
+    try {
+      await updateAmount({ data: { id: props.id, amount: value } });
+    } catch (err: any) {
+      handleError(err.response);
+    }
+  }, 600);
 
   return (
     <Flex
@@ -41,7 +58,7 @@ const SharedCartItem = (props: SharedCartItemDto) => {
         <Text>${props.price}</Text>
       </Box>
 
-      <QuantityPicker defaultValue={props.amount!} />
+      <QuantityPicker initialAmount={props.amount!} onChange={handleChange} />
     </Flex>
   );
 };

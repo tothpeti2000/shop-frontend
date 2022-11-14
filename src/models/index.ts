@@ -30,3 +30,4 @@ export * from "./sharedCartDto";
 export * from "./sharedCartItemDto";
 export * from "./topCategory";
 export * from "./updateCartItemAmountCommand";
+export * from "./updateSharedCartItemAmountCommand";

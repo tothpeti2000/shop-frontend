@@ -1,6 +1,7 @@
 import { Flex } from "@chakra-ui/layout";
 import { CloseButton, Image, Text } from "@chakra-ui/react";
-import { useDeleteCartItem } from "../../api";
+import { debounce } from "lodash-es";
+import { useDeleteCartItem, useUpdateCartItemAmount } from "../../api";
 import { useErrorHandler } from "../../api/client";
 import { useCartContext } from "../../context/CartContext";
 import QuantityPicker from "./QuantityPicker";
@@ -15,9 +16,26 @@ interface Props {
 }
 
 const CartItem = (props: Props) => {
+  const { mutateAsync: updateAmount } = useUpdateCartItemAmount();
   const { mutateAsync: deleteItem } = useDeleteCartItem();
   const { refreshCartItems } = useCartContext();
   const { handleError } = useErrorHandler();
+
+  const handleChange = debounce(async (value: number) => {
+    if (value === props.amount) {
+      return;
+    }
+
+    try {
+      await updateAmount({
+        data: { id: props.id, amount: value },
+      });
+
+      refreshCartItems();
+    } catch (err: any) {
+      handleError(err.response);
+    }
+  }, 600);
 
   const handleClick = async () => {
     try {
@@ -42,7 +60,7 @@ const CartItem = (props: Props) => {
       <Flex direction="column" align="flex-start">
         <Text>{props.name}</Text>
         <Text fontWeight="bold">{formatPrice(props.price)}</Text>
-        <QuantityPicker cartItemId={props.id} amount={props.amount} />
+        <QuantityPicker initialAmount={props.amount} onChange={handleChange} />
       </Flex>
 
       <CloseButton pos="absolute" top={1} right={1} onClick={handleClick} />

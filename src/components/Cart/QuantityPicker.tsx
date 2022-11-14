@@ -5,44 +5,29 @@ import {
   NumberInputField,
   NumberInputStepper,
 } from "@chakra-ui/number-input";
-import { debounce } from "lodash-es";
+import { useEffect, useState } from "react";
 import { FiMinus, FiPlus } from "react-icons/fi";
-import { useUpdateCartItemAmount } from "../../api";
-import { useErrorHandler } from "../../api/client";
-import { useCartContext } from "../../context/CartContext";
 
 interface Props {
-  cartItemId: string;
-  amount: number;
+  initialAmount: number;
+  onChange: (value: number) => void;
 }
 
 const QuantityPicker = (props: Props) => {
-  const { mutateAsync: updateAmount } = useUpdateCartItemAmount();
-  const { refreshCartItems } = useCartContext();
-  const { handleError } = useErrorHandler();
+  const [value, setValue] = useState(props.initialAmount);
 
-  const handleChange = debounce(
-    async (valueAsString: string, valueAsNumber: number) => {
-      try {
-        await updateAmount({
-          data: { id: props.cartItemId, amount: valueAsNumber },
-        });
+  // Without this, the value wouldn't update even when the value of props changes because state is initialized on the first render only
+  useEffect(() => {
+    setValue(props.initialAmount);
+  }, [props.initialAmount]);
 
-        refreshCartItems();
-      } catch (err: any) {
-        handleError(err.response);
-      }
-    },
-    600
-  );
+  const handleChange = (valueAsString: string, valueAsNumber: number) => {
+    setValue(valueAsNumber);
+    props.onChange(valueAsNumber);
+  };
 
   return (
-    <NumberInput
-      size="sm"
-      defaultValue={props.amount}
-      min={1}
-      onChange={handleChange}
-    >
+    <NumberInput size="sm" value={value} min={1} onChange={handleChange}>
       <NumberInputField />
       <NumberInputStepper>
         <NumberIncrementStepper children={<FiPlus />} />

@@ -36,6 +36,7 @@ import type {
   JoinSharedCartCommand,
   AddItemToSharedCartCommand,
   GetSharedCartItemsResponse,
+  UpdateSharedCartItemAmountCommand,
   DeleteSharedCartItemCommand,
 } from "../models";
 import { useClient } from "./client";
@@ -1020,6 +1021,60 @@ export const useGetSharedCartItems = <
   query.queryKey = queryKey;
 
   return query;
+};
+
+export const useUpdateSharedCartItemAmountHook = () => {
+  const updateSharedCartItemAmount = useClient<void>();
+
+  return (
+    updateSharedCartItemAmountCommand: UpdateSharedCartItemAmountCommand
+  ) => {
+    return updateSharedCartItemAmount({
+      url: `/api/SharedCarts/update-item`,
+      method: "put",
+      headers: { "Content-Type": "application/json" },
+      data: updateSharedCartItemAmountCommand,
+    });
+  };
+};
+
+export type UpdateSharedCartItemAmountMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useUpdateSharedCartItemAmountHook>>>
+>;
+export type UpdateSharedCartItemAmountMutationBody =
+  UpdateSharedCartItemAmountCommand;
+export type UpdateSharedCartItemAmountMutationError = ErrorType<unknown>;
+
+export const useUpdateSharedCartItemAmount = <
+  TError = ErrorType<unknown>,
+  TContext = unknown
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof useUpdateSharedCartItemAmountHook>>>,
+    TError,
+    { data: UpdateSharedCartItemAmountCommand },
+    TContext
+  >;
+}) => {
+  const { mutation: mutationOptions } = options ?? {};
+
+  const updateSharedCartItemAmount = useUpdateSharedCartItemAmountHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof useUpdateSharedCartItemAmountHook>>>,
+    { data: UpdateSharedCartItemAmountCommand }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return updateSharedCartItemAmount(data);
+  };
+
+  return useMutation<
+    Awaited<ReturnType<typeof updateSharedCartItemAmount>>,
+    TError,
+    { data: UpdateSharedCartItemAmountCommand },
+    TContext
+  >(mutationFn, mutationOptions);
 };
 
 export const useDeleteSharedCartItemHook = () => {
