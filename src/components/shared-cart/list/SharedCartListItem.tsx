@@ -24,6 +24,7 @@ const SharedCartListItem = (props: Props) => {
       justifyContent="space-between"
       alignItems="center"
       p={5}
+      boxShadow="md"
       onMouseEnter={() => setCartHovered(true)}
       onMouseLeave={() => setCartHovered(false)}
     >
