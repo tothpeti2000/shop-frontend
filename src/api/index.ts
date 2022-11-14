@@ -36,6 +36,7 @@ import type {
   JoinSharedCartCommand,
   AddItemToSharedCartCommand,
   GetSharedCartItemsResponse,
+  DeleteSharedCartItemCommand,
 } from "../models";
 import { useClient } from "./client";
 import type { ErrorType } from "./client";
@@ -1019,4 +1020,55 @@ export const useGetSharedCartItems = <
   query.queryKey = queryKey;
 
   return query;
+};
+
+export const useDeleteSharedCartItemHook = () => {
+  const deleteSharedCartItem = useClient<void>();
+
+  return (deleteSharedCartItemCommand: DeleteSharedCartItemCommand) => {
+    return deleteSharedCartItem({
+      url: `/api/SharedCarts/delete-item`,
+      method: "put",
+      headers: { "Content-Type": "application/json" },
+      data: deleteSharedCartItemCommand,
+    });
+  };
+};
+
+export type DeleteSharedCartItemMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useDeleteSharedCartItemHook>>>
+>;
+export type DeleteSharedCartItemMutationBody = DeleteSharedCartItemCommand;
+export type DeleteSharedCartItemMutationError = ErrorType<unknown>;
+
+export const useDeleteSharedCartItem = <
+  TError = ErrorType<unknown>,
+  TContext = unknown
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof useDeleteSharedCartItemHook>>>,
+    TError,
+    { data: DeleteSharedCartItemCommand },
+    TContext
+  >;
+}) => {
+  const { mutation: mutationOptions } = options ?? {};
+
+  const deleteSharedCartItem = useDeleteSharedCartItemHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof useDeleteSharedCartItemHook>>>,
+    { data: DeleteSharedCartItemCommand }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return deleteSharedCartItem(data);
+  };
+
+  return useMutation<
+    Awaited<ReturnType<typeof deleteSharedCartItem>>,
+    TError,
+    { data: DeleteSharedCartItemCommand },
+    TContext
+  >(mutationFn, mutationOptions);
 };

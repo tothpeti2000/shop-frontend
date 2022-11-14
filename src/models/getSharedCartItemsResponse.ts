@@ -7,5 +7,6 @@
 import type { SharedCartItemDto } from "./sharedCartItemDto";
 
 export interface GetSharedCartItemsResponse {
+  cartName?: string | null;
   sharedCartItems?: SharedCartItemDto[] | null;
 }

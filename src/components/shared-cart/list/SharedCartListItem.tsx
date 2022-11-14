@@ -44,7 +44,7 @@ const SharedCartListItem = (props: Props) => {
 
       <Fade in={cartHovered}>
         <Link to={`/shared-carts/${props.sharedCart.id}`}>
-          <Button rightIcon={<FaArrowRight />}>Continue shopping</Button>
+          <Button rightIcon={<FaArrowRight />}>Check out items</Button>
         </Link>
       </Fade>
     </Flex>
