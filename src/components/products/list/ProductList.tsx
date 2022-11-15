@@ -3,6 +3,7 @@ import { Text } from "@chakra-ui/react";
 import { useGetProducts } from "../../../api";
 import { useProductListContext } from "../../../context/ProductListContext";
 import { ToggleProvider } from "../../../context/ToggleContext";
+import useUserCredentials from "../../../hooks/useUserCredentials";
 import Loading from "../../Loading";
 import AddToSharedCartDialog from "../AddToSharedCartDialog";
 import ProductListItem from "./ProductListItem";
@@ -35,6 +36,8 @@ const ProductList = () => {
     }
   );
 
+  const { token } = useUserCredentials();
+
   return (
     <Loading isLoading={isLoading}>
       <Flex justifyContent="space-around" wrap="wrap" rowGap={10}>
@@ -42,7 +45,7 @@ const ProductList = () => {
           data?.items.map((p) => (
             <ToggleProvider key={p.id}>
               <ProductListItem {...p} />
-              <AddToSharedCartDialog productId={p.id!} />
+              {token !== null && <AddToSharedCartDialog productId={p.id!} />}
             </ToggleProvider>
           ))
         ) : (

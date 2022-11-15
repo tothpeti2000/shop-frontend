@@ -15,6 +15,7 @@ import { useErrorHandler } from "../../api/client";
 import { useCartContext } from "../../context/CartContext";
 import { useToggleContext } from "../../context/ToggleContext";
 import useFeedback from "../../hooks/useFeedback";
+import useUserCredentials from "../../hooks/useUserCredentials";
 
 interface Props {
   productId: string;
@@ -22,6 +23,8 @@ interface Props {
 }
 
 const AddToCartButton = (props: Props) => {
+  const { token } = useUserCredentials();
+
   const { mutateAsync: addItemToCart, isLoading } = useAddItemToCart();
   const { refreshCartItems } = useCartContext();
   const { showSuccess } = useFeedback();
@@ -50,15 +53,17 @@ const AddToCartButton = (props: Props) => {
         Add to cart
       </Button>
 
-      <Menu>
-        <MenuButton as={Button} rightIcon={<FiChevronDown />} />
+      {token !== null && (
+        <Menu>
+          <MenuButton as={Button} rightIcon={<FiChevronDown />} />
 
-        <MenuList color="black">
-          <MenuItem icon={<FaSlideshare />} onClick={open}>
-            Add to shared cart
-          </MenuItem>
-        </MenuList>
-      </Menu>
+          <MenuList color="black">
+            <MenuItem icon={<FaSlideshare />} onClick={open}>
+              Add to shared cart
+            </MenuItem>
+          </MenuList>
+        </Menu>
+      )}
     </ButtonGroup>
   );
 };
