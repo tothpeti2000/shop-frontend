@@ -21,13 +21,19 @@ const QuantityPicker = (props: Props) => {
     setValue(props.initialAmount);
   }, [props.initialAmount]);
 
-  const handleChange = (valueAsString: string, valueAsNumber: number) => {
+  const handleChange = (valueAsString: string, valueAsNumber: number) =>
     setValue(valueAsNumber);
-    props.onChange(valueAsNumber);
-  };
+
+  const handleSelection = () => props.onChange(value);
 
   return (
-    <NumberInput size="sm" value={value} min={1} onChange={handleChange}>
+    <NumberInput
+      size="sm"
+      value={value}
+      min={1}
+      onChange={handleChange}
+      onBlur={handleSelection}
+    >
       <NumberInputField />
       <NumberInputStepper>
         <NumberIncrementStepper children={<FiPlus />} />
