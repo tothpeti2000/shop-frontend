@@ -41,8 +41,8 @@ const ProductList = () => {
   return (
     <Loading isLoading={isLoading}>
       <Flex justifyContent="space-around" wrap="wrap" rowGap={10}>
-        {data?.items && data?.items.length! > 0 ? (
-          data?.items.map((p) => (
+        {data?.items && data.items.length > 0 ? (
+          data.items.map((p) => (
             <ToggleProvider key={p.id}>
               <ProductListItem {...p} />
               {token !== null && <AddToSharedCartDialog productId={p.id!} />}

@@ -8,6 +8,7 @@ import { useCartContext } from "../../../../context/CartContext";
 import { useCheckoutContext } from "../../../../context/CheckoutContext";
 import useFeedback from "../../../../hooks/useFeedback";
 import { formatPrice, getTotalPrice } from "../../../cart/utils";
+import ValidationError from "../../../form/utils/ValidationError";
 import StepButtons from "../../StepButtons";
 import CartItem from "../cart/CartItem";
 import SummaryItem from "./SummaryItem";
@@ -85,7 +86,7 @@ const OrderSummary = () => {
                 <SummaryItem
                   icon={HiCreditCard}
                   label="Payment method"
-                  value={paymentOption?.name!}
+                  value={paymentOption ? paymentOption.name : "-"}
                 />
               </Box>
             </Box>
@@ -95,10 +96,22 @@ const OrderSummary = () => {
             </Text>
           </Box>
 
-          <Button p={6} fontSize="2xl" colorScheme="teal" onClick={submitOrder}>
-            {isLoading && <Spinner />}
-            Place order
-          </Button>
+          {paymentOption ? (
+            <Button
+              p={6}
+              fontSize="2xl"
+              colorScheme="teal"
+              onClick={submitOrder}
+            >
+              {isLoading && <Spinner />}
+              Place order
+            </Button>
+          ) : (
+            <ValidationError>
+              You haven't chosen a payment method yet. Go back to the previous
+              step and choose one
+            </ValidationError>
+          )}
         </Flex>
       </Flex>
 

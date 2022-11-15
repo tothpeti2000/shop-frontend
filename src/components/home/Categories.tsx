@@ -23,14 +23,15 @@ const Categories = () => {
       <Loading isLoading={isLoading}>
         <Fade>
           <Flex justifyContent="space-around" my={10}>
-            {data?.topCategories!.map((c) => (
-              <CategoryCard
-                key={c.id}
-                id={c.id!}
-                name={c.name!}
-                imgUrl={c.imgUrl!}
-              />
-            ))}
+            {data?.topCategories &&
+              data.topCategories.map((c) => (
+                <CategoryCard
+                  key={c.id}
+                  id={c.id!}
+                  name={c.name!}
+                  imgUrl={c.imgUrl!}
+                />
+              ))}
           </Flex>
         </Fade>
       </Loading>

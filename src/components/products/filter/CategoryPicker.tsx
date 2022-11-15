@@ -18,11 +18,12 @@ const CategoryPicker = () => {
         onChange={(value) => handleChange(value as string[])}
       >
         <Flex direction="column">
-          {data?.categories!.map((c) => (
-            <Checkbox key={c.id} value={c.id} mb={2}>
-              {c.name}
-            </Checkbox>
-          ))}
+          {data?.categories &&
+            data.categories.map((c) => (
+              <Checkbox key={c.id} value={c.id} mb={2}>
+                {c.name}
+              </Checkbox>
+            ))}
         </Flex>
       </CheckboxGroup>
     </Loading>

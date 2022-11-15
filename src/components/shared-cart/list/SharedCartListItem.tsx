@@ -36,7 +36,7 @@ const SharedCartListItem = (props: Props) => {
         <Tooltip label={getUserNames()} hasArrow>
           <Flex alignItems="center" fontSize={20}>
             <Icon as={HiUserGroup} />
-            <Text>{props.sharedCart.userNames?.length}</Text>
+            <Text>{props.sharedCart.userNames!.length}</Text>
           </Flex>
         </Tooltip>
       </Flex>
