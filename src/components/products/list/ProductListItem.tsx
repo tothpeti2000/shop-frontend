@@ -35,7 +35,7 @@ const ProductListItem = (props: ProductDto) => {
         <Flex justifyContent="space-between" alignItems="center">
           <Text fontSize="lg">{formatPrice(props.price)}</Text>
 
-          <Badge bgColor={isAvailable ? "green.200" : "red.500"}>
+          <Badge bgColor={isAvailable ? "green.500" : "red.500"} color="white">
             {isAvailable ? "IN STOCK" : "NOT AVAILABLE"}
           </Badge>
         </Flex>

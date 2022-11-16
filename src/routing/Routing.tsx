@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import AboutPage from "../pages/AboutPage";
 import LoginPage from "../pages/auth/LoginPage";
 import RegistrationPage from "../pages/auth/RegistrationPage";
 import CheckoutPage from "../pages/checkout/CheckoutPage";
@@ -48,6 +49,8 @@ const Routing = () => {
               </ProtectedRoute>
             }
           />
+
+          <Route path="about" element={<AboutPage />} />
 
           <Route path="*" element={<NotFound />} />
         </Route>
