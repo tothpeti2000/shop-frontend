@@ -3,6 +3,7 @@ import { Heading, Image, Spacer, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useGetProductById } from "../../../api";
 import { useErrorHandler } from "../../../api/client";
+import useUserCredentials from "../../../hooks/useUserCredentials";
 import { formatPrice } from "../../cart/utils";
 import Loading from "../../Loading";
 import AddToCartButton from "../AddToCartButton";
@@ -17,6 +18,7 @@ const ProductDetails = () => {
     },
   });
 
+  const { token } = useUserCredentials();
   const { handleError } = useErrorHandler();
 
   return (
@@ -55,7 +57,7 @@ const ProductDetails = () => {
             </Flex>
           </Flex>
 
-          <AddToSharedCartDialog productId={id!} />
+          {token !== null && <AddToSharedCartDialog productId={id!} />}
         </>
       )}
     </Loading>
