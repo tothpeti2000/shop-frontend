@@ -1,10 +1,13 @@
-import { Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { CartItemDto } from "../../../../models";
+import AppImage from "../../../utils/AppImage";
 
 const CartItem = (props: CartItemDto) => {
   return (
     <Flex>
-      <Image src={props.imgUrl || "https://picsum.photos/100"} mr={2} />
+      <Box mr={2}>
+        <AppImage src={props.imgUrl} alt="Cart item" w="100px" />
+      </Box>
 
       <Flex direction="column" justifyContent="space-around">
         <Text fontSize="2xl" fontWeight="bold">

@@ -1,8 +1,9 @@
-import { Badge, Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Badge, Box, Flex, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { ProductDto } from "../../../models";
 import { animated } from "../../../styles/styles";
 import { formatPrice } from "../../cart/utils";
+import AppImage from "../../utils/AppImage";
 import AddToCartButton from "../AddToCartButton";
 
 const ProductListItem = (props: ProductDto) => {
@@ -21,10 +22,7 @@ const ProductListItem = (props: ProductDto) => {
       {...animated}
     >
       <Link to={`/products/${props.id}`}>
-        <Image
-          src={props.imgUrl || "https://picsum.photos/300"}
-          alt="Product"
-        />
+        <AppImage src={props.imgUrl} alt="Product" w="300px" />
       </Link>
 
       <Box w="100%" my={3}>

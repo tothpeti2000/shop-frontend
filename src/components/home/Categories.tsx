@@ -21,7 +21,7 @@ const Categories = () => {
       <Heading>Shop categories</Heading>
 
       <Loading isLoading={isLoading}>
-        <Fade>
+        <Fade triggerOnce>
           <Flex justifyContent="space-around" my={10}>
             {data?.topCategories &&
               data.topCategories.map((c) => (

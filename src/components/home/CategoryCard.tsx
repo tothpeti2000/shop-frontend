@@ -1,5 +1,6 @@
 import { Box, Text } from "@chakra-ui/layout";
-import { Circle, Image } from "@chakra-ui/react";
+import { Circle } from "@chakra-ui/react";
+import AppImage from "../utils/AppImage";
 
 interface Props {
   id: string;
@@ -11,7 +12,7 @@ const CategoryCard = (props: Props) => {
   return (
     <Box textAlign="center">
       <Circle size="300px" mb={5} boxShadow="dark-lg" overflow="clip">
-        <Image src={props.imgUrl || "https://via.placeholder.com/300"} />
+        <AppImage src={props.imgUrl} alt="Category" w="300px" />
       </Circle>
 
       <Text fontSize="2xl">{props.name}</Text>

@@ -1,4 +1,4 @@
-import { Box, CloseButton, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, CloseButton, Flex, Text } from "@chakra-ui/react";
 import { debounce } from "lodash-es";
 import { useUpdateSharedCartItemAmount } from "../../../api";
 import { useErrorHandler } from "../../../api/client";
@@ -6,6 +6,7 @@ import { useToggleContext } from "../../../context/ToggleContext";
 import { SharedCartItemDto } from "../../../models";
 import { animated } from "../../../styles/styles";
 import QuantityPicker from "../../cart/QuantityPicker";
+import AppImage from "../../utils/AppImage";
 
 const SharedCartItem = (props: SharedCartItemDto) => {
   const { mutateAsync: updateAmount } = useUpdateSharedCartItemAmount();
@@ -51,7 +52,7 @@ const SharedCartItem = (props: SharedCartItemDto) => {
         onClick={open}
       />
 
-      <Image src={props.imgUrl || "https://picsum.photos/250"} alt="Product" />
+      <AppImage src={props.imgUrl} alt="Product" w="250px" />
 
       <Box mb={5}>
         <Text fontWeight="bold">{props.name}</Text>

@@ -1,11 +1,12 @@
 import { Box, Flex } from "@chakra-ui/layout";
-import { Heading, Image, Spacer, Text } from "@chakra-ui/react";
+import { Heading, Spacer, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useGetProductById } from "../../../api";
 import { useErrorHandler } from "../../../api/client";
 import useUserCredentials from "../../../hooks/useUserCredentials";
 import { formatPrice } from "../../cart/utils";
 import Loading from "../../Loading";
+import AppImage from "../../utils/AppImage";
 import AddToCartButton from "../AddToCartButton";
 import AddToSharedCartDialog from "../AddToSharedCartDialog";
 import ProductRating from "./ProductRating";
@@ -26,8 +27,10 @@ const ProductDetails = () => {
       {product && (
         <>
           <Flex p={10}>
-            <Image
-              src={product.imgUrl || "https://picsum.photos/500"}
+            <AppImage
+              src={product.imgUrl}
+              alt="Product"
+              w="500px"
               borderRadius={20}
               boxShadow="md"
             />

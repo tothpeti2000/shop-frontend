@@ -1,9 +1,10 @@
 import { Flex } from "@chakra-ui/layout";
-import { CloseButton, Image, Text } from "@chakra-ui/react";
+import { Box, CloseButton, Text } from "@chakra-ui/react";
 import { debounce } from "lodash-es";
 import { useDeleteCartItem, useUpdateCartItemAmount } from "../../api";
 import { useErrorHandler } from "../../api/client";
 import { useCartContext } from "../../context/CartContext";
+import AppImage from "../utils/AppImage";
 import QuantityPicker from "./QuantityPicker";
 import { formatPrice } from "./utils";
 
@@ -55,7 +56,9 @@ const CartItem = (props: Props) => {
       boxShadow="2xl"
       pos="relative"
     >
-      <Image src={props.imgUrl || "https://picsum.photos/100"} mr={2} />
+      <Box mr={2}>
+        <AppImage src={props.imgUrl} alt="Cart item" w="100px" />
+      </Box>
 
       <Flex direction="column" align="flex-start">
         <Text>{props.name}</Text>
