@@ -36,7 +36,7 @@ const RegistrationForm = () => {
       await createAccount({ data: data });
 
       showSuccess("Account created successfully");
-      navigate("/login");
+      navigate("/login", { state: { prevPath: "/register" } });
     } catch (err: any) {
       handleError(err.response);
     }

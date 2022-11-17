@@ -1,7 +1,7 @@
 import { Button, Center, Divider, Spinner, Text } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLoginUser } from "../../api";
 import { useErrorHandler } from "../../api/client";
 import { useUserContext } from "../../context/UserContext";
@@ -22,6 +22,7 @@ const LoginForm = () => {
   const { mutateAsync: loginUser, isLoading } = useLoginUser();
 
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   const {
     control,
@@ -38,8 +39,11 @@ const LoginForm = () => {
       saveUserData(response.token ?? "", response.name ?? "");
       showSuccess("Successfully logged in");
 
-      // Redirect back to the previous route after successful login
-      navigate(-1);
+      // Redirect back to the previous route after successful login or to the home page after registration
+      const prevPath = (state as any)?.prevPath;
+      const redirectPath: any = prevPath === "/register" ? "/" : -1;
+
+      navigate(redirectPath);
     } catch (err: any) {
       handleError(err.response);
     }
