@@ -6,16 +6,12 @@ import { Link } from "react-router-dom";
 import { useUserContext } from "../../../context/UserContext";
 import { SharedCartDto } from "../../../models";
 
-interface Props {
-  sharedCart: SharedCartDto;
-}
-
-const SharedCartListItem = (props: Props) => {
+const SharedCartListItem = (props: SharedCartDto) => {
   const [cartHovered, setCartHovered] = useState(false);
   const { name } = useUserContext();
 
   const getUserNames = () =>
-    props.sharedCart.userNames
+    props.userNames
       ?.map((userName) => (userName === name ? "You" : userName))
       .join(", ");
 
@@ -30,22 +26,22 @@ const SharedCartListItem = (props: Props) => {
     >
       <Flex alignItems="center" fontSize={35}>
         <Text fontWeight="semibold" mr={10}>
-          {props.sharedCart.name}
+          {props.name}
         </Text>
 
         <Tooltip label={getUserNames()} hasArrow>
           <Flex alignItems="center" fontSize={20}>
             <Icon as={HiUserGroup} />
-            <Text>{props.sharedCart.userNames!.length}</Text>
+            <Text>{props.userNames!.length}</Text>
           </Flex>
         </Tooltip>
       </Flex>
 
-      <Text mx={10}>{props.sharedCart.description}</Text>
+      <Text mx={10}>{props.description}</Text>
 
       <Fade in={cartHovered}>
-        <Link to={`/shared-carts/${props.sharedCart.id}`}>
-          <Button rightIcon={<FaArrowRight />}>Check out items</Button>
+        <Link to={`/shared-carts/${props.id}`}>
+          <Button rightIcon={<FaArrowRight />}>View</Button>
         </Link>
       </Fade>
     </Flex>

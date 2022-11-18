@@ -10,7 +10,7 @@ const SharedCartList = (props: Props) => {
   return (
     <Box px={10}>
       {props.carts.length > 0 ? (
-        props.carts.map((c) => <SharedCartListItem key={c.id} sharedCart={c} />)
+        props.carts.map((c) => <SharedCartListItem key={c.id} {...c} />)
       ) : (
         <Box textAlign="center" fontSize="20px" fontWeight="light">
           <Text>

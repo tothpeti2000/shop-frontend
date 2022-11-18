@@ -9,6 +9,7 @@ import type { SharedCartItemDto } from "./sharedCartItemDto";
 
 export interface GetSharedCartDetailsResponse {
   cartName?: string | null;
+  passcode?: string | null;
   status?: SharedCartStatus;
   sharedCartItems?: SharedCartItemDto[] | null;
 }
