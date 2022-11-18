@@ -41,9 +41,12 @@ const LoginForm = () => {
 
       // Redirect back to the previous route after successful login or to the home page after registration
       const prevPath = (state as any)?.prevPath;
-      const redirectPath: any = prevPath === "/register" ? "/" : -1;
 
-      navigate(redirectPath);
+      if (prevPath === "/register") {
+        navigate("/");
+      } else {
+        navigate(-1);
+      }
     } catch (err: any) {
       handleError(err.response);
     }

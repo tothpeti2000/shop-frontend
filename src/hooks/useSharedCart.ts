@@ -4,11 +4,11 @@ import useUserCredentials from "./useUserCredentials";
 
 const sharedCartHubUrl = process.env.REACT_APP_SHARED_CART_HUB_URL ?? "";
 
-const useSharedCart = () => {
+const useSharedCart = (sharedCartId?: string) => {
   const { token } = useUserCredentials();
 
   const connection = new signalR.HubConnectionBuilder()
-    .withUrl(sharedCartHubUrl, {
+    .withUrl(`${sharedCartHubUrl}?shared_cart_id=${sharedCartId}`, {
       accessTokenFactory: () => token ?? "",
     })
     .withAutomaticReconnect()

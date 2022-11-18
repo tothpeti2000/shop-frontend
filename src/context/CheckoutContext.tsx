@@ -1,10 +1,9 @@
 import { createContext, FC, useContext, useState } from "react";
 import { DeliveryData } from "../components/checkout/steps/delivery/DeliveryDetails";
 import { PaymentOption } from "../components/checkout/steps/payment/PaymentMethod";
-import { CartItemDto, PlaceOrderCommand } from "../models";
+import { PlaceOrderCommand, PlaceSharedOrderCommand } from "../models";
 
 const useCheckoutContextValue = () => {
-  const [cartItems, setCartItems] = useState<CartItemDto[]>([]);
   const [deliveryData, setDeliveryData] = useState<DeliveryData>({
     firstName: "",
     lastName: "",
@@ -17,8 +16,9 @@ const useCheckoutContextValue = () => {
     undefined
   );
 
-  const getOrderDto = () => {
-    const dto: PlaceOrderCommand = {
+  const getOrderDto = (sharedCartId?: string) => {
+    const dto: PlaceOrderCommand | PlaceSharedOrderCommand = {
+      sharedCartId: sharedCartId,
       customerData: {
         firstName: deliveryData.firstName,
         lastName: deliveryData.lastName,
@@ -36,8 +36,6 @@ const useCheckoutContextValue = () => {
   };
 
   return {
-    cartItems,
-    setCartItems,
     deliveryData,
     setDeliveryData,
     paymentOption,

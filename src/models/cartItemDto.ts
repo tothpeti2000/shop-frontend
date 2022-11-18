@@ -7,7 +7,6 @@
 
 export interface CartItemDto {
   id?: string;
-  productId?: string;
   name?: string | null;
   price?: number;
   imgUrl?: string | null;

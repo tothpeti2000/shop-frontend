@@ -2,10 +2,11 @@ import { Box, Button, Flex, Spinner, Text } from "@chakra-ui/react";
 import { FaMapMarkedAlt, FaPhoneAlt, FaUserAlt } from "react-icons/fa";
 import { HiCreditCard } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
-import { usePlaceOrder } from "../../../../api";
+import { usePlaceOrder, usePlaceSharedOrder } from "../../../../api";
 import { useErrorHandler } from "../../../../api/client";
 import { useCartContext } from "../../../../context/CartContext";
 import { useCheckoutContext } from "../../../../context/CheckoutContext";
+import { useSharedCartContext } from "../../../../context/SharedCartContext";
 import useFeedback from "../../../../hooks/useFeedback";
 import { formatPrice, getTotalPrice } from "../../../cart/utils";
 import ValidationError from "../../../form/utils/ValidationError";
@@ -13,11 +14,20 @@ import StepButtons from "../../StepButtons";
 import CartItem from "../cart/CartItem";
 import SummaryItem from "./SummaryItem";
 
-const OrderSummary = () => {
-  const { cartItems } = useCartContext();
-  const { deliveryData, paymentOption, getOrderDto } = useCheckoutContext();
+interface Props {
+  sharedCartId?: string;
+}
 
-  const { mutateAsync: placeOrder, isLoading } = usePlaceOrder();
+const OrderSummary = (props: Props) => {
+  const cartContextHook = props.sharedCartId
+    ? useSharedCartContext
+    : useCartContext;
+  const apiHook = props.sharedCartId ? usePlaceSharedOrder : usePlaceOrder;
+
+  const { cartItems } = cartContextHook();
+  const { deliveryData, paymentOption, getOrderDto } = useCheckoutContext();
+  const { mutateAsync: placeOrder, isLoading } = apiHook();
+
   const { showSuccess, showError } = useFeedback();
   const { handleError } = useErrorHandler();
   const navigate = useNavigate();
@@ -28,7 +38,7 @@ const OrderSummary = () => {
       return;
     }
 
-    const orderDto = getOrderDto();
+    const orderDto = getOrderDto(props.sharedCartId);
 
     try {
       await placeOrder({ data: orderDto });

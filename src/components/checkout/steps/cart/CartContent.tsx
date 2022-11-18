@@ -2,13 +2,21 @@ import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useCartContext } from "../../../../context/CartContext";
+import { useSharedCartContext } from "../../../../context/SharedCartContext";
 import useFeedback from "../../../../hooks/useFeedback";
 import { formatPrice, getTotalPrice } from "../../../cart/utils";
 import StepButtons from "../../StepButtons";
 import CartItem from "./CartItem";
 
-const CartContent = () => {
-  const { cartItems } = useCartContext();
+interface Props {
+  sharedCartId?: string;
+}
+
+const CartContent = (props: Props) => {
+  const cartContextHook = props.sharedCartId
+    ? useSharedCartContext
+    : useCartContext;
+  const { cartItems } = cartContextHook();
   const { showError } = useFeedback();
 
   const validateStep = () => {

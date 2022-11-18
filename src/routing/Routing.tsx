@@ -50,6 +50,11 @@ const Routing = () => {
             }
           />
 
+          <Route path="checkout" element={<ProtectedRoute />}>
+            <Route index element={<CheckoutPage />} />
+            <Route path=":id" element={<CheckoutPage />} />
+          </Route>
+
           <Route path="about" element={<AboutPage />} />
 
           <Route path="*" element={<NotFound />} />

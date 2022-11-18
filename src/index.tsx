@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { App } from "./App";
 import { CartProvider } from "./context/CartContext";
+import { SharedCartProvider } from "./context/SharedCartContext";
 import { UserProvider } from "./context/UserContext";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
@@ -18,7 +19,9 @@ ReactDOM.render(
       <QueryClientProvider client={queryClient}>
         <UserProvider>
           <CartProvider>
-            <App />
+            <SharedCartProvider>
+              <App />
+            </SharedCartProvider>
           </CartProvider>
         </UserProvider>
       </QueryClientProvider>

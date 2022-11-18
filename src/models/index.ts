@@ -24,6 +24,7 @@ export * from "./loginUserRequest";
 export * from "./loginUserResponse";
 export * from "./paymentMethod";
 export * from "./placeOrderCommand";
+export * from "./placeSharedOrderCommand";
 export * from "./productDto";
 export * from "./registerUserCommand";
 export * from "./sharedCartDto";

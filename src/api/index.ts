@@ -38,6 +38,7 @@ import type {
   GetSharedCartItemsResponse,
   UpdateSharedCartItemAmountCommand,
   DeleteSharedCartItemCommand,
+  PlaceSharedOrderCommand,
 } from "../models";
 import { useClient } from "./client";
 import type { ErrorType } from "./client";
@@ -1124,6 +1125,57 @@ export const useDeleteSharedCartItem = <
     Awaited<ReturnType<typeof deleteSharedCartItem>>,
     TError,
     { data: DeleteSharedCartItemCommand },
+    TContext
+  >(mutationFn, mutationOptions);
+};
+
+export const usePlaceSharedOrderHook = () => {
+  const placeSharedOrder = useClient<void>();
+
+  return (placeSharedOrderCommand: PlaceSharedOrderCommand) => {
+    return placeSharedOrder({
+      url: `/api/SharedOrders`,
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      data: placeSharedOrderCommand,
+    });
+  };
+};
+
+export type PlaceSharedOrderMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof usePlaceSharedOrderHook>>>
+>;
+export type PlaceSharedOrderMutationBody = PlaceSharedOrderCommand;
+export type PlaceSharedOrderMutationError = ErrorType<unknown>;
+
+export const usePlaceSharedOrder = <
+  TError = ErrorType<unknown>,
+  TContext = unknown
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof usePlaceSharedOrderHook>>>,
+    TError,
+    { data: PlaceSharedOrderCommand },
+    TContext
+  >;
+}) => {
+  const { mutation: mutationOptions } = options ?? {};
+
+  const placeSharedOrder = usePlaceSharedOrderHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof usePlaceSharedOrderHook>>>,
+    { data: PlaceSharedOrderCommand }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return placeSharedOrder(data);
+  };
+
+  return useMutation<
+    Awaited<ReturnType<typeof placeSharedOrder>>,
+    TError,
+    { data: PlaceSharedOrderCommand },
     TContext
   >(mutationFn, mutationOptions);
 };
