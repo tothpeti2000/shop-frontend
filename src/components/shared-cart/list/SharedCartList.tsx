@@ -13,7 +13,9 @@ const SharedCartList = (props: Props) => {
         props.carts.map((c) => <SharedCartListItem key={c.id} sharedCart={c} />)
       ) : (
         <Box textAlign="center" fontSize="20px" fontWeight="light">
-          <Text>Looks like you're not a member of any shared cart yet</Text>
+          <Text>
+            Looks like you're not a member of any active shared cart yet
+          </Text>
           <Text fontStyle="italic">
             Create a cart yourself or join one created by someone else
           </Text>

@@ -19,7 +19,7 @@ const SharedCartListPage = () => {
   const { showInfo } = useFeedback();
 
   useEffect(() => {
-    connection.on("UserJoinedCart", async (message) => {
+    connection.on("UserJoinedCart", async ({ cartId, message }) => {
       showInfo(message);
       await refetch();
     });
@@ -31,7 +31,7 @@ const SharedCartListPage = () => {
     <Layout>
       <Flex p={10}>
         <Box flex={2}>
-          <Heading mb={10}>My shared carts</Heading>
+          <Heading mb={10}>My active shared carts</Heading>
           <Loading isLoading={isLoading}>
             {data?.carts && <SharedCartList carts={data?.carts} />}
           </Loading>

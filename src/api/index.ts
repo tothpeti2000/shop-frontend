@@ -35,9 +35,10 @@ import type {
   JoinSharedCartResponse,
   JoinSharedCartCommand,
   AddItemToSharedCartCommand,
-  GetSharedCartItemsResponse,
+  GetSharedCartDetailsResponse,
   UpdateSharedCartItemAmountCommand,
   DeleteSharedCartItemCommand,
+  UpdateStatusCommand,
   PlaceSharedOrderCommand,
 } from "../models";
 import { useClient } from "./client";
@@ -920,7 +921,7 @@ export const useAddItemToSharedCartHook = () => {
   return (addItemToSharedCartCommand: AddItemToSharedCartCommand) => {
     return addItemToSharedCart({
       url: `/api/SharedCarts/add-item`,
-      method: "post",
+      method: "put",
       headers: { "Content-Type": "application/json" },
       data: addItemToSharedCartCommand,
     });
@@ -965,35 +966,35 @@ export const useAddItemToSharedCart = <
   >(mutationFn, mutationOptions);
 };
 
-export const useGetSharedCartItemsHook = () => {
-  const getSharedCartItems = useClient<GetSharedCartItemsResponse>();
+export const useGetSharedCartDetailsHook = () => {
+  const getSharedCartDetails = useClient<GetSharedCartDetailsResponse>();
 
   return (id: string, signal?: AbortSignal) => {
-    return getSharedCartItems({
-      url: `/api/SharedCarts/${id}/items`,
+    return getSharedCartDetails({
+      url: `/api/SharedCarts/${id}/details`,
       method: "get",
       signal,
     });
   };
 };
 
-export const getGetSharedCartItemsQueryKey = (id: string) => [
-  `/api/SharedCarts/${id}/items`,
+export const getGetSharedCartDetailsQueryKey = (id: string) => [
+  `/api/SharedCarts/${id}/details`,
 ];
 
-export type GetSharedCartItemsQueryResult = NonNullable<
-  Awaited<ReturnType<ReturnType<typeof useGetSharedCartItemsHook>>>
+export type GetSharedCartDetailsQueryResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useGetSharedCartDetailsHook>>>
 >;
-export type GetSharedCartItemsQueryError = ErrorType<unknown>;
+export type GetSharedCartDetailsQueryError = ErrorType<unknown>;
 
-export const useGetSharedCartItems = <
-  TData = Awaited<ReturnType<ReturnType<typeof useGetSharedCartItemsHook>>>,
+export const useGetSharedCartDetails = <
+  TData = Awaited<ReturnType<ReturnType<typeof useGetSharedCartDetailsHook>>>,
   TError = ErrorType<unknown>
 >(
   id: string,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<ReturnType<typeof useGetSharedCartItemsHook>>>,
+      Awaited<ReturnType<ReturnType<typeof useGetSharedCartDetailsHook>>>,
       TError,
       TData
     >;
@@ -1001,16 +1002,17 @@ export const useGetSharedCartItems = <
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
   const { query: queryOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetSharedCartItemsQueryKey(id);
+  const queryKey =
+    queryOptions?.queryKey ?? getGetSharedCartDetailsQueryKey(id);
 
-  const getSharedCartItems = useGetSharedCartItemsHook();
+  const getSharedCartDetails = useGetSharedCartDetailsHook();
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<ReturnType<typeof useGetSharedCartItemsHook>>>
-  > = ({ signal }) => getSharedCartItems(id, signal);
+    Awaited<ReturnType<ReturnType<typeof useGetSharedCartDetailsHook>>>
+  > = ({ signal }) => getSharedCartDetails(id, signal);
 
   const query = useQuery<
-    Awaited<ReturnType<ReturnType<typeof useGetSharedCartItemsHook>>>,
+    Awaited<ReturnType<ReturnType<typeof useGetSharedCartDetailsHook>>>,
     TError,
     TData
   >(queryKey, queryFn, {
@@ -1125,6 +1127,57 @@ export const useDeleteSharedCartItem = <
     Awaited<ReturnType<typeof deleteSharedCartItem>>,
     TError,
     { data: DeleteSharedCartItemCommand },
+    TContext
+  >(mutationFn, mutationOptions);
+};
+
+export const useUpdateStatusHook = () => {
+  const updateStatus = useClient<void>();
+
+  return (updateStatusCommand: UpdateStatusCommand) => {
+    return updateStatus({
+      url: `/api/SharedCarts/update-status`,
+      method: "put",
+      headers: { "Content-Type": "application/json" },
+      data: updateStatusCommand,
+    });
+  };
+};
+
+export type UpdateStatusMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useUpdateStatusHook>>>
+>;
+export type UpdateStatusMutationBody = UpdateStatusCommand;
+export type UpdateStatusMutationError = ErrorType<unknown>;
+
+export const useUpdateStatus = <
+  TError = ErrorType<unknown>,
+  TContext = unknown
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof useUpdateStatusHook>>>,
+    TError,
+    { data: UpdateStatusCommand },
+    TContext
+  >;
+}) => {
+  const { mutation: mutationOptions } = options ?? {};
+
+  const updateStatus = useUpdateStatusHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof useUpdateStatusHook>>>,
+    { data: UpdateStatusCommand }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return updateStatus(data);
+  };
+
+  return useMutation<
+    Awaited<ReturnType<typeof updateStatus>>,
+    TError,
+    { data: UpdateStatusCommand },
     TContext
   >(mutationFn, mutationOptions);
 };

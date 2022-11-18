@@ -1,5 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import { Step, Steps } from "chakra-ui-steps";
+import { useEffect } from "react";
 import {
   FaFlag,
   FaMoneyCheckAlt,
@@ -7,8 +8,10 @@ import {
   FaTruck,
 } from "react-icons/fa";
 import { useParams } from "react-router-dom";
+import { useUpdateStatus } from "../../api";
 import { CheckoutProvider } from "../../context/CheckoutContext";
 import { useStepperContext } from "../../context/StepperContext";
+import { SharedCartStatus } from "../../models";
 import CartContent from "./steps/cart/CartContent";
 import DeliveryDetails from "./steps/delivery/DeliveryDetails";
 import PaymentMethod from "./steps/payment/PaymentMethod";
@@ -17,6 +20,24 @@ import OrderSummary from "./steps/summary/OrderSummary";
 const Checkout = () => {
   const { id } = useParams();
   const { stepIdx } = useStepperContext();
+
+  const { mutateAsync: updateStatus } = useUpdateStatus();
+
+  useEffect(() => {
+    const updateSharedCartStatus = async (status: SharedCartStatus) =>
+      updateStatus({
+        data: {
+          sharedCartId: id,
+          status: status,
+        },
+      });
+
+    id && updateSharedCartStatus(SharedCartStatus.CheckoutInProgress);
+
+    return () => {
+      id && updateSharedCartStatus(SharedCartStatus.Active);
+    };
+  }, [id, updateStatus]);
 
   const steps = [
     {
