@@ -89,10 +89,12 @@ const LoginForm = () => {
       <Divider my={5} />
 
       <Center flexDir="column">
-        <Text color="gray.500">You don't have an account yet?</Text>
+        <Text color="gray.500" mb={2}>
+          You don't have an account yet?
+        </Text>
 
         <Link to="/register">
-          <Button mt={2} size="lg" colorScheme="whatsapp">
+          <Button size="lg" colorScheme="whatsapp">
             Create new account
           </Button>
         </Link>
