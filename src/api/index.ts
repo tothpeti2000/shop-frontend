@@ -152,7 +152,7 @@ export const useAddItemToCartHook = () => {
   return (addItemToCartCommand: AddItemToCartCommand) => {
     return addItemToCart({
       url: `/api/Carts/add-item`,
-      method: "post",
+      method: "put",
       headers: { "Content-Type": "application/json" },
       data: addItemToCartCommand,
     });
@@ -719,7 +719,7 @@ export const useEditProfileHook = () => {
   return (editProfileCommand: EditProfileCommand) => {
     return editProfile({
       url: `/api/Profiles/edit`,
-      method: "post",
+      method: "put",
       headers: { "Content-Type": "application/json" },
       data: editProfileCommand,
     });
@@ -870,7 +870,7 @@ export const useJoinSharedCartHook = () => {
   return (joinSharedCartCommand: JoinSharedCartCommand) => {
     return joinSharedCart({
       url: `/api/SharedCarts/join`,
-      method: "post",
+      method: "put",
       headers: { "Content-Type": "application/json" },
       data: joinSharedCartCommand,
     });
