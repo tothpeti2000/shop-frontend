@@ -5,6 +5,7 @@ interface Props {
   label: string;
   icon: IconType;
   colorScheme?: string;
+  size?: "xs" | "sm" | "md" | "lg";
   onClick?: () => void;
 }
 
@@ -15,6 +16,7 @@ const AppIconButton = (props: Props) => {
       icon={<Icon as={props.icon} boxSize="80%" />}
       colorScheme={props.colorScheme || "yellow"}
       onClick={props.onClick}
+      size={props.size}
     />
   );
 };

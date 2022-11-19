@@ -1,4 +1,5 @@
 import { Box, Text } from "@chakra-ui/react";
+import { ToggleProvider } from "../../../context/ToggleContext";
 import { SharedCartDto } from "../../../models";
 import SharedCartListItem from "./SharedCartListItem";
 
@@ -10,7 +11,11 @@ const SharedCartList = (props: Props) => {
   return (
     <Box px={10}>
       {props.carts.length > 0 ? (
-        props.carts.map((c) => <SharedCartListItem key={c.id} {...c} />)
+        props.carts.map((c) => (
+          <ToggleProvider key={c.id}>
+            <SharedCartListItem {...c} />
+          </ToggleProvider>
+        ))
       ) : (
         <Box textAlign="center" fontSize="20px" fontWeight="light">
           <Text>
