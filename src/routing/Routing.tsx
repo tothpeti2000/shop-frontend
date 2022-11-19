@@ -1,7 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AboutPage from "../pages/AboutPage";
+import ForgotPasswordPage from "../pages/auth/ForgotPasswordPage";
 import LoginPage from "../pages/auth/LoginPage";
 import RegistrationPage from "../pages/auth/RegistrationPage";
+import ResetPasswordPage from "../pages/auth/ResetPasswordPage";
 import CheckoutPage from "../pages/checkout/CheckoutPage";
 import ForbiddenPage from "../pages/ForbiddenPage";
 import HomePage from "../pages/HomePage";
@@ -22,6 +24,8 @@ const Routing = () => {
 
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegistrationPage />} />
+          <Route path="forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="reset-password" element={<ResetPasswordPage />} />
 
           <Route path="products">
             <Route index element={<ProductListPage />} />

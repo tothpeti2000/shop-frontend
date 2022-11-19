@@ -5,7 +5,7 @@ import Layout from "../../components/Layout";
 const LoginPage = () => {
   return (
     <Layout>
-      <AuthFormContainer>
+      <AuthFormContainer title="Log In">
         <LoginForm />
       </AuthFormContainer>
     </Layout>

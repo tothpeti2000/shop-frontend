@@ -39,10 +39,10 @@ const LoginForm = () => {
       saveUserData(response.token ?? "", response.name ?? "");
       showSuccess("Successfully logged in");
 
-      // Redirect back to the previous route after successful login or to the home page after registration
+      // Redirect back to the previous route after successful login or to the home page after registration or password reset
       const prevPath = (state as any)?.prevPath;
 
-      if (prevPath === "/register") {
+      if (prevPath === "/register" || prevPath === "/reset-password") {
         navigate("/");
       } else {
         navigate(-1);
@@ -85,6 +85,12 @@ const LoginForm = () => {
           Log In
         </Button>
       </form>
+
+      <Link to="/forgot-password">
+        <Text textAlign="center" mt={2}>
+          Forgot password?
+        </Text>
+      </Link>
 
       <Divider my={5} />
 

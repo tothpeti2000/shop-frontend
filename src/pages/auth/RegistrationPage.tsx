@@ -5,7 +5,7 @@ import Layout from "../../components/Layout";
 const RegistrationPage = () => {
   return (
     <Layout>
-      <AuthFormContainer>
+      <AuthFormContainer title="Create Account">
         <RegistrationForm />
       </AuthFormContainer>
     </Layout>

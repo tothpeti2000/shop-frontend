@@ -1,7 +1,11 @@
-import { Box, Center } from "@chakra-ui/react";
+import { Box, Center, Heading } from "@chakra-ui/react";
 import { FC } from "react";
 
-const AuthFormContainer: FC = ({ children }) => {
+interface Props {
+  title: string;
+}
+
+const AuthFormContainer: FC<Props> = ({ children, title }) => {
   return (
     <Center h="86vh">
       <Box
@@ -13,6 +17,9 @@ const AuthFormContainer: FC = ({ children }) => {
         borderColor="#cacaca"
         boxShadow="2xl"
       >
+        <Heading textAlign="center" mb={10}>
+          {title}
+        </Heading>
         {children}
       </Box>
     </Center>

@@ -17,6 +17,8 @@ import type {
   RegisterUserCommand,
   LoginUserResponse,
   LoginUserRequest,
+  ForgotPasswordCommand,
+  ResetPasswordCommand,
   AddItemToCartCommand,
   GetCartItemsResponse,
   UpdateCartItemAmountCommand,
@@ -142,6 +144,108 @@ export const useLoginUser = <
     Awaited<ReturnType<typeof loginUser>>,
     TError,
     { data: LoginUserRequest },
+    TContext
+  >(mutationFn, mutationOptions);
+};
+
+export const useInitiatePasswordResetHook = () => {
+  const initiatePasswordReset = useClient<void>();
+
+  return (forgotPasswordCommand: ForgotPasswordCommand) => {
+    return initiatePasswordReset({
+      url: `/api/Auth/forgot-password`,
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      data: forgotPasswordCommand,
+    });
+  };
+};
+
+export type InitiatePasswordResetMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useInitiatePasswordResetHook>>>
+>;
+export type InitiatePasswordResetMutationBody = ForgotPasswordCommand;
+export type InitiatePasswordResetMutationError = ErrorType<unknown>;
+
+export const useInitiatePasswordReset = <
+  TError = ErrorType<unknown>,
+  TContext = unknown
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof useInitiatePasswordResetHook>>>,
+    TError,
+    { data: ForgotPasswordCommand },
+    TContext
+  >;
+}) => {
+  const { mutation: mutationOptions } = options ?? {};
+
+  const initiatePasswordReset = useInitiatePasswordResetHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof useInitiatePasswordResetHook>>>,
+    { data: ForgotPasswordCommand }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return initiatePasswordReset(data);
+  };
+
+  return useMutation<
+    Awaited<ReturnType<typeof initiatePasswordReset>>,
+    TError,
+    { data: ForgotPasswordCommand },
+    TContext
+  >(mutationFn, mutationOptions);
+};
+
+export const useResetPasswordHook = () => {
+  const resetPassword = useClient<void>();
+
+  return (resetPasswordCommand: ResetPasswordCommand) => {
+    return resetPassword({
+      url: `/api/Auth/reset-password`,
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      data: resetPasswordCommand,
+    });
+  };
+};
+
+export type ResetPasswordMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useResetPasswordHook>>>
+>;
+export type ResetPasswordMutationBody = ResetPasswordCommand;
+export type ResetPasswordMutationError = ErrorType<unknown>;
+
+export const useResetPassword = <
+  TError = ErrorType<unknown>,
+  TContext = unknown
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof useResetPasswordHook>>>,
+    TError,
+    { data: ResetPasswordCommand },
+    TContext
+  >;
+}) => {
+  const { mutation: mutationOptions } = options ?? {};
+
+  const resetPassword = useResetPasswordHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof useResetPasswordHook>>>,
+    { data: ResetPasswordCommand }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return resetPassword(data);
+  };
+
+  return useMutation<
+    Awaited<ReturnType<typeof resetPassword>>,
+    TError,
+    { data: ResetPasswordCommand },
     TContext
   >(mutationFn, mutationOptions);
 };
