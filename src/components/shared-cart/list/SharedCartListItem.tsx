@@ -5,7 +5,7 @@ import { HiUserGroup } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { useToggleContext } from "../../../context/ToggleContext";
 import { useUserContext } from "../../../context/UserContext";
-import { SharedCartDto } from "../../../models";
+import { SharedCartDto, SharedCartStatus } from "../../../models";
 import SharePasscodeDialog from "./SharePasscodeDialog";
 
 const SharedCartListItem = (props: SharedCartDto) => {
@@ -29,7 +29,13 @@ const SharedCartListItem = (props: SharedCartDto) => {
         onMouseLeave={() => setCartHovered(false)}
       >
         <Flex alignItems="center">
-          <Text fontSize={25} fontWeight="semibold" mr={10}>
+          <Text
+            fontSize={25}
+            fontWeight={
+              props.status === SharedCartStatus.Completed ? "light" : "semibold"
+            }
+            mr={10}
+          >
             {props.name}
           </Text>
 

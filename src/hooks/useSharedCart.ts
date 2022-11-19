@@ -9,8 +9,14 @@ const useSharedCart = (sharedCartId?: string) => {
   const { token } = useUserCredentials();
   const navigate = useNavigate();
 
+  let url = sharedCartHubUrl;
+
+  if (sharedCartId) {
+    url += `?shared_cart_id=${sharedCartId}`;
+  }
+
   const connection = new signalR.HubConnectionBuilder()
-    .withUrl(`${sharedCartHubUrl}?shared_cart_id=${sharedCartId}`, {
+    .withUrl(url, {
       accessTokenFactory: () => token ?? "",
     })
     .withAutomaticReconnect()

@@ -4,11 +4,13 @@
  * Shop API
  * OpenAPI spec version: v1
  */
+import type { SharedCartStatus } from "./sharedCartStatus";
 
 export interface SharedCartDto {
   id?: string;
   name?: string | null;
   description?: string | null;
   passcode?: string | null;
+  status?: SharedCartStatus;
   userNames?: string[] | null;
 }
