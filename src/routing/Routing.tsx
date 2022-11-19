@@ -3,6 +3,7 @@ import AboutPage from "../pages/AboutPage";
 import LoginPage from "../pages/auth/LoginPage";
 import RegistrationPage from "../pages/auth/RegistrationPage";
 import CheckoutPage from "../pages/checkout/CheckoutPage";
+import ForbiddenPage from "../pages/ForbiddenPage";
 import HomePage from "../pages/HomePage";
 import NotFound from "../pages/NotFound";
 import ProductDetailsPage from "../pages/product/ProductDetailsPage";
@@ -47,6 +48,8 @@ const Routing = () => {
           </Route>
 
           <Route path="about" element={<AboutPage />} />
+
+          <Route path="forbidden" element={<ForbiddenPage />} />
 
           <Route path="*" element={<NotFound />} />
         </Route>
