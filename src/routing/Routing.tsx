@@ -41,15 +41,6 @@ const Routing = () => {
             }
           />
 
-          <Route
-            path="checkout"
-            element={
-              <ProtectedRoute>
-                <CheckoutPage />
-              </ProtectedRoute>
-            }
-          />
-
           <Route path="checkout" element={<ProtectedRoute />}>
             <Route index element={<CheckoutPage />} />
             <Route path=":id" element={<CheckoutPage />} />

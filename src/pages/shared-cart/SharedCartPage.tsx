@@ -47,18 +47,24 @@ const SharedCartPage = () => {
 
     connection.on("ItemAdded", async ({ cartId, message }) => {
       // We only care about actions of the cart we're currently watching the items of
-      id === cartId && setActions((actions) => [...actions, message]);
-      await refetch();
+      if (id === cartId) {
+        setActions((actions) => [...actions, message]);
+        await refetch();
+      }
     });
 
     connection.on("ItemAmountUpdated", async ({ cartId, message }) => {
-      id === cartId && setActions((actions) => [...actions, message]);
-      await refetch();
+      if (id === cartId) {
+        setActions((actions) => [...actions, message]);
+        await refetch();
+      }
     });
 
     connection.on("ItemDeleted", async ({ cartId, message }) => {
-      id === cartId && setActions((actions) => [...actions, message]);
-      await refetch();
+      if (id === cartId) {
+        setActions((actions) => [...actions, message]);
+        await refetch();
+      }
     });
 
     connection.on("CheckoutStarted", (cartId) => {

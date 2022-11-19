@@ -1,33 +1,62 @@
 import { Flex } from "@chakra-ui/react";
 import { Step, Steps } from "chakra-ui-steps";
+import { useEffect } from "react";
 import {
   FaFlag,
   FaMoneyCheckAlt,
   FaShoppingCart,
   FaTruck,
 } from "react-icons/fa";
+import { useUpdateStatus } from "../../api";
+import { useErrorHandler } from "../../api/client";
 import { CheckoutProvider } from "../../context/CheckoutContext";
 import { useStepperContext } from "../../context/StepperContext";
+import { SharedCartStatus } from "../../models";
 import CartContent from "./steps/cart/CartContent";
 import DeliveryDetails from "./steps/delivery/DeliveryDetails";
 import PaymentMethod from "./steps/payment/PaymentMethod";
 import OrderSummary from "./steps/summary/OrderSummary";
 
-const Checkout = () => {
+interface Props {
+  sharedCartId: string;
+}
+
+const SharedCheckout = (props: Props) => {
   const { stepIdx } = useStepperContext();
+  const { mutateAsync: updateStatus } = useUpdateStatus({
+    mutation: { onError: (err) => handleError(err.response) },
+  });
+
+  const { handleError } = useErrorHandler();
+
+  useEffect(() => {
+    const updateSharedCartStatus = async (status: SharedCartStatus) =>
+      updateStatus({
+        data: {
+          sharedCartId: props.sharedCartId,
+          status: status,
+        },
+      });
+
+    updateSharedCartStatus(SharedCartStatus.CheckoutInProgress);
+
+    return () => {
+      updateSharedCartStatus(SharedCartStatus.Active);
+    };
+  }, [props.sharedCartId, updateStatus]);
 
   const steps = [
     {
       label: "Cart content",
       icon: FaShoppingCart,
-      content: <CartContent />,
+      content: <CartContent sharedCartId={props.sharedCartId} />,
     },
     { label: "Delivery", icon: FaTruck, content: <DeliveryDetails /> },
     { label: "Payment", icon: FaMoneyCheckAlt, content: <PaymentMethod /> },
     {
       label: "Summary",
       icon: FaFlag,
-      content: <OrderSummary />,
+      content: <OrderSummary sharedCartId={props.sharedCartId} />,
     },
   ];
 
@@ -48,4 +77,4 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+export default SharedCheckout;
