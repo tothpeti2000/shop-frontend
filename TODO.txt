@@ -1,0 +1,9 @@
+SignalR 401 error       OK
+SignalR ~ even users who aren't members of a shared cart can access the shared cart page by URL
+Shared cart checkout and status updates     OK
+Categories      OK
+Check non-null assertions       OK
+Placeholder images      OK
+Share passcode      OK
+Check Checkout and SharedCartPage       OK
+Review
