@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { GrContactInfo } from "react-icons/gr";
 import { HiLocationMarker } from "react-icons/hi";
 import { useCheckoutContext } from "../../../../context/CheckoutContext";
-import InputField from "../../../form/InputField";
+import InputField from "../../../form/fields/InputField";
 import deliveryDetailsSchema from "../../../form/schemas/deliveryDetails";
 import StepButtons from "../../StepButtons";
 

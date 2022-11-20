@@ -3,20 +3,21 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useInitiatePasswordReset } from "../../api";
 import { useErrorHandler } from "../../api/client";
-import useFeedback from "../../hooks/useFeedback";
-import InputField from "./InputField";
+import InputField from "./fields/InputField";
 import forgotPasswordSchema from "./schemas/forgotPassword";
 
 interface ForgotPasswordData {
   email: string;
 }
 
-const ForgotPasswordForm = () => {
-  const { showSuccess } = useFeedback();
-  const { handleError } = useErrorHandler();
+interface Props {
+  onSuccess: () => void;
+}
 
+const ForgotPasswordForm = (props: Props) => {
   const { mutateAsync: initiatePasswordReset, isLoading } =
     useInitiatePasswordReset();
+  const { handleError } = useErrorHandler();
 
   const {
     control,
@@ -29,10 +30,7 @@ const ForgotPasswordForm = () => {
   const onSubmit: SubmitHandler<ForgotPasswordData> = async (data) => {
     try {
       await initiatePasswordReset({ data: { ...data } });
-
-      showSuccess(
-        "We sent you an email with the password reset link. Check your mailbox!"
-      );
+      props.onSuccess();
     } catch (err: any) {
       handleError(err.response);
     }

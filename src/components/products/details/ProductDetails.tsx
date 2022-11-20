@@ -45,8 +45,6 @@ const ProductDetails = () => {
                 {formatPrice(product.price)}
               </Text>
 
-              <Text fontSize="lg">In stock: {product.stock}</Text>
-
               <Spacer />
               <Text>{product.description}</Text>
               <Spacer />

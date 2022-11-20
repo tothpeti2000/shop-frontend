@@ -1,11 +1,21 @@
 import { Box, Button, Flex, Icon, Text, Tooltip } from "@chakra-ui/react";
 import { FaQuestionCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import { useToggleContext } from "../../../context/ToggleContext";
+import useFeedback from "../../../hooks/useFeedback";
+import { JoinSharedCartResponse } from "../../../models";
 import JoinSharedCartForm from "../../form/JoinSharedCartForm";
 import CreateSharedCartDialog from "./CreateSharedCartDialog";
 
 const CreateJoinSharedCart = () => {
   const { open } = useToggleContext();
+  const { showSuccess } = useFeedback();
+  const navigate = useNavigate();
+
+  const handleSuccess = (response: JoinSharedCartResponse) => {
+    showSuccess(`Joined cart ${response.name} successfully`);
+    navigate(`/shared-carts/${response.id}`);
+  };
 
   return (
     <>
@@ -40,7 +50,7 @@ const CreateJoinSharedCart = () => {
             </Tooltip>
           </Flex>
 
-          <JoinSharedCartForm />
+          <JoinSharedCartForm onSuccess={handleSuccess} />
         </Box>
       </Flex>
 

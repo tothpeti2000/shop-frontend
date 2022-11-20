@@ -1,6 +1,6 @@
 import { Box, Textarea } from "@chakra-ui/react";
 import { Control, Controller } from "react-hook-form";
-import ValidationError from "./utils/ValidationError";
+import ValidationError from "../utils/ValidationError";
 
 interface Props {
   name: string;

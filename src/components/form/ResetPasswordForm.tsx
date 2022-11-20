@@ -1,11 +1,9 @@
 import { Button, Spinner } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { useResetPassword } from "../../api";
 import { useErrorHandler } from "../../api/client";
-import useFeedback from "../../hooks/useFeedback";
-import InputField from "./InputField";
+import InputField from "./fields/InputField";
 import resetPasswordSchema from "./schemas/resetPassword";
 
 interface ResetPasswordData {
@@ -16,14 +14,12 @@ interface ResetPasswordData {
 interface Props {
   resetToken: string;
   userId: string;
+  onSuccess: () => void;
 }
 
 const ResetPasswordForm = (props: Props) => {
-  const { showSuccess } = useFeedback();
-  const { handleError } = useErrorHandler();
-  const navigate = useNavigate();
-
   const { mutateAsync: resetPassword, isLoading } = useResetPassword();
+  const { handleError } = useErrorHandler();
 
   const {
     control,
@@ -44,8 +40,7 @@ const ResetPasswordForm = (props: Props) => {
         },
       });
 
-      showSuccess("Password updated successfully");
-      navigate("/login", { state: { prevPath: "/reset-password" } });
+      props.onSuccess();
     } catch (err: any) {
       handleError(err.response);
     }

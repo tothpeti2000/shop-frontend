@@ -9,7 +9,7 @@ import {
 import { HTMLInputTypeAttribute } from "react";
 import { Control, Controller } from "react-hook-form";
 import { IconType } from "react-icons";
-import ValidationError from "./utils/ValidationError";
+import ValidationError from "../utils/ValidationError";
 
 interface Props {
   type: HTMLInputTypeAttribute;

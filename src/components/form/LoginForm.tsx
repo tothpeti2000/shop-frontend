@@ -1,12 +1,11 @@
 import { Button, Center, Divider, Spinner, Text } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useLoginUser } from "../../api";
 import { useErrorHandler } from "../../api/client";
-import { useUserContext } from "../../context/UserContext";
-import useFeedback from "../../hooks/useFeedback";
-import InputField from "./InputField";
+import { LoginUserResponse } from "../../models";
+import InputField from "./fields/InputField";
 import loginSchema from "./schemas/login";
 
 interface UserCredentials {
@@ -14,15 +13,13 @@ interface UserCredentials {
   password: string;
 }
 
-const LoginForm = () => {
-  const { showSuccess } = useFeedback();
-  const { saveUserData } = useUserContext();
-  const { handleError } = useErrorHandler();
+interface Props {
+  onSuccess: (response: LoginUserResponse) => void;
+}
 
+const LoginForm = (props: Props) => {
   const { mutateAsync: loginUser, isLoading } = useLoginUser();
-
-  const navigate = useNavigate();
-  const { state } = useLocation();
+  const { handleError } = useErrorHandler();
 
   const {
     control,
@@ -35,18 +32,7 @@ const LoginForm = () => {
   const onSubmit: SubmitHandler<UserCredentials> = async (data) => {
     try {
       const response = await loginUser({ data: data });
-
-      saveUserData(response.token ?? "", response.name ?? "");
-      showSuccess("Successfully logged in");
-
-      // Redirect back to the previous route after successful login or to the home page after registration or password reset
-      const prevPath = (state as any)?.prevPath;
-
-      if (prevPath === "/register" || prevPath === "/reset-password") {
-        navigate("/");
-      } else {
-        navigate(-1);
-      }
+      props.onSuccess(response);
     } catch (err: any) {
       handleError(err.response);
     }

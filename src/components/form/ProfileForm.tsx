@@ -4,9 +4,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useEditProfile } from "../../api";
 import { useErrorHandler } from "../../api/client";
 import { useUserContext } from "../../context/UserContext";
-import useFeedback from "../../hooks/useFeedback";
 import { EditProfileCommand } from "../../models";
-import InputField from "./InputField";
+import InputField from "./fields/InputField";
 import profileSchema from "./schemas/profile";
 
 interface ProfileData {
@@ -16,10 +15,13 @@ interface ProfileData {
   currentPassword: string;
 }
 
-const ProfileForm = () => {
+interface Props {
+  onSuccess: () => void;
+}
+
+const ProfileForm = (props: Props) => {
   const { mutateAsync: editProfile, isLoading } = useEditProfile();
   const { name } = useUserContext();
-  const { showSuccess } = useFeedback();
   const { handleError } = useErrorHandler();
 
   const {
@@ -47,11 +49,7 @@ const ProfileForm = () => {
 
     try {
       await editProfile({ data: dto });
-
-      showSuccess(
-        "Profile changes saved successfully",
-        "The changes will be applied the next time you log in"
-      );
+      props.onSuccess();
     } catch (err: any) {
       handleError(err.response);
     }

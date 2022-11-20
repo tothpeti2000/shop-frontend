@@ -1,12 +1,10 @@
 import { Button, Spinner } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { useRegisterUser } from "../../api";
 import { useErrorHandler } from "../../api/client";
-import useFeedback from "../../hooks/useFeedback";
-import InputField from "../form/InputField";
 import registrationSchema from "../form/schemas/registration";
+import InputField from "./fields/InputField";
 
 interface RegistrationData {
   name: string;
@@ -16,12 +14,13 @@ interface RegistrationData {
   passwordAgain: string;
 }
 
-const RegistrationForm = () => {
-  const { showSuccess } = useFeedback();
-  const { handleError } = useErrorHandler();
-  const navigate = useNavigate();
+interface Props {
+  onSuccess: () => void;
+}
 
+const RegistrationForm = (props: Props) => {
   const { mutateAsync: createAccount, isLoading } = useRegisterUser();
+  const { handleError } = useErrorHandler();
 
   const {
     control,
@@ -34,9 +33,7 @@ const RegistrationForm = () => {
   const onSubmit: SubmitHandler<RegistrationData> = async (data) => {
     try {
       await createAccount({ data: data });
-
-      showSuccess("Account created successfully");
-      navigate("/login", { state: { prevPath: "/register" } });
+      props.onSuccess();
     } catch (err: any) {
       handleError(err.response);
     }

@@ -1,25 +1,24 @@
 import { Button, Spinner } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { useCreateSharedCart } from "../../api";
 import { useErrorHandler } from "../../api/client";
-import useFeedback from "../../hooks/useFeedback";
-import InputField from "./InputField";
+import InputField from "./fields/InputField";
+import TextArea from "./fields/TextArea";
 import createSharedCartSchema from "./schemas/createSharedCart";
-import TextArea from "./TextArea";
 
 interface SharedCartData {
   name: string;
   description: string;
 }
 
-const CreateSharedCartForm = () => {
-  const { showSuccess } = useFeedback();
-  const { handleError } = useErrorHandler();
-  const navigate = useNavigate();
+interface Props {
+  onSuccess: (cartId: string) => void;
+}
 
+const CreateSharedCartForm = (props: Props) => {
   const { mutateAsync: createCart, isLoading } = useCreateSharedCart();
+  const { handleError } = useErrorHandler();
 
   const {
     control,
@@ -32,8 +31,7 @@ const CreateSharedCartForm = () => {
   const onSubmit: SubmitHandler<SharedCartData> = async (data) => {
     try {
       const response = await createCart({ data: { ...data } });
-      showSuccess("Cart created successfully");
-      navigate(`/shared-carts/${response.id}`);
+      props.onSuccess(response.id!);
     } catch (err: any) {
       handleError(err.response);
     }
