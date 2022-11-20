@@ -1,20 +1,14 @@
-import { Box, Button, Flex, Heading, Icon, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { FaCheckCircle } from "react-icons/fa";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useGetSharedCartDetails } from "../../api";
 import { useErrorHandler } from "../../api/client";
-import { formatPrice, getTotalPrice } from "../../components/cart/utils";
 import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
-import RecentActionList from "../../components/shared-cart/details/RecentActionList";
-import SharedCartItemList from "../../components/shared-cart/details/SharedCartItemList";
+import SharedCartDetails from "../../components/shared-cart/details/SharedCartDetails";
 import { useSharedCartContext } from "../../context/SharedCartContext";
 import useFeedback from "../../hooks/useFeedback";
 import useSharedCart from "../../hooks/useSharedCart";
 import { SharedCartStatus } from "../../models";
-import Placeholder from "./Placeholder";
-import { getStatusDisplayName } from "./utils";
 
 const SharedCartPage = () => {
   const { id } = useParams();
@@ -92,42 +86,13 @@ const SharedCartPage = () => {
   return (
     <Layout>
       <Loading isLoading={isLoading}>
-        {data?.sharedCartItems && (
-          <Box p={10}>
-            <Flex justifyContent="space-between" alignItems="center" mb={10}>
-              <Heading>
-                {data.cartName} - {getStatusDisplayName(status)}
-              </Heading>
-
-              <Flex alignItems="center">
-                <Text fontSize="3xl" fontWeight="bold" mr={5}>
-                  Total: {formatPrice(getTotalPrice(data.sharedCartItems))}
-                </Text>
-
-                <Link to={`/checkout/${id}`}>
-                  <Button
-                    colorScheme="teal"
-                    rightIcon={<Icon as={FaCheckCircle} />}
-                    size="lg"
-                    disabled={status !== SharedCartStatus.Active}
-                  >
-                    Checkout
-                  </Button>
-                </Link>
-              </Flex>
-            </Flex>
-
-            <Flex>
-              <Box flex={3} mr={10} position="relative">
-                <SharedCartItemList cartItems={data.sharedCartItems} />
-                {status !== SharedCartStatus.Active && <Placeholder />}
-              </Box>
-
-              <Box flex={1}>
-                <RecentActionList actions={actions} />
-              </Box>
-            </Flex>
-          </Box>
+        {data && (
+          <SharedCartDetails
+            sharedCartId={id!}
+            details={data}
+            status={status}
+            actions={actions}
+          />
         )}
       </Loading>
     </Layout>

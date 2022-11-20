@@ -14,8 +14,8 @@ import { useAddItemToCart } from "../../api";
 import { useErrorHandler } from "../../api/client";
 import { useCartContext } from "../../context/CartContext";
 import { useToggleContext } from "../../context/ToggleContext";
+import { useUserContext } from "../../context/UserContext";
 import useFeedback from "../../hooks/useFeedback";
-import useUserCredentials from "../../hooks/useUserCredentials";
 
 interface Props {
   productId: string;
@@ -23,7 +23,7 @@ interface Props {
 }
 
 const AddToCartButton = (props: Props) => {
-  const { token } = useUserCredentials();
+  const { token } = useUserContext();
 
   const { mutateAsync: addItemToCart, isLoading } = useAddItemToCart();
   const { refreshCartItems } = useCartContext();

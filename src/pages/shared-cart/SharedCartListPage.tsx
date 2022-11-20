@@ -17,6 +17,7 @@ const SharedCartListPage = () => {
 
   const { connection } = useSharedCart();
   const { showInfo } = useFeedback();
+  const { handleError } = useErrorHandler();
 
   useEffect(() => {
     connection.on("UserJoinedCart", async ({ cartId, message }) => {
@@ -25,15 +26,13 @@ const SharedCartListPage = () => {
     });
   });
 
-  const { handleError } = useErrorHandler();
-
   return (
     <Layout>
       <Flex p={10}>
         <Box flex={2}>
           <Heading mb={10}>My shared carts</Heading>
           <Loading isLoading={isLoading}>
-            {data?.carts && <SharedCartList carts={data?.carts} />}
+            {data?.carts && <SharedCartList carts={data.carts} />}
           </Loading>
         </Box>
 

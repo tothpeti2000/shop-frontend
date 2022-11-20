@@ -3,7 +3,7 @@ import { Heading, Spacer, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useGetProductById } from "../../../api";
 import { useErrorHandler } from "../../../api/client";
-import useUserCredentials from "../../../hooks/useUserCredentials";
+import { useUserContext } from "../../../context/UserContext";
 import { formatPrice } from "../../cart/utils";
 import Loading from "../../Loading";
 import AppImage from "../../utils/AppImage";
@@ -19,7 +19,7 @@ const ProductDetails = () => {
     },
   });
 
-  const { token } = useUserCredentials();
+  const { token } = useUserContext();
   const { handleError } = useErrorHandler();
 
   return (

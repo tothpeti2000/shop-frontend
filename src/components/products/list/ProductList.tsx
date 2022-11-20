@@ -3,7 +3,7 @@ import { Text } from "@chakra-ui/react";
 import { useGetProducts } from "../../../api";
 import { useProductListContext } from "../../../context/ProductListContext";
 import { ToggleProvider } from "../../../context/ToggleContext";
-import useUserCredentials from "../../../hooks/useUserCredentials";
+import { useUserContext } from "../../../context/UserContext";
 import Loading from "../../Loading";
 import AddToSharedCartDialog from "../AddToSharedCartDialog";
 import ProductListItem from "./ProductListItem";
@@ -36,7 +36,7 @@ const ProductList = () => {
     }
   );
 
-  const { token } = useUserCredentials();
+  const { token } = useUserContext();
 
   return (
     <Loading isLoading={isLoading}>

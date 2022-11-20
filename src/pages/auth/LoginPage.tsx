@@ -5,10 +5,12 @@ import Layout from "../../components/Layout";
 import { useUserContext } from "../../context/UserContext";
 import useFeedback from "../../hooks/useFeedback";
 import { LoginUserResponse } from "../../models";
+import Placeholder from "./Placeholder";
 
 const LoginPage = () => {
   const { showSuccess } = useFeedback();
-  const { saveUserData } = useUserContext();
+  const { token, saveUserData } = useUserContext();
+
   const navigate = useNavigate();
   const { state } = useLocation();
 
@@ -23,9 +25,13 @@ const LoginPage = () => {
 
   return (
     <Layout>
-      <AuthFormContainer title="Log In">
-        <LoginForm onSuccess={handleSuccess} />
-      </AuthFormContainer>
+      {token === null ? (
+        <AuthFormContainer title="Log In">
+          <LoginForm onSuccess={handleSuccess} />
+        </AuthFormContainer>
+      ) : (
+        <Placeholder />
+      )}
     </Layout>
   );
 };
