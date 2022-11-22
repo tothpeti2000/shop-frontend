@@ -1,5 +1,5 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
-import Layout from "../components/Layout";
+import Layout from "../components/common/Layout";
 
 const AboutPage = () => {
   return (

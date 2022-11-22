@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import LoginForm from "../../components/form/LoginForm";
 import AuthFormContainer from "../../components/form/utils/AuthFormContainer";
-import Layout from "../../components/Layout";
+import Layout from "../../components/common/Layout";
 import { useUserContext } from "../../context/UserContext";
 import useFeedback from "../../hooks/useFeedback";
 import { LoginUserResponse } from "../../models";

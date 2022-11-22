@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useGetProducts } from "../../../api";
 import { useErrorHandler } from "../../../api/client";
 import { animated } from "../../../styles/styles";
-import Loading from "../../Loading";
+import Loading from "../../common/Loading";
 
 interface Props {
   query: string | undefined;

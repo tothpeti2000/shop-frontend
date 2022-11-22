@@ -12,7 +12,7 @@ import { useState } from "react";
 import { useGetPriceRange } from "../../../api";
 import { useProductListContext } from "../../../context/ProductListContext";
 import { formatPrice } from "../../cart/utils";
-import Loading from "../../Loading";
+import Loading from "../../common/Loading";
 
 const PriceRangePicker = () => {
   const [value, setValue] = useState([0, 100]);

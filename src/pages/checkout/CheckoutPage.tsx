@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import Checkout from "../../components/checkout/Checkout";
 import SharedCheckout from "../../components/checkout/SharedCheckout";
-import Layout from "../../components/Layout";
+import Layout from "../../components/common/Layout";
 import { StepperProvider } from "../../context/StepperContext";
 
 const CheckoutPage = () => {

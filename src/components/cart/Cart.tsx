@@ -12,7 +12,7 @@ import { useGetCartItems } from "../../api";
 import { useCartContext } from "../../context/CartContext";
 import { useToggleContext } from "../../context/ToggleContext";
 import { bgDark } from "../../styles/styles";
-import Loading from "../Loading";
+import Loading from "../common/Loading";
 import CartItem from "./CartItem";
 import Summary from "./Summary";
 import { getTotalPrice } from "./utils";

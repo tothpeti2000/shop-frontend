@@ -1,7 +1,7 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import ResetPasswordForm from "../../components/form/ResetPasswordForm";
 import AuthFormContainer from "../../components/form/utils/AuthFormContainer";
-import Layout from "../../components/Layout";
+import Layout from "../../components/common/Layout";
 import useFeedback from "../../hooks/useFeedback";
 
 const ResetPasswordPage = () => {

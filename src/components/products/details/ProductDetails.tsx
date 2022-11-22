@@ -5,7 +5,7 @@ import { useGetProductById } from "../../../api";
 import { useErrorHandler } from "../../../api/client";
 import { useUserContext } from "../../../context/UserContext";
 import { formatPrice } from "../../cart/utils";
-import Loading from "../../Loading";
+import Loading from "../../common/Loading";
 import AppImage from "../../utils/AppImage";
 import AddToCartButton from "../AddToCartButton";
 import AddToSharedCartDialog from "../AddToSharedCartDialog";

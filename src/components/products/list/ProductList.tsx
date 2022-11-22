@@ -4,7 +4,7 @@ import { useGetProducts } from "../../../api";
 import { useProductListContext } from "../../../context/ProductListContext";
 import { ToggleProvider } from "../../../context/ToggleContext";
 import { useUserContext } from "../../../context/UserContext";
-import Loading from "../../Loading";
+import Loading from "../../common/Loading";
 import AddToSharedCartDialog from "../AddToSharedCartDialog";
 import ProductListItem from "./ProductListItem";
 

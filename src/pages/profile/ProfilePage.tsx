@@ -1,6 +1,6 @@
 import { Box, Heading } from "@chakra-ui/react";
 import ProfileForm from "../../components/form/ProfileForm";
-import Layout from "../../components/Layout";
+import Layout from "../../components/common/Layout";
 import useFeedback from "../../hooks/useFeedback";
 
 const ProfilePage = () => {

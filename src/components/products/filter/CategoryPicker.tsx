@@ -1,7 +1,7 @@
 import { Checkbox, CheckboxGroup, Flex } from "@chakra-ui/react";
 import { useGetAllCategories } from "../../../api";
 import { useProductListContext } from "../../../context/ProductListContext";
-import Loading from "../../Loading";
+import Loading from "../../common/Loading";
 
 const CategoryPicker = () => {
   const { categories, updateCategories } = useProductListContext();

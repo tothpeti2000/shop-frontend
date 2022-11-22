@@ -4,7 +4,7 @@ import Fade from "react-awesome-reveal";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useGetTopCategories } from "../../api";
-import Loading from "../Loading";
+import Loading from "../common/Loading";
 import CategoryCard from "./CategoryCard";
 
 const Categories = () => {

@@ -1,6 +1,6 @@
 import ForgotPasswordForm from "../../components/form/ForgotPasswordForm";
 import AuthFormContainer from "../../components/form/utils/AuthFormContainer";
-import Layout from "../../components/Layout";
+import Layout from "../../components/common/Layout";
 import useFeedback from "../../hooks/useFeedback";
 
 const ForgotPasswordPage = () => {

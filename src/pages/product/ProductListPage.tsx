@@ -1,5 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
-import Layout from "../../components/Layout";
+import Layout from "../../components/common/Layout";
 import Filter from "../../components/products/filter/Filter";
 import Paginator from "../../components/products/list/Paginator";
 import ProductList from "../../components/products/list/ProductList";

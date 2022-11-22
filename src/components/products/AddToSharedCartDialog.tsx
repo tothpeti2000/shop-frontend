@@ -6,7 +6,7 @@ import { useAddItemToSharedCart, useGetSharedCarts } from "../../api";
 import { useErrorHandler } from "../../api/client";
 import useFeedback from "../../hooks/useFeedback";
 import ValidationError from "../form/utils/ValidationError";
-import Loading from "../Loading";
+import Loading from "../common/Loading";
 import DialogFrame from "../utils/DialogFrame";
 
 interface Props {
