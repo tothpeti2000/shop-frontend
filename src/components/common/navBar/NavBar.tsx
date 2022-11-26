@@ -14,7 +14,7 @@ import NavLinks from "./NavLinks";
 import SearchBar from "./SearchBar";
 
 const NavBar = () => {
-  const { height, opacity } = useNavBar();
+  const { height } = useNavBar();
   const { token } = useUserContext();
 
   return (
@@ -26,7 +26,6 @@ const NavBar = () => {
       {...bgDark}
       sx={{ pos: "sticky", top: "0" }}
       fontSize="lg"
-      opacity={opacity}
       {...animated}
       zIndex="999"
     >
