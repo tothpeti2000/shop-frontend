@@ -19,7 +19,7 @@ const Banner = () => {
       <Zoom cascade triggerOnce>
         <Heading fontSize={100}>Logo</Heading>
         <Text p={5} fontSize={50}>
-          AWESOME SNEAKERS
+          AWESOME PRICES
         </Text>
 
         <Button

@@ -8,7 +8,7 @@ const NavBrand = () => {
     <Link to="/">
       <Flex {...basicFlex}>
         <Logo />
-        Awesome Sneakers
+        Awesome Prices
       </Flex>
     </Link>
   );

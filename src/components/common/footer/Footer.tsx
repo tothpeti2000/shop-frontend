@@ -34,12 +34,12 @@ const Footer = () => {
           <Text fontSize="xl" fontWeight="bold">
             CONTACT
           </Text>
-          <Text>info@mysite.com</Text>
+          <Text>info@awesome-prices.com</Text>
           <Text>Tel: 123-456-7890</Text>
         </Box>
       </Flex>
 
-      <Text>Awesome Sneakers</Text>
+      <Text>Awesome Prices</Text>
     </Flex>
   );
 };
