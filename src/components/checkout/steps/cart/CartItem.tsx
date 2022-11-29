@@ -1,5 +1,6 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { CartItemDto } from "../../../../models";
+import { formatPrice } from "../../../cart/utils";
 import AppImage from "../../../utils/AppImage";
 
 const CartItem = (props: CartItemDto) => {
@@ -15,7 +16,7 @@ const CartItem = (props: CartItemDto) => {
         </Text>
 
         <Flex justifyContent="space-between" fontSize="xl">
-          <Text fontWeight="semibold">${props.price}</Text>
+          <Text fontWeight="semibold">{formatPrice(props.price)}</Text>
           <Text>&times;{props.amount}</Text>
         </Flex>
       </Flex>
